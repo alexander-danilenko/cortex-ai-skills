@@ -232,6 +232,59 @@ interface PaginatedResponse<T> {
 async function findUserById(id: string): Promise<User | null> {
 ```
 
+## `@remarks` — Reasoning and Context
+
+Use `@remarks` to explain **why** something exists or **what to keep in mind** —
+design rationale, constraints, trade-offs, or historical context. It supplements
+the summary with information a reader needs when they dig deeper.
+
+`@remarks` is not for describing implementation logic. Details like which
+algorithm is used, how data flows internally, or what side effects occur belong
+in implementation comments or `{@inheritDoc}` notes — not in `@remarks`.
+
+Remarks are formatted as markdown bullet points. When a bullet wraps to a new
+line, indent the continuation to align with the text after the dash:
+
+```typescript
+/**
+ * Determine whether a user account is considered active.
+ *
+ * @remarks
+ * - Accounts are soft-deleted rather than removed, so "active" is the
+ *   primary way to distinguish current users from former ones.
+ * - The 90-day inactivity window was chosen to align with the
+ *   data-retention policy (see compliance docs).
+ *
+ * @param user - The user to evaluate.
+ * @returns `true` if the account is active.
+ */
+function isActiveUser(user: User): boolean {
+```
+
+```typescript
+/**
+ * Rate limiter for outbound API calls.
+ *
+ * @remarks
+ * - The upstream provider enforces a 100 req/s hard cap with no burst
+ *   allowance. Exceeding it results in a 24-hour ban.
+ * - The limiter is intentionally conservative at 80 req/s to stay
+ *   safely under the cap.
+ */
+class ApiRateLimiter {
+```
+
+```typescript
+// WRONG — implementation details do not belong in @remarks
+/**
+ * Fetch user preferences.
+ *
+ * @remarks
+ * - Uses a Redis LRU cache with a 5-minute TTL, falling back to a
+ *   PostgreSQL query via the read replica.
+ */
+```
+
 ## Quick Reference
 
 | Tag | Purpose | Example |
@@ -240,6 +293,7 @@ async function findUserById(id: string): Promise<User | null> {
 | `@returns` | Return value | `@returns The user object.` |
 | `@throws` | Exception thrown | `@throws {Error} If invalid.` |
 | `@example` | Usage example | Code block |
+| `@remarks` | Reasoning and context | Design rationale, constraints |
 | `@see` | Cross-reference | `@see UserService` |
 | `@deprecated` | Mark deprecated | `@deprecated Use v2 instead.` |
 | `@template` | Generic type param | `@template T - Item type.` |
