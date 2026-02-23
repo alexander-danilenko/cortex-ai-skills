@@ -201,35 +201,10 @@ interface PaginatedResponse<T> {
    * Items for the current page.
    */
   data: T[];
-
-  /**
-   * Total number of items across all pages.
-   */
   total: number;
-
-  /**
-   * Current page number (1-indexed).
-   */
   page: number;
-
-  /**
-   * Number of items per page.
-   */
   limit: number;
 }
-```
-
-## Async Functions
-
-```typescript
-/**
- * Fetch user by ID from the database.
- *
- * @param id - User's unique identifier.
- * @returns The user, or `null` if not found.
- * @throws {DatabaseError} If the connection fails.
- */
-async function findUserById(id: string): Promise<User | null> {
 ```
 
 ## `@remarks` — Reasoning and Context
