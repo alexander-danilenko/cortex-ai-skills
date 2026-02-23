@@ -29,7 +29,7 @@ Documentation describes the **contract** — what something does and why — not
 ### Key Principles
 
 - **Interfaces are abstractions.** Document what the consumer needs to know: purpose, parameters, return values, thrown errors, examples. Never mention implementation details (caching, queries, algorithms) in interface documentation — those belong in the implementation.
-- **DRY across interface and implementation.** When an implementation method is already documented on the interface, the implementation comment starts with `{@inheritDoc}` and only adds implementation-specific notes. Do not repeat what the interface already says.
+- **DRY across interface and implementation.** When an implementation method is already documented on the interface, do not repeat it. Only add implementation-specific notes. See language-specific references for syntax.
 - **No release tags by default.** Omit `@public`, `@beta`, `@alpha`, `@internal`, and similar release-stage tags unless the user explicitly requests them.
 - **Multi-line doc comments only.** All `/**` blocks place the body on a new line. One-line `/** ... */` comments are not allowed.
 
@@ -86,7 +86,7 @@ Load detailed guidance based on context:
 - Document obvious getters/setters verbosely
 - Create documentation that's hard to maintain
 - Put implementation details in interface documentation
-- Repeat interface documentation in the implementation (use `@inheritDoc`)
+- Repeat interface documentation in the implementation (use documentation inheritance if documentation engine supports it)
 - Use one-line `/** ... */` doc comments — always put body on a new line
 - Add release tags (`@public`, `@beta`, `@alpha`, `@internal`) unless explicitly requested
 
