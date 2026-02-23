@@ -33,6 +33,10 @@ Documentation describes the **contract** — what something does and why — not
 - **No release tags by default.** Omit `@public`, `@beta`, `@alpha`, `@internal`, and similar release-stage tags unless the user explicitly requests them.
 - **Multi-line doc comments only.** All `/**` blocks place the body on a new line. One-line `/** ... */` comments are not allowed.
 
+### Line Length
+
+Wrap all documentation text at the project's configured max line length. Detect by checking (first match wins): `.editorconfig` `max_line_length` → formatter config (`printWidth`, `line-length`, etc.) → linter config (`max-len`, `max-line-length`, etc.). Fall back to **80** only when none define a limit.
+
 ## When to Use This Skill
 
 - Adding docstrings to functions and classes
