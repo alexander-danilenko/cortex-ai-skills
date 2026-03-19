@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: data-ml
+triggers: RAG, retrieval-augmented generation, vector search, embeddings, semantic search, vector database, document retrieval, knowledge base, context retrieval, similarity search
+role: architect
+scope: system-design
+output-format: architecture
+related-skills: python-pro, database-optimizer, monitoring-expert, api-designer

@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: devops
+triggers: SRE, site reliability, SLO, SLI, error budget, incident management, chaos engineering, toil reduction, on-call, MTTR
+role: specialist
+scope: implementation
+output-format: code
+related-skills: devops-engineer, cloud-architect, kubernetes-specialist

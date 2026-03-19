@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: security
+triggers: security review, vulnerability scan, SAST, security audit, penetration test, code audit, security analysis, infrastructure security, DevSecOps, cloud security, compliance audit
+role: specialist
+scope: review
+output-format: report
+related-skills: secure-code-guardian, code-reviewer, devops-engineer, cloud-architect, kubernetes-specialist

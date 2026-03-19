@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: devops
+triggers: DevOps, CI/CD, deployment, Docker, Kubernetes, Terraform, GitHub Actions, infrastructure, platform engineering, incident response, on-call, self-service
+role: engineer
+scope: implementation
+output-format: code

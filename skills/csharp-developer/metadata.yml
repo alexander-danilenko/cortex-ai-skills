@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: language
+triggers: C#, .NET, ASP.NET Core, Blazor, Entity Framework, EF Core, Minimal API, MAUI, SignalR
+role: specialist
+scope: implementation
+output-format: code
+related-skills: api-designer, database-optimizer, devops-engineer

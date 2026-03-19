@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: language
+triggers: TypeScript, generics, type safety, conditional types, mapped types, tRPC, tsconfig, type guards, discriminated unions
+role: specialist
+scope: implementation
+output-format: code
+related-skills: fullstack-guardian, api-designer

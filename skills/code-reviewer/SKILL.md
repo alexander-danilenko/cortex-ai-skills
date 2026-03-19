@@ -1,17 +1,7 @@
 ---
 name: code-reviewer
 description: Use when reviewing pull requests, conducting code quality audits, or identifying security vulnerabilities. Invoke for PR reviews, code quality checks, refactoring suggestions.
-license: MIT
 allowed-tools: Read, Grep, Glob
-metadata:
-  author: https://github.com/Jeffallan
-  version: "1.0.0"
-  domain: quality
-  triggers: code review, PR review, pull request, review code, code quality
-  role: specialist
-  scope: review
-  output-format: report
-  related-skills: security-reviewer, test-master, architecture-designer
 ---
 
 # Code Reviewer

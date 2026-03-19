@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: quality
+triggers: Playwright, E2E test, end-to-end, browser testing, automation, UI testing, visual testing
+role: specialist
+scope: testing
+output-format: code
+related-skills: test-master, react-expert, devops-engineer

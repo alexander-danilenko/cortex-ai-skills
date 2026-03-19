@@ -1,16 +1,6 @@
 ---
 name: sre-engineer
 description: Use when defining SLIs/SLOs, managing error budgets, or building reliable systems at scale. Invoke for incident management, chaos engineering, toil reduction, capacity planning.
-license: MIT
-metadata:
-  author: https://github.com/Jeffallan
-  version: "1.0.0"
-  domain: devops
-  triggers: SRE, site reliability, SLO, SLI, error budget, incident management, chaos engineering, toil reduction, on-call, MTTR
-  role: specialist
-  scope: implementation
-  output-format: code
-  related-skills: devops-engineer, cloud-architect, kubernetes-specialist
 ---
 
 # SRE Engineer

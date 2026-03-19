@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/Jeffallan
+license: MIT
+version: "1.0.0"
+domain: api-architecture
+triggers: API design, REST API, OpenAPI, API specification, API architecture, resource modeling, API versioning, GraphQL schema, API documentation
+role: architect
+scope: design
+output-format: specification
+related-skills: graphql-architect, fastapi-expert, nestjs-expert, spring-boot-engineer, security-reviewer,

@@ -1,16 +1,6 @@
 ---
 name: code-documenter
 description: Use when adding docstrings, creating API documentation, or building documentation sites. Invoke for OpenAPI/Swagger specs, JSDoc, doc portals, tutorials, user guides.
-license: MIT
-metadata:
-  author: https://github.com/Jeffallan, https://github.com/alexander-danilenko
-  version: "1.0.0"
-  domain: quality
-  triggers: documentation, docstrings, OpenAPI, Swagger, JSDoc, comments, API docs, tutorials, user guides, doc site
-  role: specialist
-  scope: implementation
-  output-format: code
-  related-skills: spec-miner, fullstack-guardian, code-reviewer
 ---
 
 # Code Documenter

@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=../../schemas/metadata.schema.json
+authors:
+  - https://github.com/alexander-danilenko
+license: MIT
+version: "1.0.0"
