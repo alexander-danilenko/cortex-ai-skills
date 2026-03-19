@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alexander-danilenko/ai-skills/schemas/plugin.schema.json",
+  "title": "Claude Code Plugin Manifest",
+  "description": "Schema for .claude-plugin/plugin.json manifest files",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference for editor validation"
+    },
+    "name": {
+      "type": "string",
+      "description": "Unique plugin identifier in kebab-case",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief plugin purpose"
+    },
+    "author": {
+      "type": "object",
+      "description": "Plugin author information",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author display name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Author email address",
+          "format": "email"
+        },
+        "url": {
+          "type": "string",
+          "description": "Author URL (e.g. GitHub profile)",
+          "format": "uri"
+        }
+      }
+    },
+    "homepage": {
+      "type": "string",
+      "description": "Documentation URL",
+      "format": "uri"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Source code repository URL",
+      "format": "uri"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier"
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Discovery tags",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "commands": {
+      "$ref": "#/$defs/pathOrPaths",
+      "description": "Custom command file or directory paths"
+    },
+    "agents": {
+      "$ref": "#/$defs/pathOrPaths",
+      "description": "Custom agent file or directory paths"
+    },
+    "skills": {
+      "$ref": "#/$defs/pathOrPaths",
+      "description": "Custom skill directory paths"
+    },
+    "hooks": {
+      "$ref": "#/$defs/pathOrPathsOrObject",
+      "description": "Hook config paths or inline configuration"
+    },
+    "mcpServers": {
+      "$ref": "#/$defs/pathOrPathsOrObject",
+      "description": "MCP server config paths or inline configuration"
+    },
+    "outputStyles": {
+      "$ref": "#/$defs/pathOrPaths",
+      "description": "Output style file or directory paths"
+    },
+    "lspServers": {
+      "$ref": "#/$defs/pathOrPathsOrObject",
+      "description": "Language server config paths or inline configuration"
+    }
+  },
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "description": "Relative path starting with ./",
+      "pattern": "^\\.\\/.*"
+    },
+    "pathOrPaths": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/relativePath"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relativePath"
+          }
+        }
+      ]
+    },
+    "pathOrPathsOrObject": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/relativePath"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relativePath"
+          }
+        },
+        {
+          "type": "object",
+          "description": "Inline configuration object"
+        }
+      ]
+    }
+  }
+}

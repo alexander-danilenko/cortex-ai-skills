@@ -1,0 +1,23 @@
+{
+  "$schema": "../schemas/plugin.schema.json",
+  "name": "cortex",
+  "version": "1.0.0",
+  "description": "Skills for AI coding assistants across architecture, security, DevOps, and language domains",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/ai-skills",
+  "license": "MIT",
+  "keywords": [
+    "claude-code-plugin",
+    "api-architecture",
+    "backend",
+    "devops",
+    "frontend",
+    "infrastructure",
+    "language",
+    "quality",
+    "security"
+  ]
+}
