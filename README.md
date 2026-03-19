@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="./assets/logo.svg" width="160" alt="AI Skills — robot" />
+  <img src="./assets/logo.svg" width="160" alt="Cortex AI Skills" />
 </p>
 
-<h1 align="center">✨ AI Skills Collection</h1>
+<h1 align="center">Cortex AI Skills</h1>
 
 <p align="center">
   <a href="https://github.com/alexander-danilenko/cortex-ai-skills/blob/main/LICENSE">
