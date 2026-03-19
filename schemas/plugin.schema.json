@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/alexander-danilenko/ai-skills/schemas/plugin.schema.json",
+  "$id": "https://github.com/alexander-danilenko/cortex-ai-skills/schemas/plugin.schema.json",
   "title": "Claude Code Plugin Manifest",
   "description": "Schema for .claude-plugin/plugin.json manifest files",
   "type": "object",

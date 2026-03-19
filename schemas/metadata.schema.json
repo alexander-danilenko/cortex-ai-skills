@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/alexander-danilenko/ai-skills/schemas/metadata.schema.json",
+  "$id": "https://github.com/alexander-danilenko/cortex-ai-skills/schemas/metadata.schema.json",
   "title": "Skill Metadata",
   "description": "Schema for cortex plugin skill metadata files",
   "type": "object",

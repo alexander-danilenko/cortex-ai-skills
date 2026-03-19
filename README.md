@@ -5,7 +5,7 @@
 <h1 align="center">✨ AI Skills Collection</h1>
 
 <p align="center">
-  <a href="https://github.com/alexander-danilenko/ai-skills/blob/main/LICENSE">
+  <a href="https://github.com/alexander-danilenko/cortex-ai-skills/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
   </a>
 </p>
@@ -17,7 +17,7 @@
 ### As a Claude Code Plugin
 
 ```bash
-claude plugin marketplace add alexander-danilenko/ai-skills
+claude plugin marketplace add alexander-danilenko/cortex-ai-skills
 claude plugin install cortex@alexander-danilenko
 ```
 
@@ -28,19 +28,19 @@ Skills become available as `/<skill-name>`, e.g. `/api-designer`.
 Install all skills:
 
 ```bash
-npx skills add alexander-danilenko/ai-skills --skill '*' --agent claude-code --global --copy
+npx skills add alexander-danilenko/cortex-ai-skills --skill '*' --agent claude-code --global --copy
 ```
 
 Install a single skill:
 
 ```bash
-npx skills add alexander-danilenko/ai-skills --skill agents-md-pro
+npx skills add alexander-danilenko/cortex-ai-skills --skill agents-md-pro
 ```
 
 To view the list of available skills, run:
 
 ```bash
-npx skills add alexander-danilenko/ai-skills --list
+npx skills add alexander-danilenko/cortex-ai-skills --list
 ```
 
 ## 🌟 Contrib Skills
