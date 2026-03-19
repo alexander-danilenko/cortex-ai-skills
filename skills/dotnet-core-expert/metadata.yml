@@ -8,4 +8,6 @@ triggers: .NET Core, .NET 8, ASP.NET Core, C# 12, minimal API, Entity Framework 
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fullstack-guardian, microservices-architect, cloud-architect, test-master
+related-skills:
+  - cloud-architect
+  - test-master

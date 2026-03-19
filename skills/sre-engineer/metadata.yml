@@ -8,4 +8,6 @@ triggers: SRE, site reliability, SLO, SLI, error budget, incident management, ch
 role: specialist
 scope: implementation
 output-format: code
-related-skills: devops-engineer, cloud-architect, kubernetes-specialist
+related-skills:
+  - devops-engineer
+  - cloud-architect

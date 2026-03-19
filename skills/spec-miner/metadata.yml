@@ -8,4 +8,5 @@ triggers: reverse engineer, legacy code, code analysis, undocumented, understand
 role: specialist
 scope: review
 output-format: document
-related-skills: feature-forge, fullstack-guardian, architecture-designer
+related-skills:
+  - architecture-designer

@@ -8,4 +8,6 @@ triggers: API design, REST API, OpenAPI, API specification, API architecture, re
 role: architect
 scope: design
 output-format: specification
-related-skills: graphql-architect, fastapi-expert, nestjs-expert, spring-boot-engineer, security-reviewer,
+related-skills:
+  - nestjs-expert
+  - security-reviewer

@@ -82,3 +82,4 @@ Any skill version bump **must** also bump the plugin patch version.
 - **Skill creation**: Use [Anthropic's `/skill-creator` skill](https://github.com/anthropics/skills/tree/main/skills/skill-creator) to match expected format and make the skill token efficient
 - **Reference files**: Loaded conditionally by SKILL.md — never standalone skills
 - **allowed-tools in frontmatter**: Read-only skills get `Read, Grep, Glob`; editing skills add `Write, Edit`; automation skills add `Bash`
+- **related-skills sync**: The `related-skills` enum in `schemas/metadata.schema.json` must list every skill directory name. Adding or removing a skill requires updating this enum.

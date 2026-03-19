@@ -8,4 +8,5 @@ triggers: Python development, type hints, async Python, pytest, mypy, dataclasse
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fastapi-expert, devops-engineer
+related-skills:
+  - devops-engineer

@@ -8,4 +8,7 @@ triggers: Playwright, E2E test, end-to-end, browser testing, automation, UI test
 role: specialist
 scope: testing
 output-format: code
-related-skills: test-master, react-expert, devops-engineer
+related-skills:
+  - test-master
+  - react-expert
+  - devops-engineer

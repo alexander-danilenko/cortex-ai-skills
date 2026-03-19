@@ -8,4 +8,5 @@ triggers: CLI, command-line, terminal app, argument parsing, shell completion, i
 role: specialist
 scope: implementation
 output-format: code
-related-skills: devops-engineer
+related-skills:
+  - devops-engineer

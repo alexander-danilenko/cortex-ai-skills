@@ -8,4 +8,5 @@ triggers: Next.js, Next.js 14, App Router, Server Components, Server Actions, Re
 role: specialist
 scope: implementation
 output-format: code
-related-skills: typescript-pro
+related-skills:
+  - typescript-pro

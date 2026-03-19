@@ -8,4 +8,6 @@ triggers: React, JSX, hooks, useState, useEffect, useContext, Server Components,
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fullstack-guardian, playwright-expert, test-master
+related-skills:
+  - playwright-expert
+  - test-master

@@ -8,4 +8,8 @@ triggers: security review, vulnerability scan, SAST, security audit, penetration
 role: specialist
 scope: review
 output-format: report
-related-skills: secure-code-guardian, code-reviewer, devops-engineer, cloud-architect, kubernetes-specialist
+related-skills:
+  - secure-code-guardian
+  - code-reviewer
+  - devops-engineer
+  - cloud-architect

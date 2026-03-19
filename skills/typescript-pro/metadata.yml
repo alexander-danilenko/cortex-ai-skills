@@ -8,4 +8,5 @@ triggers: TypeScript, generics, type safety, conditional types, mapped types, tR
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fullstack-guardian, api-designer
+related-skills:
+  - api-designer

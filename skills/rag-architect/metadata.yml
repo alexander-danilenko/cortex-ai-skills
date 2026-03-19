@@ -8,4 +8,7 @@ triggers: RAG, retrieval-augmented generation, vector search, embeddings, semant
 role: architect
 scope: system-design
 output-format: architecture
-related-skills: python-pro, database-optimizer, monitoring-expert, api-designer
+related-skills:
+  - python-pro
+  - database-optimizer
+  - api-designer

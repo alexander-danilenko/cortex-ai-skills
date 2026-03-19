@@ -8,4 +8,6 @@ triggers: test, testing, QA, unit test, integration test, E2E, coverage, perform
 role: specialist
 scope: testing
 output-format: report
-related-skills: fullstack-guardian, playwright-expert, devops-engineer
+related-skills:
+  - playwright-expert
+  - devops-engineer

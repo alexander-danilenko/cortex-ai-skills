@@ -114,8 +114,41 @@
       ]
     },
     "related-skills": {
-      "type": "string",
-      "description": "Comma-separated skill names"
+      "type": "array",
+      "description": "References to related skills in this plugin",
+      "items": {
+        "type": "string",
+        "enum": [
+          "agents-md-pro",
+          "api-designer",
+          "architecture-designer",
+          "cli-developer",
+          "cloud-architect",
+          "code-documenter",
+          "code-reviewer",
+          "csharp-developer",
+          "database-optimizer",
+          "devops-engineer",
+          "dotnet-core-expert",
+          "humanizer",
+          "javascript-pro",
+          "legacy-modernizer",
+          "nestjs-expert",
+          "nextjs-developer",
+          "playwright-expert",
+          "prompt-engineer",
+          "python-pro",
+          "rag-architect",
+          "react-expert",
+          "secure-code-guardian",
+          "security-reviewer",
+          "spec-miner",
+          "sql-pro",
+          "sre-engineer",
+          "test-master",
+          "typescript-pro"
+        ]
+      }
     }
   }
 }

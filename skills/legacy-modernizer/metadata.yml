@@ -8,4 +8,6 @@ triggers: legacy modernization, strangler fig, incremental migration, technical 
 role: specialist
 scope: architecture
 output-format: code+analysis
-related-skills: test-master, devops-engineer
+related-skills:
+  - test-master
+  - devops-engineer

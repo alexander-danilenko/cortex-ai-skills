@@ -8,4 +8,6 @@ triggers: security, authentication, authorization, encryption, OWASP, vulnerabil
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fullstack-guardian, security-reviewer, architecture-designer
+related-skills:
+  - security-reviewer
+  - architecture-designer

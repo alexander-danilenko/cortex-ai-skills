@@ -8,4 +8,7 @@ triggers: code review, PR review, pull request, review code, code quality
 role: specialist
 scope: review
 output-format: report
-related-skills: security-reviewer, test-master, architecture-designer
+related-skills:
+  - security-reviewer
+  - test-master
+  - architecture-designer

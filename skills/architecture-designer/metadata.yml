@@ -8,4 +8,6 @@ triggers: architecture, system design, design pattern, microservices, scalabilit
 role: expert
 scope: design
 output-format: document
-related-skills: fullstack-guardian, devops-engineer, secure-code-guardian
+related-skills:
+  - devops-engineer
+  - secure-code-guardian

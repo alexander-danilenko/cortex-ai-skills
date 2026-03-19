@@ -8,4 +8,5 @@ triggers: SQL optimization, query performance, database design, PostgreSQL, MySQ
 role: specialist
 scope: implementation
 output-format: code
-related-skills: devops-engineer
+related-skills:
+  - devops-engineer

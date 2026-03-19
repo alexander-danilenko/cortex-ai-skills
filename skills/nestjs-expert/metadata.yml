@@ -8,4 +8,6 @@ triggers: NestJS, Nest, Node.js backend, TypeScript backend, dependency injectio
 role: specialist
 scope: implementation
 output-format: code
-related-skills: fullstack-guardian, test-master, devops-engineer
+related-skills:
+  - test-master
+  - devops-engineer
