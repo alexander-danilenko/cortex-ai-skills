@@ -5,14 +5,14 @@ description: >-
   "summarize commits for jira", "report to jira", "update the ticket", "comment on the ticket",
   "generate implementation report", "write a jira comment", "summarize my changes",
   or wants to notify PM/QA about completed work on a Jira ticket.
-  Generates a business-friendly implementation report from git commits and posts it as a Jira comment.
-allowed-tools: Read, Bash, mcp__atlassian__getJiraIssue, mcp__atlassian__addCommentToJiraIssue, AskUserQuestion
+  Generates a business-friendly implementation report from git commits and saves it as a local markdown report.
+allowed-tools: Read, Write, Bash, mcp__atlassian__getJiraIssue, AskUserQuestion
 user-invocable: true
 ---
 
 # Jira Report Comment
 
-Generate a non-technical, business-focused summary of git changes for a Jira issue and post it as a comment.
+Generate a non-technical, business-focused summary of git changes for a Jira issue and save it as a markdown report.
 
 **Announce at start:** "Using the jira-report-comment skill to generate an implementation report."
 
@@ -29,6 +29,17 @@ Determine the Jira issue key using this priority:
 3. If no key can be determined, ask the user.
 
 **Always confirm** the resolved key with the user before proceeding: "I detected **CX-4328** from your branch. Use this issue key?"
+
+### Reserve the Report File
+
+Immediately after confirming the issue key, reserve the output file. This locks the filename for the entire session — all subsequent writes go to this same file.
+
+```bash
+mkdir -p docs/jira-reports
+touch "docs/jira-reports/$(date +%Y-%m-%d)-$(date +%s)-<ISSUE_KEY>.md"
+```
+
+Store the full file path in conversation context (e.g., `docs/jira-reports/2026-03-27-1743091200-ABC-123.md`). This is the only file you will write to for the rest of this session. If the skill is invoked again in the same session for the same issue, reuse this path — do not create a new file.
 
 ## Step 2: Fetch Jira Issue Context
 
@@ -110,42 +121,33 @@ Analyze the diffs with a **business lens**. Map every code change to a user-faci
 - Load **`references/formatting-rules.md`** and follow all rules strictly
 - If the `humanizer` skill is available, run the final report through it before presenting to the user
 
-## Step 5: Present the Report for Review
+## Step 5: Save the Report
 
-Show the full formatted report to the user in the conversation.
-
-Ask: "Here is the report for **<ISSUE_KEY>**. Post it as-is, or make changes first?"
-
-**Wait for explicit approval. Never auto-post.**
-
-If the user requests changes, revise and present again.
-
-## Step 6: Post to Jira
-
-Once approved, post the comment:
+Write the report content to the reserved file path (overwriting the empty placeholder):
 
 ```
-mcp__atlassian__addCommentToJiraIssue
-  issueIdOrKey: "<ISSUE_KEY>"
-  commentBody: "<REPORT_CONTENT>"
+Write tool -> file_path: <RESERVED_FILE_PATH>
+              content: <REPORT_CONTENT>
 ```
 
-After posting, confirm: "Report posted to **<ISSUE_KEY>**."
+Present the report to the user in the conversation and confirm: "Report saved to `<RESERVED_FILE_PATH>`."
+
+If the user requests changes, revise and overwrite the same file again.
 
 ## Error Handling
 
 - **Jira issue not found:** Tell the user the key appears invalid. Ask to double-check.
 - **No commits found:** Report clearly. Suggest checking the branch or that commits may use a different key format.
-- **MCP tool unavailable:** Inform the user that Atlassian MCP tools are not connected. Output the report as text for manual copy-paste.
-- **Comment post fails:** Show the error. Offer to retry or output for manual posting.
+- **MCP tool unavailable:** Inform the user that Atlassian MCP tools are not connected. Ask the user to provide issue context manually.
+- **File write fails:** Show the error. Check directory permissions and retry.
 
 ## Constraints
 
-- NEVER post without user approval
+- NEVER commit or stage the report file — just write it and leave it untracked
 - NEVER include raw code snippets, file paths, or class names in the report unless necessary to describe an API endpoint, configuration change, or other technical detail that requires exact values
 - NEVER fabricate changes not evidenced by the diffs
 - ALWAYS map back to the Jira issue's stated requirements when possible
-- ALWAYS use markdown formatting compatible with Jira rendering
+- ALWAYS write to the reserved file path from Step 1 — never create additional report files
 - Keep report length between 300-800 words
 
 ## Additional Resources
