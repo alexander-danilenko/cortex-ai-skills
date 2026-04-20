@@ -105,7 +105,14 @@ interface CreateUserDto {
 When a class implements an interface, do not repeat documentation that already
 exists on the interface. The implementation doc starts with `@inheritDoc` on the
 first line, followed by a blank line, and then only implementation-specific
-details that a maintainer of this class would need.
+details that a maintainer of this class would need — expressed exclusively
+through TSDoc block tags such as `@remarks`, `@example`, or `@see`.
+
+**Untagged prose after `@inheritDoc` overrides the inherited description** rather
+than supplementing it, because TSDoc treats the free-text portion of a comment
+as the summary. Any note that would otherwise live as a bare paragraph must be
+placed inside a tag block — most commonly `@remarks` — so the inherited summary
+is preserved and the implementation note is additive.
 
 **Form:** write the tag bare — no curly braces, no declaration reference. The
 tag always inherits from the parent declaration automatically, so references
@@ -142,15 +149,17 @@ with every other doc comment in the codebase:
  */
 ```
 
-If there *are* implementation notes to add, place them after a blank line:
+If there *are* implementation notes to add, place them after a blank line
+inside a TSDoc tag block — never as a bare paragraph:
 
 ```typescript
 class UserService implements IUserService {
   /**
    * @inheritDoc
    *
-   * Validates the DTO with Zod before inserting into the `users` table.
-   * Hashes the password with bcrypt (cost factor 12).
+   * @remarks
+   * - Validates the DTO with Zod before inserting into the `users` table.
+   * - Hashes the password with bcrypt (cost factor 12).
    */
   async create(data: CreateUserDto): Promise<User> {
     // ...
@@ -165,11 +174,34 @@ class UserService implements IUserService {
 }
 ```
 
+Untagged prose below `@inheritDoc` silently replaces the inherited summary, so
+the following is incorrect even though it looks reasonable:
+
+```typescript
+// WRONG — untagged prose overrides the inherited description
+/**
+ * @inheritDoc
+ *
+ * Some documentation clarification
+ */
+
+// CORRECT — clarification lives inside a TSDoc tag block
+/**
+ * @inheritDoc
+ *
+ * @remarks
+ * - Any other documentation clarification
+ */
+```
+
 Key points:
 
 - `@inheritDoc` is always bare: no braces, no reference.
 - `@inheritDoc` must be the first line of the comment body.
 - A blank line separates `@inheritDoc` from any additional notes.
+- Any additional notes must live inside a TSDoc tag block (`@remarks`,
+  `@example`, `@see`, etc.). Untagged prose overrides the inherited summary
+  instead of supplementing it.
 - Only add details specific to *this* implementation — algorithms, storage
   mechanisms, side effects not visible through the interface contract.
 - Do not re-state parameter descriptions, return types, or thrown errors already
