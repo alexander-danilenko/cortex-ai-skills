@@ -24,10 +24,14 @@ id: string;
 ```
 
 TSDoc has two tag syntaxes. **Block tags** (`@param`, `@returns`, `@throws`,
-`@example`, `@remarks`, etc.) start their own line and never use curly braces.
-**Inline tags** (`{@inheritDoc}`, `{@link}`) appear inside running text and
-require curly braces. Writing `{@param}` or bare `@inheritDoc` without braces
-is invalid TSDoc.
+`@example`, `@remarks`, `@inheritDoc`, etc.) start their own line and never use
+curly braces. **Inline tags** (`{@link}`) appear inside running text and require
+curly braces. Writing `{@param}` with braces is invalid.
+
+**Project convention:** `@inheritDoc` is written as a bare block tag without
+curly braces and without a declaration reference — always `@inheritDoc` alone,
+never `{@inheritDoc}` or `{@inheritDoc Foo.bar}`. This diverges from the strict
+TSDoc spec but keeps the form consistent with other block tags in the codebase.
 
 ## Release Tags
 
@@ -99,32 +103,51 @@ interface CreateUserDto {
 ## Implementation Documentation — `@inheritDoc` and DRY
 
 When a class implements an interface, do not repeat documentation that already
-exists on the interface. The implementation doc starts with `{@inheritDoc}` on
-the first line, followed by a blank line, and then only implementation-specific
+exists on the interface. The implementation doc starts with `@inheritDoc` on the
+first line, followed by a blank line, and then only implementation-specific
 details that a maintainer of this class would need.
 
-**Important:** TSDoc does not allow a declaration reference inside `{@inheritDoc}`.
-The tag always inherits from the parent declaration automatically.
+**Form:** write the tag bare — no curly braces, no declaration reference. The
+tag always inherits from the parent declaration automatically, so references
+like `@inheritDoc IUserService.create` are never needed and must not be used.
 
 ```typescript
-// WRONG — declaration reference is not valid TSDoc
-/** 
- * {@inheritDoc IUserService.create} 
+// WRONG — curly braces
+/**
+ * {@inheritDoc}
  */
 
-// CORRECT — no arguments
+// WRONG — declaration reference
 /**
- * {@inheritDoc} 
+ * @inheritDoc IUserService.create
+ */
+
+// CORRECT — bare tag, no arguments
+/**
+ * @inheritDoc
  */
 ```
 
-If there is nothing implementation-specific to add, `@inheritDoc` alone is
-sufficient.
+Always use the multi-line form, even when the comment is only `@inheritDoc`.
+One-line `/** @inheritDoc */` is not allowed — this keeps the form consistent
+with every other doc comment in the codebase:
+
+```typescript
+// WRONG — one-line doc comment
+/** @inheritDoc */
+
+// CORRECT — body on a new line
+/**
+ * @inheritDoc
+ */
+```
+
+If there *are* implementation notes to add, place them after a blank line:
 
 ```typescript
 class UserService implements IUserService {
   /**
-   * {@inheritDoc}
+   * @inheritDoc
    *
    * Validates the DTO with Zod before inserting into the `users` table.
    * Hashes the password with bcrypt (cost factor 12).
@@ -134,7 +157,7 @@ class UserService implements IUserService {
   }
 
   /**
-   * {@inheritDoc}
+   * @inheritDoc
    */
   async findById(id: string): Promise<User | null> {
     // ...
@@ -143,7 +166,8 @@ class UserService implements IUserService {
 ```
 
 Key points:
-- `{@inheritDoc}` must be the first line of the comment body.
+- `@inheritDoc` is always bare: no braces, no reference.
+- `@inheritDoc` must be the first line of the comment body.
 - A blank line separates `@inheritDoc` from any additional notes.
 - Only add details specific to *this* implementation — algorithms, storage
   mechanisms, side effects not visible through the interface contract.
@@ -221,10 +245,16 @@ the summary with information a reader needs when they dig deeper.
 
 `@remarks` is not for describing implementation logic. Details like which
 algorithm is used, how data flows internally, or what side effects occur belong
-in implementation comments or `{@inheritDoc}` notes — not in `@remarks`.
+in implementation comments or `@inheritDoc` notes — not in `@remarks`.
 
-Remarks are formatted as markdown bullet points. When a bullet wraps to a new
-line, indent the continuation to align with the text after the dash:
+**The body of `@remarks` is always a markdown bullet list.** Even if there is
+only one thing to say, write it as a single bullet — never as a bare paragraph.
+This keeps the form consistent so additional points can be added later without
+restructuring, and makes it visually obvious at a glance which parts of a
+docblock are remarks.
+
+When a bullet wraps to a new line, indent the continuation to align with the
+text after the dash:
 
 ```typescript
 /**
@@ -255,7 +285,28 @@ function isActiveUser(user: User): boolean {
 class ApiRateLimiter {
 ```
 
+Single-bullet example — still a list:
+
 ```typescript
+/**
+ * Session token used for short-lived authentication.
+ *
+ * @remarks
+ * - The 15-minute lifetime is mandated by the security review; do not
+ *   extend it without re-approval.
+ */
+interface SessionToken {
+```
+
+```typescript
+// WRONG — @remarks body written as a bare paragraph
+/**
+ * Session token used for short-lived authentication.
+ *
+ * @remarks
+ * The 15-minute lifetime is mandated by the security review.
+ */
+
 // WRONG — implementation details do not belong in @remarks
 /**
  * Fetch user preferences.
@@ -274,12 +325,12 @@ class ApiRateLimiter {
 | `@returns` | Return value | `@returns The user object.` |
 | `@throws` | Exception thrown | `@throws {Error} If invalid.` |
 | `@example` | Usage example | Code block |
-| `@remarks` | Reasoning and context | Design rationale, constraints |
+| `@remarks` | Design rationale, constraints | Always a bullet list, even with one item |
 | `@see` | Cross-reference | `@see UserService` |
 | `@deprecated` | Mark deprecated | `@deprecated Use v2 instead.` |
 | `@template` | Generic type param | `@template T - Item type.` |
 | `@readonly` | Read-only property | Cannot modify |
-| `{@inheritDoc}` | Inherit interface docs | `{@inheritDoc}` (no arguments) |
+| `@inheritDoc` | Inherit interface docs | `@inheritDoc` (bare, no braces, no reference) |
 | `{@link}` | Link to symbol or URL | `{@link IUserService}` |
 
 ## `{@link}` Usage
