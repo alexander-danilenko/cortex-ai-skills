@@ -223,12 +223,12 @@ payload = "' UNION SELECT 'proof_of_concept'--"
 
 ### Severity Scoring
 
-| Severity | Exploitability | Impact | CVSS Range |
-|----------|---------------|---------|------------|
-| Critical | Easy | Full compromise | 9.0-10.0 |
-| High | Medium | Significant access | 7.0-8.9 |
-| Medium | Hard | Limited access | 4.0-6.9 |
-| Low | Very hard | Minimal impact | 0.1-3.9 |
+| Severity | Exploitability | Impact             | CVSS Range |
+| -------- | -------------- | ------------------ | ---------- |
+| Critical | Easy           | Full compromise    | 9.0-10.0   |
+| High     | Medium         | Significant access | 7.0-8.9    |
+| Medium   | Hard           | Limited access     | 4.0-6.9    |
+| Low      | Very hard      | Minimal impact     | 0.1-3.9    |
 
 ### Impact Assessment
 
@@ -254,18 +254,18 @@ payload = "' UNION SELECT 'proof_of_concept'--"
 
 ## Quick Reference
 
-| Test Type | Tools | Focus |
-|-----------|-------|-------|
-| Web App | Burp Suite, OWASP ZAP | OWASP Top 10 |
-| API | Postman, curl | AuthN/AuthZ, data exposure |
-| Network | nmap, Metasploit | Services, exploits |
-| Mobile | MobSF, Frida | Data storage, crypto |
-| Cloud | ScoutSuite, Prowler | Misconfigurations |
+| Test Type | Tools                 | Focus                      |
+| --------- | --------------------- | -------------------------- |
+| Web App   | Burp Suite, OWASP ZAP | OWASP Top 10               |
+| API       | Postman, curl         | AuthN/AuthZ, data exposure |
+| Network   | nmap, Metasploit      | Services, exploits         |
+| Mobile    | MobSF, Frida          | Data storage, crypto       |
+| Cloud     | ScoutSuite, Prowler   | Misconfigurations          |
 
-| Finding Type | Validation Method | Evidence Required |
-|--------------|------------------|-------------------|
-| SQL Injection | Sleep-based, error-based | Request/response, timing |
-| XSS | Alert box, DOM manipulation | Screenshot, payload |
-| IDOR | Access other user's resource | Two user accounts, IDs |
-| Auth Bypass | Unauthorized access | Before/after screenshots |
-| RCE | Command output (safe) | Whoami, id command output |
+| Finding Type  | Validation Method            | Evidence Required         |
+| ------------- | ---------------------------- | ------------------------- |
+| SQL Injection | Sleep-based, error-based     | Request/response, timing  |
+| XSS           | Alert box, DOM manipulation  | Screenshot, payload       |
+| IDOR          | Access other user's resource | Two user accounts, IDs    |
+| Auth Bypass   | Unauthorized access          | Before/after screenshots  |
+| RCE           | Command output (safe)        | Whoami, id command output |

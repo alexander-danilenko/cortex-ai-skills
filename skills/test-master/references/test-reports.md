@@ -86,19 +86,19 @@
 
 ## Severity Definitions
 
-| Severity | Criteria |
-|----------|----------|
+| Severity     | Criteria                                        |
+| ------------ | ----------------------------------------------- |
 | **CRITICAL** | Security vulnerability, data loss, system crash |
-| **HIGH** | Major functionality broken, severe performance |
-| **MEDIUM** | Feature partially working, workaround exists |
-| **LOW** | Minor issue, cosmetic, edge case |
+| **HIGH**     | Major functionality broken, severe performance  |
+| **MEDIUM**   | Feature partially working, workaround exists    |
+| **LOW**      | Minor issue, cosmetic, edge case                |
 
 ## Quick Reference
 
-| Section | Content |
-|---------|---------|
-| Summary | High-level metrics |
-| Findings | Issues by severity |
-| Coverage | Code coverage analysis |
-| Recommendations | Prioritized actions |
-| Sign-off | Approval criteria |
+| Section         | Content                |
+| --------------- | ---------------------- |
+| Summary         | High-level metrics     |
+| Findings        | Issues by severity     |
+| Coverage        | Code coverage analysis |
+| Recommendations | Prioritized actions    |
+| Sign-off        | Approval criteria      |

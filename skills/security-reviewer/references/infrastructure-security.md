@@ -250,19 +250,19 @@ output.elasticsearch:
 
 ## Quick Reference
 
-| Area | Tool | Purpose |
-|------|------|---------|
-| Cloud Security | Prowler, ScoutSuite | AWS/Azure/GCP audit |
-| Container | Trivy, Clair | Image scanning |
-| IaC | Checkov, tfsec | Terraform/CloudFormation |
-| Secrets | Vault, Sealed Secrets | Secret management |
-| Compliance | InSpec, OpenSCAP | CIS benchmarks |
-| Monitoring | ELK, Splunk | SIEM |
+| Area           | Tool                  | Purpose                  |
+| -------------- | --------------------- | ------------------------ |
+| Cloud Security | Prowler, ScoutSuite   | AWS/Azure/GCP audit      |
+| Container      | Trivy, Clair          | Image scanning           |
+| IaC            | Checkov, tfsec        | Terraform/CloudFormation |
+| Secrets        | Vault, Sealed Secrets | Secret management        |
+| Compliance     | InSpec, OpenSCAP      | CIS benchmarks           |
+| Monitoring     | ELK, Splunk           | SIEM                     |
 
-| Framework | Focus | Key Controls |
-|-----------|-------|--------------|
-| SOC 2 | Security controls | Access, encryption, monitoring |
-| ISO 27001 | ISMS | Policy, risk, audit |
-| PCI DSS | Payment security | Network segmentation, encryption |
-| HIPAA | Healthcare | Encryption, access logs |
-| GDPR | Data privacy | Consent, retention, DLP |
+| Framework | Focus             | Key Controls                     |
+| --------- | ----------------- | -------------------------------- |
+| SOC 2     | Security controls | Access, encryption, monitoring   |
+| ISO 27001 | ISMS              | Policy, risk, audit              |
+| PCI DSS   | Payment security  | Network segmentation, encryption |
+| HIPAA     | Healthcare        | Encryption, access logs          |
+| GDPR      | Data privacy      | Consent, retention, DLP          |

@@ -170,17 +170,19 @@ At current rate, the 30-day error budget will be exhausted within 2 days.
    rate(http_requests_total{status=~"5..", service="api"}[5m])
    ```
 
-2. **Identify error types**
+1. **Identify error types**
+
    ```bash
    kubectl logs -l app=api --tail=100 | grep ERROR
    ```
 
-3. **Check recent deployments**
+2. **Check recent deployments**
+
    ```bash
    kubectl rollout history deployment/api
    ```
 
-4. **Review dependencies**
+3. **Review dependencies**
    - Database health
    - External API status
    - Infrastructure issues
@@ -188,6 +190,7 @@ At current rate, the 30-day error budget will be exhausted within 2 days.
 ### Remediation
 
 **If caused by recent deployment:**
+
 ```bash
 # Rollback to previous version
 kubectl rollout undo deployment/api
@@ -197,6 +200,7 @@ kubectl rollout status deployment/api
 ```
 
 **If database issue:**
+
 ```bash
 # Check database connections
 kubectl exec -it postgres-0 -- psql -c "SELECT count(*) FROM pg_stat_activity;"
@@ -206,6 +210,7 @@ kubectl exec -it postgres-0 -- psql -c "SELECT * FROM pg_stat_statements ORDER B
 ```
 
 **If traffic spike:**
+
 ```bash
 # Scale up replicas
 kubectl scale deployment/api --replicas=10
@@ -217,7 +222,8 @@ kubectl apply -f rate-limit-config.yaml
 ### Communication
 
 **Slack template:**
-```
+
+```text
 :fire: INCIDENT: Error budget burn rate critical
 
 Service: api
@@ -229,10 +235,12 @@ Incident doc: [link]
 ```
 
 ### Prevention
+
 - Add integration tests for this failure mode
 - Implement circuit breaker for external dependencies
 - Add capacity planning for traffic spikes
-```
+
+```text
 
 ## Dashboard Configuration
 

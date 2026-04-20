@@ -4,7 +4,7 @@
 
 ## Two-Stage Review Architecture
 
-```
+```text
                     ┌─────────────────────┐
                     │   Implementation    │
                     └──────────┬──────────┘
@@ -58,12 +58,12 @@ Approach every review with professional skepticism. Verify claims independently.
 
 **Check for features that were requested but not implemented.**
 
-| Question | How to Verify |
-|----------|---------------|
+| Question                          | How to Verify                                    |
+| --------------------------------- | ------------------------------------------------ |
 | Did they skip requested features? | Compare PR to original requirements line by line |
-| Are edge cases handled? | Check error paths, empty states, boundaries |
-| Were error scenarios addressed? | Look for try/catch, error boundaries, validation |
-| Is the happy path complete? | Trace through primary use case manually |
+| Are edge cases handled?           | Check error paths, empty states, boundaries      |
+| Were error scenarios addressed?   | Look for try/catch, error boundaries, validation |
+| Is the happy path complete?       | Trace through primary use case manually          |
 
 ```markdown
 ## Example Review Finding
@@ -79,18 +79,19 @@ function validatePassword(password: string) {
 ```
 
 **Status:** ❌ Incomplete - minimum length validation missing
-```
+
+```text
 
 #### Category 2: Unnecessary Additions
 
 **Check for scope creep and over-engineering.**
 
-| Question | How to Verify |
-|----------|---------------|
-| Features beyond specification? | Compare to original requirements |
-| Over-engineering? | Is complexity justified by requirements? |
-| Premature optimization? | Is performance cited without measurements? |
-| Unrequested abstractions? | Are there helpers/utils for one-time use? |
+| Question                       | How to Verify                              |
+| ------------------------------ | ------------------------------------------ |
+| Features beyond specification? | Compare to original requirements           |
+| Over-engineering?              | Is complexity justified by requirements?   |
+| Premature optimization?        | Is performance cited without measurements? |
+| Unrequested abstractions?      | Are there helpers/utils for one-time use?  |
 
 ```markdown
 ## Example Review Finding
@@ -113,17 +114,18 @@ class CachedUserRepository {  // Not requested
 ```
 
 **Status:** ⚠️ Scope creep - discuss before merging
-```
+
+```text
 
 #### Category 3: Interpretation Gaps
 
 **Check for misunderstandings of requirements.**
 
-| Question | How to Verify |
-|----------|---------------|
+| Question                                 | How to Verify                              |
+| ---------------------------------------- | ------------------------------------------ |
 | Different understanding of requirements? | Ask author to explain their interpretation |
-| Unclarified assumptions? | Look for comments like "assuming..." |
-| Ambiguous specs resolved incorrectly? | Compare to similar existing features |
+| Unclarified assumptions?                 | Look for comments like "assuming..."       |
+| Ambiguous specs resolved incorrectly?    | Compare to similar existing features       |
 
 ```markdown
 ## Example Review Finding
@@ -145,11 +147,11 @@ class CachedUserRepository {  // Not requested
 
 ### Stage 1 Must Come First
 
-| Scenario | Waste from Wrong Order |
-|----------|------------------------|
-| Skip Stage 1 | Review 500 lines of code quality, then discover wrong feature was built |
-| Stage 2 First | Suggest refactoring, then realize the code shouldn't exist |
-| Combined | Mix concerns, miss systematic issues |
+| Scenario      | Waste from Wrong Order                                                  |
+| ------------- | ----------------------------------------------------------------------- |
+| Skip Stage 1  | Review 500 lines of code quality, then discover wrong feature was built |
+| Stage 2 First | Suggest refactoring, then realize the code shouldn't exist              |
+| Combined      | Mix concerns, miss systematic issues                                    |
 
 ### Separation of Concerns
 
@@ -172,6 +174,7 @@ Code quality review is meaningless if the code doesn't implement the correct fun
 ### During Review
 
 **Missing Requirements:**
+
 - [ ] All required features present
 - [ ] Edge cases covered (empty, null, max values)
 - [ ] Error handling as specified
@@ -179,12 +182,14 @@ Code quality review is meaningless if the code doesn't implement the correct fun
 - [ ] UI matches mockups/specs if provided
 
 **Unnecessary Additions:**
+
 - [ ] No unrequested features
 - [ ] No speculative abstractions
 - [ ] No premature optimizations
 - [ ] Scope matches requirements exactly
 
 **Interpretation Gaps:**
+
 - [ ] Author's understanding matches spec
 - [ ] Ambiguities resolved correctly
 - [ ] Assumptions are documented and valid
@@ -245,13 +250,13 @@ All requirements verified:
 
 ## Common Mistakes to Avoid
 
-| Mistake | Why It's Wrong |
-|---------|----------------|
+| Mistake                                     | Why It's Wrong                         |
+| ------------------------------------------- | -------------------------------------- |
 | Reviewing code style before spec compliance | Wasted effort if wrong thing was built |
-| Assuming spec was followed | Verify independently |
-| Skipping edge cases | Bugs hide in boundaries |
-| Accepting "we can add it later" | Technical debt accumulates |
-| Missing scope creep | Unreviewed code enters codebase |
+| Assuming spec was followed                  | Verify independently                   |
+| Skipping edge cases                         | Bugs hide in boundaries                |
+| Accepting "we can add it later"             | Technical debt accumulates             |
+| Missing scope creep                         | Unreviewed code enters codebase        |
 
 ---
 

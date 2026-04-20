@@ -4,12 +4,12 @@
 
 ## Evaluation Framework Overview
 
-| Framework | Focus | Strengths | Use Case |
-|-----------|-------|-----------|----------|
-| **RAGAS** | RAG-specific metrics | Faithfulness, relevance | Production RAG evaluation |
-| **TruLens** | LLM app observability | Tracing, feedback functions | Debugging and monitoring |
-| **LangSmith** | LangChain ecosystem | Traces, datasets, testing | LangChain projects |
-| **Custom** | Specific requirements | Full control | Domain-specific needs |
+| Framework     | Focus                 | Strengths                   | Use Case                  |
+| ------------- | --------------------- | --------------------------- | ------------------------- |
+| **RAGAS**     | RAG-specific metrics  | Faithfulness, relevance     | Production RAG evaluation |
+| **TruLens**   | LLM app observability | Tracing, feedback functions | Debugging and monitoring  |
+| **LangSmith** | LangChain ecosystem   | Traces, datasets, testing   | LangChain projects        |
+| **Custom**    | Specific requirements | Full control                | Domain-specific needs     |
 
 ---
 
@@ -17,22 +17,22 @@
 
 ### Retrieval Metrics
 
-| Metric | Formula | What It Measures |
-|--------|---------|------------------|
-| **Precision@k** | Relevant in top-k / k | Are retrieved docs relevant? |
-| **Recall@k** | Relevant in top-k / Total relevant | Did we get all relevant docs? |
-| **MRR** | 1 / Rank of first relevant | How quickly do we find relevant? |
-| **NDCG@k** | DCG@k / IDCG@k | Is ranking order correct? |
-| **Hit Rate** | Queries with relevant in top-k / Total queries | Binary success rate |
+| Metric          | Formula                                        | What It Measures                 |
+| --------------- | ---------------------------------------------- | -------------------------------- |
+| **Precision@k** | Relevant in top-k / k                          | Are retrieved docs relevant?     |
+| **Recall@k**    | Relevant in top-k / Total relevant             | Did we get all relevant docs?    |
+| **MRR**         | 1 / Rank of first relevant                     | How quickly do we find relevant? |
+| **NDCG@k**      | DCG@k / IDCG@k                                 | Is ranking order correct?        |
+| **Hit Rate**    | Queries with relevant in top-k / Total queries | Binary success rate              |
 
 ### Generation Metrics
 
-| Metric | What It Measures |
-|--------|------------------|
-| **Faithfulness** | Is answer grounded in retrieved context? |
-| **Answer Relevance** | Does answer address the question? |
-| **Context Relevance** | Is retrieved context relevant to question? |
-| **Context Utilization** | How much context was actually used? |
+| Metric                  | What It Measures                           |
+| ----------------------- | ------------------------------------------ |
+| **Faithfulness**        | Is answer grounded in retrieved context?   |
+| **Answer Relevance**    | Does answer address the question?          |
+| **Context Relevance**   | Is retrieved context relevant to question? |
+| **Context Utilization** | How much context was actually used?        |
 
 ---
 
@@ -796,34 +796,34 @@ for query_result in production_queries:
 
 ## Evaluation Best Practices
 
-| Practice | Description |
-|----------|-------------|
-| **Golden test set** | Maintain 50-200 curated Q&A pairs with ground truth |
-| **Stratified sampling** | Include diverse query types in test set |
-| **Human baselines** | Compare LLM judges against human annotators |
-| **Version control** | Track evaluation results alongside model versions |
-| **Regular re-evaluation** | Re-run golden tests on every retrieval change |
-| **A/B testing** | Compare new retrieval strategies on live traffic |
+| Practice                  | Description                                         |
+| ------------------------- | --------------------------------------------------- |
+| **Golden test set**       | Maintain 50-200 curated Q&A pairs with ground truth |
+| **Stratified sampling**   | Include diverse query types in test set             |
+| **Human baselines**       | Compare LLM judges against human annotators         |
+| **Version control**       | Track evaluation results alongside model versions   |
+| **Regular re-evaluation** | Re-run golden tests on every retrieval change       |
+| **A/B testing**           | Compare new retrieval strategies on live traffic    |
 
 ---
 
 ## Quick Reference
 
-| Goal | Metric | Target |
-|------|--------|--------|
-| Are docs relevant? | Precision@5 | > 0.7 |
-| Did we get all docs? | Recall@5 | > 0.8 |
-| Is ranking good? | NDCG@5 | > 0.7 |
-| Is answer grounded? | Faithfulness | > 0.9 |
-| Does answer fit question? | Answer Relevance | > 0.8 |
-| Is context useful? | Context Relevance | > 0.7 |
+| Goal                      | Metric            | Target |
+| ------------------------- | ----------------- | ------ |
+| Are docs relevant?        | Precision@5       | > 0.7  |
+| Did we get all docs?      | Recall@5          | > 0.8  |
+| Is ranking good?          | NDCG@5            | > 0.7  |
+| Is answer grounded?       | Faithfulness      | > 0.9  |
+| Does answer fit question? | Answer Relevance  | > 0.8  |
+| Is context useful?        | Context Relevance | > 0.7  |
 
-| Framework | Best For |
-|-----------|----------|
-| RAGAS | Quick RAG-specific evaluation |
-| TruLens | Production monitoring and tracing |
-| Custom LLM-judge | Domain-specific criteria |
-| Manual annotation | Ground truth creation |
+| Framework         | Best For                          |
+| ----------------- | --------------------------------- |
+| RAGAS             | Quick RAG-specific evaluation     |
+| TruLens           | Production monitoring and tracing |
+| Custom LLM-judge  | Domain-specific criteria          |
+| Manual annotation | Ground truth creation             |
 
 ## Related Skills
 

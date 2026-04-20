@@ -4,20 +4,21 @@
 
 ## Database Comparison Matrix
 
-| Feature | Pinecone | Weaviate | Qdrant | Chroma | pgvector |
-|---------|----------|----------|--------|--------|----------|
-| **Hosting** | Managed only | Managed + Self-hosted | Managed + Self-hosted | Self-hosted (cloud beta) | Self-hosted |
-| **Hybrid Search** | Yes (sparse-dense) | Yes (BM25 + vector) | Yes (sparse vectors) | Limited | Manual (+ pg_trgm) |
-| **Filtering** | Excellent | Excellent | Excellent | Basic | SQL-native |
-| **Max Dimensions** | 20,000 | Unlimited | 65,535 | Unlimited | 2,000 |
-| **Pricing Model** | Per-vector/query | Per-node | Per-node | Free (OSS) | Free (extension) |
-| **Multi-tenancy** | Namespaces | Multi-tenant class | Collections + payloads | Collections | Schema/RLS |
-| **Best For** | Enterprise SaaS | Semantic apps | High-performance | Prototyping | Postgres shops |
+| Feature            | Pinecone           | Weaviate              | Qdrant                 | Chroma                   | pgvector           |
+| ------------------ | ------------------ | --------------------- | ---------------------- | ------------------------ | ------------------ |
+| **Hosting**        | Managed only       | Managed + Self-hosted | Managed + Self-hosted  | Self-hosted (cloud beta) | Self-hosted        |
+| **Hybrid Search**  | Yes (sparse-dense) | Yes (BM25 + vector)   | Yes (sparse vectors)   | Limited                  | Manual (+ pg_trgm) |
+| **Filtering**      | Excellent          | Excellent             | Excellent              | Basic                    | SQL-native         |
+| **Max Dimensions** | 20,000             | Unlimited             | 65,535                 | Unlimited                | 2,000              |
+| **Pricing Model**  | Per-vector/query   | Per-node              | Per-node               | Free (OSS)               | Free (extension)   |
+| **Multi-tenancy**  | Namespaces         | Multi-tenant class    | Collections + payloads | Collections              | Schema/RLS         |
+| **Best For**       | Enterprise SaaS    | Semantic apps         | High-performance       | Prototyping              | Postgres shops     |
 
 ## When to Use Each
 
 ### Pinecone
-```
+
+```text
 Best For:
 - Enterprise RAG with strict SLAs
 - Teams wanting zero infrastructure management
@@ -32,7 +33,8 @@ When to Avoid:
 ```
 
 ### Weaviate
-```
+
+```text
 Best For:
 - Semantic search with built-in vectorization
 - Multi-modal (text, image) applications
@@ -46,7 +48,8 @@ When to Avoid:
 ```
 
 ### Qdrant
-```
+
+```text
 Best For:
 - High-performance, low-latency requirements
 - Complex filtering with payload indexes
@@ -59,7 +62,8 @@ When to Avoid:
 ```
 
 ### Chroma
-```
+
+```text
 Best For:
 - Local development and prototyping
 - LangChain/LlamaIndex integration
@@ -73,7 +77,8 @@ When to Avoid:
 ```
 
 ### pgvector
-```
+
+```text
 Best For:
 - Existing PostgreSQL infrastructure
 - Transactional + vector in same DB
@@ -454,11 +459,11 @@ cur.execute(
 
 ### HNSW Parameters
 
-| Parameter | Description | Trade-off |
-|-----------|-------------|-----------|
-| `m` | Connections per node | Higher = better recall, more memory |
-| `ef_construction` | Build-time search width | Higher = better index, slower build |
-| `ef_search` | Query-time search width | Higher = better recall, slower query |
+| Parameter         | Description             | Trade-off                            |
+| ----------------- | ----------------------- | ------------------------------------ |
+| `m`               | Connections per node    | Higher = better recall, more memory  |
+| `ef_construction` | Build-time search width | Higher = better index, slower build  |
+| `ef_search`       | Query-time search width | Higher = better recall, slower query |
 
 ```python
 # Qdrant HNSW tuning
@@ -503,6 +508,7 @@ client.update_collection(
 ## Multi-Tenancy Patterns
 
 ### Namespace Isolation (Pinecone)
+
 ```python
 # Tenant data in separate namespaces
 index.upsert(vectors=[...], namespace="tenant-acme")
@@ -517,6 +523,7 @@ results = index.query(
 ```
 
 ### Metadata Filtering (Qdrant/Weaviate)
+
 ```python
 # Add tenant_id to all documents
 point = PointStruct(
@@ -536,6 +543,7 @@ results = client.search(
 ```
 
 ### Collection per Tenant (High Isolation)
+
 ```python
 # Create tenant-specific collection
 client.create_collection(
@@ -548,7 +556,7 @@ client.create_collection(
 
 ## Decision Flowchart
 
-```
+```text
 Start
   │
   ├─ Need managed service with zero ops?
@@ -573,14 +581,14 @@ Start
 
 ## Quick Reference
 
-| Task | Pinecone | Weaviate | Qdrant | pgvector |
-|------|----------|----------|--------|----------|
-| Create index/collection | `create_index()` | `collections.create()` | `create_collection()` | `CREATE TABLE` |
-| Insert | `upsert()` | `data.insert()` | `upsert()` | `INSERT` |
-| Search | `query()` | `query.near_vector()` | `search()` | `ORDER BY <=>` |
-| Filter | `filter={}` | `Filter.by_property()` | `query_filter=Filter()` | `WHERE` |
-| Delete | `delete()` | `data.delete_by_id()` | `delete()` | `DELETE` |
-| Hybrid | sparse_vector param | `query.hybrid()` | sparse vectors | Manual |
+| Task                    | Pinecone            | Weaviate               | Qdrant                  | pgvector       |
+| ----------------------- | ------------------- | ---------------------- | ----------------------- | -------------- |
+| Create index/collection | `create_index()`    | `collections.create()` | `create_collection()`   | `CREATE TABLE` |
+| Insert                  | `upsert()`          | `data.insert()`        | `upsert()`              | `INSERT`       |
+| Search                  | `query()`           | `query.near_vector()`  | `search()`              | `ORDER BY <=>` |
+| Filter                  | `filter={}`         | `Filter.by_property()` | `query_filter=Filter()` | `WHERE`        |
+| Delete                  | `delete()`          | `data.delete_by_id()`  | `delete()`              | `DELETE`       |
+| Hybrid                  | sparse_vector param | `query.hybrid()`       | sparse vectors          | Manual         |
 
 ## Related Skills
 

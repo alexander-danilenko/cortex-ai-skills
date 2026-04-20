@@ -523,13 +523,13 @@ export default function Error({
 
 ## Quick Reference
 
-| Platform | Best For | Effort |
-|----------|----------|--------|
-| **Vercel** | Zero-config, optimal performance | Low |
-| **Netlify** | Alternative to Vercel | Low |
-| **Railway** | Simple hosting with databases | Medium |
-| **AWS/GCP** | Enterprise, custom needs | High |
-| **Docker** | Self-hosting, full control | High |
+| Platform    | Best For                         | Effort |
+| ----------- | -------------------------------- | ------ |
+| **Vercel**  | Zero-config, optimal performance | Low    |
+| **Netlify** | Alternative to Vercel            | Low    |
+| **Railway** | Simple hosting with databases    | Medium |
+| **AWS/GCP** | Enterprise, custom needs         | High   |
+| **Docker**  | Self-hosting, full control       | High   |
 
 ## Production Checklist
 

@@ -12,11 +12,13 @@
 ### 1. Header Compression
 
 **Before (13 tokens):**
+
 ```markdown
 ## 1. Project Core Identity and Overview
 ```
 
 **After (5 tokens):**
+
 ```markdown
 ## PROJECT
 ```
@@ -24,6 +26,7 @@
 ### 2. Eliminate Redundant Explanations
 
 **Before (45 tokens):**
+
 ```markdown
 ## Code Style
 We follow strict TypeScript conventions. All code must be properly typed.
@@ -31,6 +34,7 @@ Use ESLint and Prettier for formatting. Run `npm run lint` to check your code.
 ```
 
 **After (12 tokens):**
+
 ```markdown
 ## CODE STYLE
 - Lint: `npm run lint --fix`
@@ -40,6 +44,7 @@ Use ESLint and Prettier for formatting. Run `npm run lint` to check your code.
 ### 3. Reference Tool Configs
 
 **Before (89 tokens):**
+
 ```markdown
 ## Coding Standards
 - Use 2 spaces for indentation
@@ -51,6 +56,7 @@ Use ESLint and Prettier for formatting. Run `npm run lint` to check your code.
 ```
 
 **After (11 tokens):**
+
 ```markdown
 ## CODE STYLE
 See `.eslintrc` and `.prettierrc`
@@ -59,6 +65,7 @@ See `.eslintrc` and `.prettierrc`
 ### 4. Consolidate Sections
 
 **Before (65 tokens):**
+
 ```markdown
 ## Build Process
 Run `npm run build` to build the project.
@@ -71,6 +78,7 @@ Run `npm run lint` to check code quality.
 ```
 
 **After (18 tokens):**
+
 ```markdown
 ## COMMANDS
 - Build: `npm run build`
@@ -81,11 +89,13 @@ Run `npm run lint` to check code quality.
 ### 5. Imperative Language
 
 **Before (22 tokens):**
+
 ```markdown
 When you need to modify files, you should always read them first.
 ```
 
 **After (5 tokens):**
+
 ```markdown
 Read files before editing.
 ```
@@ -93,6 +103,7 @@ Read files before editing.
 ### 6. Tech Stack in Header
 
 **Before (35 tokens):**
+
 ```markdown
 # Project Documentation
 
@@ -103,6 +114,7 @@ Read files before editing.
 ```
 
 **After (12 tokens):**
+
 ```markdown
 # Project | Next.js 14 | TypeScript | PostgreSQL
 ```
@@ -110,6 +122,7 @@ Read files before editing.
 ### 7. Table to List (when appropriate)
 
 **Before (structured but verbose):**
+
 ```markdown
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
@@ -118,6 +131,7 @@ Read files before editing.
 ```
 
 **After (more concise for simple info):**
+
 ```markdown
 - Dev: `npm run dev`
 - Build: `npm run build`
@@ -126,6 +140,7 @@ Read files before editing.
 ### 8. Remove Redundant Context
 
 **Before (45 tokens):**
+
 ```markdown
 ## Directory Structure
 The `src/` directory contains all source code. The `src/components/` directory
@@ -133,6 +148,7 @@ contains React components. The `src/utils/` directory contains utility functions
 ```
 
 **After (15 tokens):**
+
 ```markdown
 ## STRUCTURE
 - `src/components/` - React components
@@ -142,6 +158,7 @@ contains React components. The `src/utils/` directory contains utility functions
 ### 9. Pattern Examples (Show, Don't Explain)
 
 **Before (78 tokens):**
+
 ```markdown
 ## API Routes
 All API routes should be created in the `src/pages/api` directory. They should
@@ -150,6 +167,7 @@ validate input data and handle errors appropriately with try-catch blocks.
 ```
 
 **After (32 tokens):**
+
 ```markdown
 ## API ROUTES
 Location: `src/pages/api`
@@ -165,6 +183,7 @@ export default async (req, res) => {
 ### 10. Distill to Actionable Rules Only
 
 **Before (55 tokens):**
+
 ```markdown
 ## Git Workflow
 We use conventional commits for our commit messages. This helps us maintain
@@ -173,6 +192,7 @@ this format when creating commits.
 ```
 
 **After (8 tokens):**
+
 ```markdown
 ## GIT
 Format: `type(scope): message`

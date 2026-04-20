@@ -134,17 +134,17 @@ await page.screenshot({ path: 'debug.png' });
 
 ## Quick Reference
 
-| Command | Purpose |
-|---------|---------|
-| `PWDEBUG=1` | Enable inspector |
-| `--headed` | Show browser |
-| `--ui` | UI mode |
-| `page.pause()` | Pause execution |
-| `show-trace` | View trace file |
+| Command        | Purpose          |
+| -------------- | ---------------- |
+| `PWDEBUG=1`    | Enable inspector |
+| `--headed`     | Show browser     |
+| `--ui`         | UI mode          |
+| `page.pause()` | Pause execution  |
+| `show-trace`   | View trace file  |
 
-| Fix | Flaky Cause |
-|-----|-------------|
+| Fix                | Flaky Cause     |
+| ------------------ | --------------- |
 | Auto-wait locators | Race conditions |
-| `waitForResponse` | Network timing |
-| Test isolation | Shared state |
-| Increase timeout | Slow operations |
+| `waitForResponse`  | Network timing  |
+| Test isolation     | Shared state    |
+| Increase timeout   | Slow operations |

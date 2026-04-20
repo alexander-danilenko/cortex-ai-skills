@@ -310,7 +310,7 @@ echo "✓ Release $VERSION ready for production"
 }
 ```
 
-## Build Optimization
+## Build Caching and Parallelization
 
 ### Build Caching Strategy
 

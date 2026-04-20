@@ -116,14 +116,14 @@ export const KnownRecord = {
 
 ## No-Mock Policy
 
-| In contract tests...       | DO                                      | DO NOT                             |
-|----------------------------|-----------------------------------------|------------------------------------|
-| Service under test         | Provide as real class in `providers`    | Mock with `useValue`               |
-| External API calls         | Let them hit the real API               | Intercept with `jest.spyOn`        |
-| Helper utilities           | Write as plain functions                | Wrap in `jest.fn()`                |
-| Service import in setup    | Use value import (`import { Svc }`)     | Use `import type`                  |
-| Service import in spec     | **MAY** use `import type`               | —                                  |
-| `jest.mock()`              | —                                       | Never use in contract tests        |
+| In contract tests...    | DO                                   | DO NOT                      |
+| ----------------------- | ------------------------------------ | --------------------------- |
+| Service under test      | Provide as real class in `providers` | Mock with `useValue`        |
+| External API calls      | Let them hit the real API            | Intercept with `jest.spyOn` |
+| Helper utilities        | Write as plain functions             | Wrap in `jest.fn()`         |
+| Service import in setup | Use value import (`import { Svc }`)  | Use `import type`           |
+| Service import in spec  | **MAY** use `import type`            | —                           |
+| `jest.mock()`           | —                                    | Never use in contract tests |
 
 ## Setup Helpers
 

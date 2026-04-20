@@ -96,7 +96,7 @@ Use PostgreSQL as the primary database, hosted on AWS RDS.
 
 ## ADR Naming Convention
 
-```
+```text
 docs/
 └── adr/
     ├── 0001-use-postgresql-database.md
@@ -107,10 +107,10 @@ docs/
 
 ## Quick Reference
 
-| Section | Purpose | Key Question |
-|---------|---------|--------------|
-| Status | Current state | Is this active? |
-| Context | Background | Why are we deciding? |
-| Decision | The choice | What did we choose? |
-| Consequences | Impact | What happens now? |
-| Alternatives | Options | What else was considered? |
+| Section      | Purpose       | Key Question              |
+| ------------ | ------------- | ------------------------- |
+| Status       | Current state | Is this active?           |
+| Context      | Background    | Why are we deciding?      |
+| Decision     | The choice    | What did we choose?       |
+| Consequences | Impact        | What happens now?         |
+| Alternatives | Options       | What else was considered? |

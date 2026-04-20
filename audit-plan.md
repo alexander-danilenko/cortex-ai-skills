@@ -1,5 +1,5 @@
 
-## Skills to analyze:
+## Skills to analyze
 
 - [x] ./skills/api-designer
 - [x] ./skills/architecture-designer
@@ -28,18 +28,18 @@
 - [x] ./skills/typescript-pro
 - [x] ./skills/legacy-modernizer
 
-## CRITICAL: One skill per run. Then STOP.
+## CRITICAL: One skill per run. Then STOP
 
 You are performing a **security audit** of AI skill files in this repository. DO NOT modify any files inside `./skills/`. This is a READ-ONLY audit.
 
-### What you do in THIS run:
+### What you do in THIS run
 
 > **EXACTLY ONE SKILL. Then check the box, write the report entry, save, and EXIT.**
 >
 > Do NOT audit a second skill. Do NOT keep going. Do NOT be helpful by doing more.
 > After you update this file with one result, you are DONE. Stop immediately.
 
-### Steps for this single run:
+### Steps for this single run
 
 1. **Find your ONE skill** — scan the checklist above. Pick the FIRST `- [ ]` item. That is your ONLY job this run.
    - If NO `- [ ]` items remain, skip to the **Completion** section below.
@@ -62,13 +62,14 @@ You are performing a **security audit** of AI skill files in this repository. DO
      - `FAIL — <description of vulnerability with specific file and line reference>`
 5. **STOP. You are done for this run.** Do not audit another skill. Exit now.
 
-### Completion (only when ALL boxes are checked):
+### Completion (only when ALL boxes are checked)
 
 If you arrive at step 1 and find NO `- [ ]` items remaining, then and ONLY then:
+
 - Append a `## Summary` section at the bottom with total skills audited, PASS/WARN/FAIL counts, and FAIL remediation recommendations.
 - Output: `<promise>RALPH_DONE</promise>`
 
-### Rules:
+### Rules
 
 - **ONE skill per run. No exceptions. Then stop.**
 - Always save progress to this file before exiting.
@@ -76,7 +77,7 @@ If you arrive at step 1 and find NO `- [ ]` items remaining, then and ONLY then:
 - If a skill directory does not exist or is empty, mark it `PASS — Directory empty or missing.`
 - Be specific in findings — cite the filename, approximate line, and the problematic instruction text.
 
-## Report:
+## Report
 
 - `./skills/api-designer`: PASS — No issues found.
 - `./skills/architecture-designer`: PASS — No issues found.
@@ -114,12 +115,12 @@ If you arrive at step 1 and find NO `- [ ]` items remaining, then and ONLY then:
 
 ### Remediation Status
 
-| Skill | Original Finding | Status |
-|-------|-----------------|--------|
-| `devops-engineer` | Inline credentials in K8s Secret and Docker Compose examples | ✅ FIXED |
-| `dotnet-core-expert` | Hardcoded JWT secret in `appsettings.json`; plaintext passwords in Docker Compose | ✅ FIXED |
-| `nestjs-expert` | Developer's absolute local filesystem path leaked in cross-reference comment | ✅ FIXED |
-| `nextjs-developer` | XSS-prone raw HTML render; wildcard CORS; URL query-param revalidation secret | ✅ FIXED |
-| `python-pro` | SQL f-string interpolation normalizes SQL injection pattern | ✅ FIXED |
-| `security-reviewer` | Secrets as CLI args (visible in process list); unbounded brute-force loop | ✅ FIXED |
-| `sre-engineer` | `shell=True` normalizes command injection; missing `check=True` in chaos rollbacks | ✅ FIXED |
+| Skill                | Original Finding                                                                   | Status   |
+| -------------------- | ---------------------------------------------------------------------------------- | -------- |
+| `devops-engineer`    | Inline credentials in K8s Secret and Docker Compose examples                       | ✅ FIXED |
+| `dotnet-core-expert` | Hardcoded JWT secret in `appsettings.json`; plaintext passwords in Docker Compose  | ✅ FIXED |
+| `nestjs-expert`      | Developer's absolute local filesystem path leaked in cross-reference comment       | ✅ FIXED |
+| `nextjs-developer`   | XSS-prone raw HTML render; wildcard CORS; URL query-param revalidation secret      | ✅ FIXED |
+| `python-pro`         | SQL f-string interpolation normalizes SQL injection pattern                        | ✅ FIXED |
+| `security-reviewer`  | Secrets as CLI args (visible in process list); unbounded brute-force loop          | ✅ FIXED |
+| `sre-engineer`       | `shell=True` normalizes command injection; missing `check=True` in chaos rollbacks | ✅ FIXED |

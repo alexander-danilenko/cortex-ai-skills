@@ -285,6 +285,7 @@ input CreateUserInput {
 ```
 
 **GraphQL Playground:**
+
 ```javascript
 const { ApolloServer } = require('apollo-server');
 
@@ -419,6 +420,7 @@ print(user.id)
 ```
 
 ## TypeScript
+
 ```typescript
 import { Client } from '@myapi/sdk';
 
@@ -431,6 +433,7 @@ console.log(user.id);
 ```
 
 ## Go
+
 ```go
 import "github.com/myapi/sdk-go"
 
@@ -446,6 +449,7 @@ fmt.Println(user.ID)
 ```
 
 ## Ruby
+
 ```ruby
 require 'myapi'
 
@@ -456,7 +460,8 @@ user = client.users.create(
 )
 puts user.id
 ```
-```
+
+```text
 
 ### SDK Reference Template
 
@@ -469,6 +474,7 @@ npm install @myapi/sdk
 ```
 
 ## Configuration
+
 ```typescript
 import { Client } from '@myapi/sdk';
 
@@ -482,20 +488,24 @@ const client = new Client({
 ## Methods
 
 ### `client.users.create(data)`
+
 Create a new user.
 
 **Parameters:**
+
 - `data.name` (string, required) - User's display name
 - `data.email` (string, required) - User's email address
 
 **Returns:** Promise<User>
 
 **Throws:**
+
 - `ValidationError` - Invalid input data
 - `ConflictError` - Email already exists
 - `AuthenticationError` - Invalid API key
 
 **Example:**
+
 ```typescript
 const user = await client.users.create({
   name: 'John Doe',
@@ -504,6 +514,7 @@ const user = await client.users.create({
 ```
 
 ## Error Handling
+
 ```typescript
 import { ValidationError, ConflictError } from '@myapi/sdk';
 
@@ -517,15 +528,16 @@ try {
   }
 }
 ```
-```
+
+```text
 
 ## Quick Reference
 
-| Tool | Protocol | Features |
-|------|----------|----------|
-| Swagger UI | REST | Try-it-out, auth |
-| Redoc | REST | Clean, responsive |
-| Stoplight | REST | Modern, mock server |
-| GraphQL Playground | GraphQL | Explorer, history |
-| AsyncAPI Studio | WebSocket | Visual editor |
-| grpcui | gRPC | Interactive console |
+| Tool               | Protocol  | Features            |
+| ------------------ | --------- | ------------------- |
+| Swagger UI         | REST      | Try-it-out, auth    |
+| Redoc              | REST      | Clean, responsive   |
+| Stoplight          | REST      | Modern, mock server |
+| GraphQL Playground | GraphQL   | Explorer, history   |
+| AsyncAPI Studio    | WebSocket | Visual editor       |
+| grpcui             | gRPC      | Interactive console |

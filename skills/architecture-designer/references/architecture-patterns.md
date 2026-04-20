@@ -2,17 +2,17 @@
 
 ## Pattern Comparison
 
-| Pattern | Best For | Team Size | Trade-offs |
-|---------|----------|-----------|------------|
-| **Monolith** | Simple domain, small team | 1-10 | Simple deploy; hard to scale parts |
-| **Modular Monolith** | Growing complexity | 5-20 | Module boundaries; still single deploy |
-| **Microservices** | Complex domain, large org | 20+ | Independent scale; operational complexity |
-| **Serverless** | Variable load, event-driven | Any | Auto-scale; cold starts, vendor lock |
-| **Event-Driven** | Async processing | 10+ | Loose coupling; debugging complexity |
+| Pattern              | Best For                    | Team Size | Trade-offs                                |
+| -------------------- | --------------------------- | --------- | ----------------------------------------- |
+| **Monolith**         | Simple domain, small team   | 1-10      | Simple deploy; hard to scale parts        |
+| **Modular Monolith** | Growing complexity          | 5-20      | Module boundaries; still single deploy    |
+| **Microservices**    | Complex domain, large org   | 20+       | Independent scale; operational complexity |
+| **Serverless**       | Variable load, event-driven | Any       | Auto-scale; cold starts, vendor lock      |
+| **Event-Driven**     | Async processing            | 10+       | Loose coupling; debugging complexity      |
 
 ## Monolith
 
-```
+```text
 ┌─────────────────────────────────────┐
 │            Application              │
 │  ┌─────┐  ┌─────┐  ┌─────┐         │
@@ -24,6 +24,7 @@
 ```
 
 **When to Use**:
+
 - Starting a new project
 - Small team (< 10 developers)
 - Simple domain
@@ -34,7 +35,7 @@
 
 ## Microservices
 
-```
+```text
 ┌──────────┐  ┌──────────┐  ┌──────────┐
 │  Users   │  │  Orders  │  │ Products │
 │ Service  │  │ Service  │  │ Service  │
@@ -46,6 +47,7 @@
 ```
 
 **When to Use**:
+
 - Large team (20+ developers)
 - Complex domain with clear boundaries
 - Different scaling requirements per service
@@ -56,7 +58,7 @@
 
 ## Event-Driven
 
-```
+```text
 ┌──────────┐     ┌─────────────┐     ┌──────────┐
 │ Producer │────▶│ Message Bus │────▶│ Consumer │
 └──────────┘     │  (Kafka)    │     └──────────┘
@@ -69,6 +71,7 @@
 ```
 
 **When to Use**:
+
 - Async processing required
 - Loose coupling between services
 - Event sourcing needs
@@ -79,7 +82,7 @@
 
 ## CQRS (Command Query Responsibility Segregation)
 
-```
+```text
 ┌─────────┐         ┌─────────────┐
 │ Commands│────────▶│ Write Model │──┐
 └─────────┘         └─────────────┘  │
@@ -94,6 +97,7 @@
 ```
 
 **When to Use**:
+
 - Read/write ratio heavily skewed
 - Complex read queries
 - Event sourcing architecture
@@ -101,11 +105,11 @@
 
 ## Quick Reference
 
-| Requirement | Recommended Pattern |
-|-------------|---------------------|
-| Simple CRUD app | Monolith |
-| Growing startup | Modular Monolith |
-| Enterprise scale | Microservices |
-| Variable load | Serverless |
-| Async processing | Event-Driven |
-| Read-heavy | CQRS |
+| Requirement      | Recommended Pattern |
+| ---------------- | ------------------- |
+| Simple CRUD app  | Monolith            |
+| Growing startup  | Modular Monolith    |
+| Enterprise scale | Microservices       |
+| Variable load    | Serverless          |
+| Async processing | Event-Driven        |
+| Read-heavy       | CQRS                |

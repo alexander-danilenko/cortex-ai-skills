@@ -311,14 +311,14 @@ WHERE index_name IS NOT NULL
 
 ## Index Anti-Patterns
 
-| Anti-Pattern | Issue | Solution |
-|-------------|-------|----------|
-| Index every column | Write overhead, storage waste | Index based on query patterns |
-| Redundant indexes | `(a)` + `(a,b)` | Keep only `(a,b)` |
-| Wrong column order | `(created_at, user_id)` for `WHERE user_id = ?` | Put filtered columns first |
-| Over-covering | Including rarely-used columns | Include only frequently accessed columns |
-| Ignoring WHERE clause | Full index for 5% of data | Use partial indexes |
-| Expression mismatch | Index `email`, query `LOWER(email)` | Create expression index |
+| Anti-Pattern          | Issue                                           | Solution                                 |
+| --------------------- | ----------------------------------------------- | ---------------------------------------- |
+| Index every column    | Write overhead, storage waste                   | Index based on query patterns            |
+| Redundant indexes     | `(a)` + `(a,b)`                                 | Keep only `(a,b)`                        |
+| Wrong column order    | `(created_at, user_id)` for `WHERE user_id = ?` | Put filtered columns first               |
+| Over-covering         | Including rarely-used columns                   | Include only frequently accessed columns |
+| Ignoring WHERE clause | Full index for 5% of data                       | Use partial indexes                      |
+| Expression mismatch   | Index `email`, query `LOWER(email)`             | Create expression index                  |
 
 ## Index Design Checklist
 

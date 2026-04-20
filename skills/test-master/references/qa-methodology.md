@@ -3,6 +3,7 @@
 ## Manual Testing Types
 
 ### Exploratory Testing
+
 ```markdown
 **Charter**: Explore {feature} with focus on {aspect}
 **Duration**: 60-90 min
@@ -22,6 +23,7 @@ Coverage: {Areas explored} | Risks: {Identified risks}
 ```
 
 ### Usability Testing
+
 ```markdown
 **Task**: Can users complete {action} intuitively?
 **Metrics**: Time to complete, errors made, satisfaction (1-5)
@@ -34,6 +36,7 @@ Observations:
 ```
 
 ### Accessibility Testing (WCAG 2.1 AA)
+
 ```typescript
 test('accessibility compliance', async ({ page }) => {
   // Keyboard navigation
@@ -55,6 +58,7 @@ test('accessibility compliance', async ({ page }) => {
 ```
 
 ### Localization Testing
+
 ```markdown
 **Test**: {Feature} in {language/locale}
 - [ ] Text displays without truncation
@@ -65,6 +69,7 @@ test('accessibility compliance', async ({ page }) => {
 ```
 
 ### Compatibility Matrix
+
 ```markdown
 | Browser | Version | OS | Status |
 |---------|---------|----|----- --|
@@ -77,6 +82,7 @@ test('accessibility compliance', async ({ page }) => {
 ## Test Design Techniques
 
 ### Pairwise Testing
+
 ```typescript
 // Test all parameter pairs efficiently
 const pairwiseTests = [
@@ -88,6 +94,7 @@ const pairwiseTests = [
 ```
 
 ### Risk-Based Testing
+
 ```markdown
 | Risk | Probability | Impact | Priority | Test Effort |
 |------|-------------|--------|----------|-------------|
@@ -100,6 +107,7 @@ const pairwiseTests = [
 ## Defect Management
 
 ### Root Cause Analysis (5 Whys)
+
 ```markdown
 1. Why did defect occur? {User input not validated}
 2. Why wasn't it validated? {Validation logic missing}
@@ -112,6 +120,7 @@ const pairwiseTests = [
 ```
 
 ### Defect Report Template
+
 ```markdown
 ## [CRITICAL] {Defect Title}
 
@@ -129,6 +138,7 @@ const pairwiseTests = [
 ## Quality Metrics
 
 ### Key Calculations
+
 ```typescript
 // Defect Removal Efficiency (target: >95%)
 const dre = (defectsInTesting / (defectsInTesting + defectsInProd)) * 100;
@@ -144,6 +154,7 @@ const roi = (timeSaved - maintenanceCost - developmentCost) / developmentCost;
 ```
 
 ### Quality Dashboard
+
 ```markdown
 | Metric | Target | Actual | Trend | Status |
 |--------|--------|--------|-------|--------|
@@ -157,6 +168,7 @@ const roi = (timeSaved - maintenanceCost - developmentCost) / developmentCost;
 ## Continuous Testing & Shift-Left
 
 ### Shift-Left Activities
+
 ```markdown
 **Early Testing**:
 - Review requirements for testability
@@ -170,6 +182,7 @@ const roi = (timeSaved - maintenanceCost - developmentCost) / developmentCost;
 ```
 
 ### Feedback Cycle Targets
+
 ```typescript
 const feedbackCycle = {
   unitTests: '< 5 min',       // On save
@@ -182,6 +195,7 @@ const feedbackCycle = {
 ## Quality Advocacy
 
 ### Quality Gates
+
 ```markdown
 ## Production Release Gate
 
@@ -197,6 +211,7 @@ const feedbackCycle = {
 ```
 
 ### Team Education Program
+
 ```markdown
 **Week 1-2**: Test fundamentals
 **Week 3-4**: Automation basics
@@ -207,6 +222,7 @@ const feedbackCycle = {
 ## Test Planning
 
 ### Test Plan Template
+
 ```markdown
 ## Test Plan: {Feature}
 
@@ -221,6 +237,7 @@ const feedbackCycle = {
 ```
 
 ### Environment Strategy
+
 ```markdown
 | Env | Purpose | Data | Refresh | Access |
 |-----|---------|------|---------|--------|
@@ -232,16 +249,16 @@ const feedbackCycle = {
 
 ## Quick Reference
 
-| Testing Type | When | Duration |
-|--------------|------|----------|
-| Exploratory | New features | 60-120 min |
-| Usability | UI changes | 2-4 hours |
-| Accessibility | Every release | 1-2 hours |
-| Localization | Multi-region | 1 day/locale |
+| Testing Type  | When          | Duration     |
+| ------------- | ------------- | ------------ |
+| Exploratory   | New features  | 60-120 min   |
+| Usability     | UI changes    | 2-4 hours    |
+| Accessibility | Every release | 1-2 hours    |
+| Localization  | Multi-region  | 1 day/locale |
 
-| Metric | Excellent | Good | Needs Work |
-|--------|-----------|------|------------|
-| Coverage | >90% | 70-90% | <70% |
-| Leakage | <2% | 2-5% | >5% |
-| Automation | >80% | 60-80% | <60% |
-| MTTR | <24h | 24-48h | >48h |
+| Metric     | Excellent | Good   | Needs Work |
+| ---------- | --------- | ------ | ---------- |
+| Coverage   | >90%      | 70-90% | <70%       |
+| Leakage    | <2%       | 2-5%   | >5%        |
+| Automation | >80%      | 60-80% | <60%       |
+| MTTR       | <24h      | 24-48h | >48h       |

@@ -3,6 +3,7 @@
 ## Advanced Framework Patterns
 
 ### Screenplay Pattern
+
 ```typescript
 // Better separation of concerns than POM
 export class Actor {
@@ -26,6 +27,7 @@ await new Actor(page).attemptsTo(new Login('user@test.com', 'pass'));
 ```
 
 ### Keyword-Driven Testing
+
 ```typescript
 const keywords = {
   NAVIGATE: (page, url) => page.goto(url),
@@ -45,6 +47,7 @@ for (const step of steps) await keywords[step.keyword](page, ...step.args);
 ```
 
 ### Model-Based Testing
+
 ```typescript
 // State machine defines valid transitions
 const cartModel = {
@@ -60,6 +63,7 @@ const testPaths = generatePathsFromModel(cartModel);
 ## Maintenance Strategies
 
 ### Self-Healing Locators
+
 ```typescript
 // Multi-strategy finder with automatic fallback
 async function findElement(page: Page, strategies: string[]): Promise<Locator> {
@@ -79,6 +83,7 @@ const submit = await findElement(page, [
 ```
 
 ### Error Recovery & Smart Retry
+
 ```typescript
 // Auto-retry with recovery actions
 async function clickWithRecovery(page: Page, selector: string, retries = 3) {
@@ -110,6 +115,7 @@ async function retryWithBackoff<T>(fn: () => Promise<T>, retries = 3): Promise<T
 ## Scaling Strategies
 
 ### Parallel & Distributed Execution
+
 ```typescript
 // playwright.config.ts
 export default defineConfig({
@@ -135,6 +141,7 @@ steps:
 ```
 
 ### Resource Optimization
+
 ```typescript
 // Reuse browser contexts for faster execution
 let browser: Browser;
@@ -160,6 +167,7 @@ test.afterAll(async () => {
 ## CI/CD Integration
 
 ### Complete Pipeline
+
 ```yaml
 name: E2E Tests
 on: [push, pull_request]
@@ -189,6 +197,7 @@ jobs:
 ```
 
 ### Test Data Factories
+
 ```typescript
 export class UserFactory {
   static create(overrides?: Partial<User>): User {
@@ -217,6 +226,7 @@ test.beforeEach(async ({ page }) => {
 ## Team Enablement
 
 ### Training Program
+
 ```markdown
 **Week 1-2**: Framework basics, page objects, first test
 **Week 3-4**: Data-driven, API integration, CI/CD
@@ -225,6 +235,7 @@ test.beforeEach(async ({ page }) => {
 ```
 
 ### Code Review Checklist
+
 ```markdown
 - [ ] Independent tests (no order dependency)
 - [ ] Semantic locators (getByRole, getByLabel)
@@ -238,6 +249,7 @@ test.beforeEach(async ({ page }) => {
 ## Automation Strategy
 
 ### ROI Calculation
+
 ```typescript
 const manual = { timePerRun: 30, runsPerSprint: 10 };
 const automation = { development: 120, maintenance: 5 };
@@ -250,6 +262,7 @@ const annualSavings = (timeSaved * 26 - automation.development) / 60; // hours
 ```
 
 ### Selection Criteria
+
 ```markdown
 **Automate**: Repetitive, stable UI, critical paths, data-driven, positive ROI
 **Don't Automate**: Exploratory, changing UI, one-time, usability, negative ROI
@@ -258,6 +271,7 @@ const annualSavings = (timeSaved * 26 - automation.development) / 60; // hours
 ## Reporting & Metrics
 
 ### Custom Reporter
+
 ```typescript
 class MetricsReporter implements Reporter {
   onTestEnd(test: TestCase, result: TestResult) {
@@ -273,22 +287,22 @@ class MetricsReporter implements Reporter {
 
 ## Quick Reference
 
-| Pattern | Best For | Complexity |
-|---------|----------|-----------|
-| Page Object | Reusable components | Medium |
-| Screenplay | Complex workflows | High |
-| Keyword-Driven | Non-tech testers | Low |
-| Model-Based | State machines | High |
+| Pattern        | Best For            | Complexity |
+| -------------- | ------------------- | ---------- |
+| Page Object    | Reusable components | Medium     |
+| Screenplay     | Complex workflows   | High       |
+| Keyword-Driven | Non-tech testers    | Low        |
+| Model-Based    | State machines      | High       |
 
-| Scaling | Use Case |
-|---------|----------|
-| Parallel | Reduce time |
-| Distributed | Large suites |
-| Cloud | Cross-browser |
-| Resource Reuse | Speed |
+| Scaling        | Use Case      |
+| -------------- | ------------- |
+| Parallel       | Reduce time   |
+| Distributed    | Large suites  |
+| Cloud          | Cross-browser |
+| Resource Reuse | Speed         |
 
-| Tool | Category |
-|------|----------|
-| Playwright, Cypress | Web E2E |
-| Appium, Detox | Mobile |
-| k6, Gatling | Performance |
+| Tool                | Category    |
+| ------------------- | ----------- |
+| Playwright, Cypress | Web E2E     |
+| Appium, Detox       | Mobile      |
+| k6, Gatling         | Performance |

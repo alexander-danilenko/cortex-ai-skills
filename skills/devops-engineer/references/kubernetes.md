@@ -135,15 +135,15 @@ spec:
 
 ## Quick Reference
 
-| Resource | Purpose |
-|----------|---------|
+| Resource   | Purpose                              |
+| ---------- | ------------------------------------ |
 | Deployment | Manages ReplicaSets, rolling updates |
-| Service | Internal load balancing, DNS |
-| Ingress | External HTTP/HTTPS routing |
-| ConfigMap | Non-sensitive configuration |
-| Secret | Sensitive data (base64 encoded) |
-| HPA | Auto-scaling based on metrics |
-| PVC | Persistent storage claims |
+| Service    | Internal load balancing, DNS         |
+| Ingress    | External HTTP/HTTPS routing          |
+| ConfigMap  | Non-sensitive configuration          |
+| Secret     | Sensitive data (base64 encoded)      |
+| HPA        | Auto-scaling based on metrics        |
+| PVC        | Persistent storage claims            |
 
 ## Common kubectl Commands
 

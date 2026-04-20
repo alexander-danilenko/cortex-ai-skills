@@ -4,7 +4,7 @@
 
 The strangler fig pattern gradually replaces legacy systems by incrementally building new functionality around the old system, eventually "strangling" it out of existence.
 
-```
+```text
 Legacy System → Facade/Router → New System
      ↓              ↓               ↓
   Old Code    Feature Flags    Modern Code
@@ -272,10 +272,10 @@ PHASES = [
 
 ## Quick Reference
 
-| Stage | Actions | Validation |
-|-------|---------|------------|
-| Setup | Create facade, feature flags | Smoke tests pass |
-| Canary | Route 10% traffic | Error rate < 1% |
-| Ramp | Route 50% traffic | Performance parity |
-| Full | Route 100% traffic | All metrics green |
-| Cleanup | Remove legacy code | Legacy unused 30 days |
+| Stage   | Actions                      | Validation            |
+| ------- | ---------------------------- | --------------------- |
+| Setup   | Create facade, feature flags | Smoke tests pass      |
+| Canary  | Route 10% traffic            | Error rate < 1%       |
+| Ramp    | Route 50% traffic            | Performance parity    |
+| Full    | Route 100% traffic           | All metrics green     |
+| Cleanup | Remove legacy code           | Legacy unused 30 days |

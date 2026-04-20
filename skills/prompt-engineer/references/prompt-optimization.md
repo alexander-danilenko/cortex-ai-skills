@@ -4,7 +4,7 @@
 
 ## The Optimization Loop
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         PROMPT OPTIMIZATION CYCLE                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -89,14 +89,14 @@ When prompts underperform, diagnose the root cause before changing anything.
 
 ### Failure Category Analysis
 
-| Failure Type | Symptoms | Common Causes |
-|--------------|----------|---------------|
-| **Format errors** | Wrong structure, missing fields | Unclear format spec, no examples |
-| **Hallucinations** | Made-up facts, wrong answers | Lack of grounding, vague instructions |
-| **Inconsistency** | Same input, different outputs | Ambiguous instructions, high temperature |
-| **Over-verbosity** | Too much explanation | No length constraints, wrong audience |
-| **Under-performance** | Low accuracy across board | Wrong pattern choice, insufficient context |
-| **Edge case failures** | Breaks on unusual inputs | Missing constraint handling |
+| Failure Type           | Symptoms                        | Common Causes                              |
+| ---------------------- | ------------------------------- | ------------------------------------------ |
+| **Format errors**      | Wrong structure, missing fields | Unclear format spec, no examples           |
+| **Hallucinations**     | Made-up facts, wrong answers    | Lack of grounding, vague instructions      |
+| **Inconsistency**      | Same input, different outputs   | Ambiguous instructions, high temperature   |
+| **Over-verbosity**     | Too much explanation            | No length constraints, wrong audience      |
+| **Under-performance**  | Low accuracy across board       | Wrong pattern choice, insufficient context |
+| **Edge case failures** | Breaks on unusual inputs        | Missing constraint handling                |
 
 ### Diagnostic Questions
 
@@ -169,14 +169,16 @@ def analyze_failures(results: list) -> dict:
 **Problem:** Vague or ambiguous instructions leading to inconsistent outputs.
 
 **Before:**
-```
+
+```text
 Summarize this article.
 
 {article}
 ```
 
 **After:**
-```
+
+```yaml
 Summarize the following article in exactly 2-3 sentences.
 Focus on the main conclusion and key supporting evidence.
 Do not include quotes or specific numbers unless essential.
@@ -193,14 +195,16 @@ Summary:
 **Problem:** Outputs that are technically correct but don't meet practical needs.
 
 **Before:**
-```
+
+```text
 Extract the email addresses from this text.
 
 {text}
 ```
 
 **After:**
-```
+
+```yaml
 Extract all valid email addresses from the following text.
 
 Requirements:
@@ -243,12 +247,14 @@ def calibrate_examples(example_pool: list, real_inputs: list, k: int = 5) -> lis
 **Problem:** Model produces correct content but wrong structure.
 
 **Before:**
-```
+
+```text
 Analyze this code for security issues.
 ```
 
 **After:**
-```
+
+```yaml
 Analyze this code for security issues using the following structure:
 
 ## Summary
@@ -274,18 +280,19 @@ Code:
 
 ### Token Reduction Strategies
 
-| Strategy | Savings | Risk | When to Use |
-|----------|---------|------|-------------|
-| Remove redundant instructions | 10-20% | Low | Always |
-| Shorten examples | 20-40% | Medium | Token-constrained |
-| Use abbreviations/symbols | 5-15% | Medium | Technical audiences |
-| Compress context | 30-50% | High | Very long inputs |
-| Switch to zero-shot | 40-60% | High | Simple tasks |
+| Strategy                      | Savings | Risk   | When to Use         |
+| ----------------------------- | ------- | ------ | ------------------- |
+| Remove redundant instructions | 10-20%  | Low    | Always              |
+| Shorten examples              | 20-40%  | Medium | Token-constrained   |
+| Use abbreviations/symbols     | 5-15%   | Medium | Technical audiences |
+| Compress context              | 30-50%  | High   | Very long inputs    |
+| Switch to zero-shot           | 40-60%  | High   | Simple tasks        |
 
 ### Before/After: Token Reduction
 
 **Before (180 tokens):**
-```
+
+```text
 You are a helpful assistant that specializes in analyzing customer feedback
 and extracting sentiment information. Your task is to read the customer
 review provided below and determine whether the overall sentiment expressed
@@ -300,7 +307,8 @@ Sentiment:
 ```
 
 **After (45 tokens):**
-```
+
+```text
 Classify sentiment as: positive, negative, or neutral.
 Reply with one word only.
 
@@ -516,20 +524,20 @@ Revert to v2.0.0 if accuracy drops below 90% in production.
 
 ## Common Optimization Mistakes
 
-| Mistake | Why It's Wrong | Better Approach |
-|---------|----------------|-----------------|
-| Multiple changes at once | Can't identify what worked | One change per iteration |
-| Testing on training examples | Overfitting to test set | Hold out validation set |
-| Optimizing for edge cases first | May hurt common case | Fix common cases first |
-| Ignoring latency/cost | Production constraints matter | Track all metrics |
-| No baseline measurement | Can't prove improvement | Always measure first |
-| Skipping failure analysis | Symptoms vs. root cause | Diagnose before changing |
+| Mistake                         | Why It's Wrong                | Better Approach          |
+| ------------------------------- | ----------------------------- | ------------------------ |
+| Multiple changes at once        | Can't identify what worked    | One change per iteration |
+| Testing on training examples    | Overfitting to test set       | Hold out validation set  |
+| Optimizing for edge cases first | May hurt common case          | Fix common cases first   |
+| Ignoring latency/cost           | Production constraints matter | Track all metrics        |
+| No baseline measurement         | Can't prove improvement       | Always measure first     |
+| Skipping failure analysis       | Symptoms vs. root cause       | Diagnose before changing |
 
 ---
 
 ## Optimization Decision Tree
 
-```
+```text
                     ┌──────────────────────────┐
                     │   Prompt Underperforms   │
                     └────────────┬─────────────┘

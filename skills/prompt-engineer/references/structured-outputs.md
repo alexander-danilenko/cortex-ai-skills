@@ -4,7 +4,7 @@
 
 ## Structured Output Methods
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    STRUCTURED OUTPUT APPROACHES                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -32,7 +32,7 @@
 
 ### Basic JSON Request
 
-```
+```yaml
 Extract the following information from the text and return as JSON:
 - person_name: string
 - company: string
@@ -46,7 +46,7 @@ Return only valid JSON, no other text:
 
 ### With Schema Definition
 
-```
+```yaml
 Extract meeting information from the transcript.
 
 Return a JSON object matching this schema:
@@ -77,7 +77,7 @@ Transcript:
 
 ### Output Wrapping Technique
 
-```
+```yaml
 Analyze the code and identify issues. Return your analysis in this exact format:
 
 <analysis>
@@ -179,13 +179,13 @@ result = json.loads(response.choices[0].message.content)
 
 ### JSON Mode Best Practices
 
-| Practice | Why |
-|----------|-----|
-| Always describe expected schema | Model needs to know structure |
-| Specify null handling | "Use null for missing fields" |
-| Define array behavior | "Return empty array if none found" |
-| Include field descriptions | Improves extraction accuracy |
-| Add type annotations | "date: string in YYYY-MM-DD format" |
+| Practice                        | Why                                 |
+| ------------------------------- | ----------------------------------- |
+| Always describe expected schema | Model needs to know structure       |
+| Specify null handling           | "Use null for missing fields"       |
+| Define array behavior           | "Return empty array if none found"  |
+| Include field descriptions      | Improves extraction accuracy        |
+| Add type annotations            | "date: string in YYYY-MM-DD format" |
 
 ---
 
@@ -534,7 +534,7 @@ Original request:
 
 ### Multi-Entity Extraction
 
-```
+```yaml
 Extract all entities from the following document.
 
 Return JSON with this structure:
@@ -578,7 +578,7 @@ Document:
 
 ### Hierarchical Data Extraction
 
-```
+```yaml
 Parse this organizational structure and return as JSON:
 
 {
@@ -607,7 +607,7 @@ Text:
 
 ### Form Data Extraction
 
-```
+```text
 Extract form data from this image/document.
 
 Return JSON:
@@ -675,6 +675,7 @@ Response (JSON array only):"""
 ### Schema Simplification
 
 **Overly complex schema (expensive):**
+
 ```json
 {
   "analysis": {
@@ -690,6 +691,7 @@ Response (JSON array only):"""
 ```
 
 **Simplified schema (cost-effective):**
+
 ```json
 {
   "sentiment": "positive|negative|neutral",
@@ -702,14 +704,14 @@ Response (JSON array only):"""
 
 ## Common Pitfalls
 
-| Pitfall | Problem | Solution |
-|---------|---------|----------|
-| No schema in prompt | Model invents structure | Always specify expected schema |
-| Ambiguous field names | Inconsistent extraction | Use descriptive names with examples |
-| Missing null handling | Errors on optional fields | Explicitly state "null if not found" |
-| Complex nested schemas | Inconsistent output | Flatten when possible |
-| No validation | Silent failures | Always validate with Pydantic/Zod |
-| Large schemas | Token waste, confusion | Split into multiple calls |
+| Pitfall                | Problem                   | Solution                             |
+| ---------------------- | ------------------------- | ------------------------------------ |
+| No schema in prompt    | Model invents structure   | Always specify expected schema       |
+| Ambiguous field names  | Inconsistent extraction   | Use descriptive names with examples  |
+| Missing null handling  | Errors on optional fields | Explicitly state "null if not found" |
+| Complex nested schemas | Inconsistent output       | Flatten when possible                |
+| No validation          | Silent failures           | Always validate with Pydantic/Zod    |
+| Large schemas          | Token waste, confusion    | Split into multiple calls            |
 
 ---
 

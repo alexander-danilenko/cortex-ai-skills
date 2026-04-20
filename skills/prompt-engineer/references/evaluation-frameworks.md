@@ -4,7 +4,7 @@
 
 ## Evaluation Hierarchy
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                          EVALUATION PYRAMID                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -35,13 +35,13 @@
 
 ### Classification Tasks
 
-| Metric | Formula | When to Use |
-|--------|---------|-------------|
-| **Accuracy** | (TP + TN) / Total | Balanced classes |
-| **Precision** | TP / (TP + FP) | Cost of false positives high |
-| **Recall** | TP / (TP + FN) | Cost of false negatives high |
-| **F1 Score** | 2 * (P * R) / (P + R) | Imbalanced classes |
-| **Cohen's Kappa** | (Accuracy - Expected) / (1 - Expected) | Inter-rater agreement |
+| Metric            | Formula                                | When to Use                  |
+| ----------------- | -------------------------------------- | ---------------------------- |
+| **Accuracy**      | (TP + TN) / Total                      | Balanced classes             |
+| **Precision**     | TP / (TP + FP)                         | Cost of false positives high |
+| **Recall**        | TP / (TP + FN)                         | Cost of false negatives high |
+| **F1 Score**      | 2 *(P* R) / (P + R)                    | Imbalanced classes           |
+| **Cohen's Kappa** | (Accuracy - Expected) / (1 - Expected) | Inter-rater agreement        |
 
 ```python
 from sklearn.metrics import classification_report, confusion_matrix
@@ -70,12 +70,12 @@ def evaluate_classification(predictions: list, labels: list) -> dict:
 
 ### Generation Tasks
 
-| Metric | Measures | Limitations |
-|--------|----------|-------------|
-| **BLEU** | N-gram overlap with reference | Doesn't capture semantics |
-| **ROUGE** | Recall of reference n-grams | Better for summarization |
-| **BERTScore** | Semantic similarity via embeddings | Computationally expensive |
-| **Perplexity** | Model confidence | Doesn't measure correctness |
+| Metric         | Measures                           | Limitations                 |
+| -------------- | ---------------------------------- | --------------------------- |
+| **BLEU**       | N-gram overlap with reference      | Doesn't capture semantics   |
+| **ROUGE**      | Recall of reference n-grams        | Better for summarization    |
+| **BERTScore**  | Semantic similarity via embeddings | Computationally expensive   |
+| **Perplexity** | Model confidence                   | Doesn't measure correctness |
 
 ```python
 from evaluate import load
@@ -169,7 +169,7 @@ def evaluate_extraction(
 
 ### Basic Judge Prompt
 
-```
+```yaml
 You are an expert evaluator assessing the quality of AI-generated responses.
 
 Evaluate the following response on a scale of 1-5 for each criterion:
@@ -218,34 +218,43 @@ Provide your evaluation in the following JSON format:
   "summary": "<one sentence summary>"
 }
 ```
-```
+
+```text
 
 ### Pairwise Comparison Judge
 
 ```
+
 You are an expert evaluator comparing two AI responses.
 
 ## Task
+
 Determine which response better answers the user's question.
 
 ## User Question
+
 {question}
 
 ## Response A
+
 {response_a}
 
 ## Response B
+
 {response_b}
 
 ## Evaluation Criteria
+
 Consider: accuracy, completeness, clarity, and helpfulness.
 
 ## Instructions
+
 1. Analyze both responses carefully
 2. Identify strengths and weaknesses of each
 3. Choose the better response or declare a tie
 
 Respond with JSON:
+
 ```json
 {
   "analysis_a": "<strengths and weaknesses of A>",
@@ -255,7 +264,8 @@ Respond with JSON:
   "reasoning": "<why the winner is better>"
 }
 ```
-```
+
+```text
 
 ### Judge Implementation
 
@@ -319,12 +329,12 @@ class LLMJudge:
 
 ### Reducing Judge Bias
 
-| Bias Type | Mitigation Strategy |
-|-----------|---------------------|
-| Position bias | Randomize response order, run both orders |
-| Verbosity bias | Instruct judge to focus on content, not length |
+| Bias Type       | Mitigation Strategy                             |
+| --------------- | ----------------------------------------------- |
+| Position bias   | Randomize response order, run both orders       |
+| Verbosity bias  | Instruct judge to focus on content, not length  |
 | Self-preference | Use different model for judging than generating |
-| Anchoring | Evaluate responses independently first |
+| Anchoring       | Evaluate responses independently first          |
 
 ---
 
@@ -332,7 +342,7 @@ class LLMJudge:
 
 ### Directory Structure
 
-```
+```text
 evaluation/
 ├── test_cases/
 │   ├── classification/

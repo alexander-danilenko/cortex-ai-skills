@@ -440,16 +440,16 @@ export async function createPost(formData: FormData) {
 
 ## Quick Reference
 
-| Capability | Usage |
-|------------|-------|
-| **Define** | Add 'use server' at top of file or function |
-| **Form** | Pass action to `<form action={serverAction}>` |
-| **Programmatic** | Call directly: `await serverAction(data)` |
-| **Validation** | Use Zod/TypeBox before mutations |
-| **Revalidate** | `revalidatePath()` or `revalidateTag()` |
-| **Redirect** | `redirect()` after mutation |
-| **Errors** | Return error objects, handle in client |
-| **Files** | Access via `formData.get()` as File |
+| Capability       | Usage                                         |
+| ---------------- | --------------------------------------------- |
+| **Define**       | Add 'use server' at top of file or function   |
+| **Form**         | Pass action to `<form action={serverAction}>` |
+| **Programmatic** | Call directly: `await serverAction(data)`     |
+| **Validation**   | Use Zod/TypeBox before mutations              |
+| **Revalidate**   | `revalidatePath()` or `revalidateTag()`       |
+| **Redirect**     | `redirect()` after mutation                   |
+| **Errors**       | Return error objects, handle in client        |
+| **Files**        | Access via `formData.get()` as File           |
 
 ## Best Practices
 

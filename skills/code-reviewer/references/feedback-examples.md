@@ -84,12 +84,14 @@ for (const post of posts) {
 ```
 
 Suggestion: Use eager loading:
+
 ```typescript
 const posts = await Post.findAll({ include: [User] });
 ```
 
 Impact: ~100 extra DB queries per request with current approach.
-```
+
+```text
 
 ### Minor (Nice to Have)
 
@@ -135,10 +137,10 @@ suggestions are performance improvements worth considering.
 
 ## Quick Reference
 
-| Feedback Type | Tone | Required Action |
-|---------------|------|-----------------|
-| Critical | Firm, clear | Must fix before merge |
-| Major | Suggestive | Should fix |
-| Minor | Optional | Nice to have |
-| Praise | Positive | None - reinforcement |
-| Question | Curious | Response needed |
+| Feedback Type | Tone        | Required Action       |
+| ------------- | ----------- | --------------------- |
+| Critical      | Firm, clear | Must fix before merge |
+| Major         | Suggestive  | Should fix            |
+| Minor         | Optional    | Nice to have          |
+| Praise        | Positive    | None - reinforcement  |
+| Question      | Curious     | Response needed       |

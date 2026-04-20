@@ -4,7 +4,7 @@
 
 ## Pattern Selection Guide
 
-```
+```text
                         ┌─────────────────────────────────────┐
                         │        TASK CHARACTERISTICS         │
                         └─────────────────────────────────────┘
@@ -20,13 +20,13 @@
     └─────────────┘              └─────────────┘              └─────────────┘
 ```
 
-| Pattern | Best For | Token Cost | Reliability |
-|---------|----------|------------|-------------|
-| Zero-shot | Simple, well-defined tasks | Low | Medium |
-| Few-shot | Tasks needing format guidance | Medium | High |
-| Chain-of-Thought | Reasoning, math, logic | Medium-High | High |
-| ReAct | Multi-step tasks with tools | High | Very High |
-| Tree-of-Thoughts | Complex problem solving | Very High | Very High |
+| Pattern          | Best For                      | Token Cost  | Reliability |
+| ---------------- | ----------------------------- | ----------- | ----------- |
+| Zero-shot        | Simple, well-defined tasks    | Low         | Medium      |
+| Few-shot         | Tasks needing format guidance | Medium      | High        |
+| Chain-of-Thought | Reasoning, math, logic        | Medium-High | High        |
+| ReAct            | Multi-step tasks with tools   | High        | Very High   |
+| Tree-of-Thoughts | Complex problem solving       | Very High   | Very High   |
 
 ---
 
@@ -38,7 +38,7 @@
 
 ### Basic Structure
 
-```
+```text
 <role>You are a [specific role with relevant expertise].</role>
 
 <task>
@@ -61,7 +61,7 @@
 
 ### Example: Sentiment Classification
 
-```
+```text
 You are a sentiment analysis expert.
 
 Classify the following customer review as POSITIVE, NEGATIVE, or NEUTRAL.
@@ -74,7 +74,7 @@ Classification:
 
 ### Example: Entity Extraction
 
-```
+```text
 Extract all company names mentioned in the following text.
 Return them as a JSON array of strings.
 If no companies are mentioned, return an empty array.
@@ -101,7 +101,7 @@ Companies:
 
 ### Basic Structure
 
-```
+```text
 <task>
 [Task description]
 </task>
@@ -126,7 +126,7 @@ Output:
 
 ### Example: Code Review Comments
 
-```
+```text
 Generate a constructive code review comment for the given code issue.
 
 Example 1:
@@ -147,12 +147,12 @@ Comment:
 
 ### Few-Shot Selection Strategies
 
-| Strategy | Description | Best For |
-|----------|-------------|----------|
-| Diverse | Cover different cases/categories | Classification, categorization |
-| Similar | Match examples to input type | Consistent formatting |
-| Increasing complexity | Start simple, build up | Complex reasoning tasks |
-| Edge cases | Include boundary cases | Robust handling |
+| Strategy              | Description                      | Best For                       |
+| --------------------- | -------------------------------- | ------------------------------ |
+| Diverse               | Cover different cases/categories | Classification, categorization |
+| Similar               | Match examples to input type     | Consistent formatting          |
+| Increasing complexity | Start simple, build up           | Complex reasoning tasks        |
+| Edge cases            | Include boundary cases           | Robust handling                |
 
 ### Example Selection Guidelines
 
@@ -191,7 +191,7 @@ def select_examples(query: str, example_pool: list, k: int = 3) -> list:
 
 Simply add "Let's think step by step" or similar phrase:
 
-```
+```text
 Solve the following problem step by step:
 
 {problem}
@@ -201,7 +201,7 @@ Let's work through this systematically:
 
 ### Structured CoT
 
-```
+```text
 Analyze the following problem and solve it step by step.
 
 Problem: {problem}
@@ -226,7 +226,7 @@ Final Answer:
 
 ### Example: Debugging with CoT
 
-```
+```yaml
 Debug the following code by analyzing it step by step.
 
 Code:
@@ -243,19 +243,24 @@ Error: ZeroDivisionError when called with empty list
 ## Analysis
 
 ### Step 1: Trace the execution path
+
 Let me trace what happens when `numbers = []`:
+
 1. `total = 0` - total is initialized to 0
 2. `for num in numbers:` - loop doesn't execute (empty list)
 3. `return total / len(numbers)` - returns `0 / 0`
 
 ### Step 2: Identify the root cause
+
 The function doesn't handle the edge case of an empty list.
 `len([])` returns 0, causing division by zero.
 
 ### Step 3: Propose fix
+
 Add a check for empty input before division.
 
-### Fixed Code:
+### Fixed Code
+
 ```python
 def calculate_average(numbers):
     if not numbers:
@@ -263,16 +268,17 @@ def calculate_average(numbers):
     total = sum(numbers)
     return total / len(numbers)
 ```
-```
+
+```text
 
 ### CoT Variants
 
-| Variant | Technique | Use Case |
-|---------|-----------|----------|
-| Zero-shot CoT | "Think step by step" | Quick reasoning tasks |
-| Manual CoT | Explicit step examples | Complex domain problems |
-| Self-consistency | Generate multiple paths, vote | High-stakes decisions |
-| Least-to-most | Decompose into subproblems | Complex multi-part problems |
+| Variant          | Technique                     | Use Case                    |
+| ---------------- | ----------------------------- | --------------------------- |
+| Zero-shot CoT    | "Think step by step"          | Quick reasoning tasks       |
+| Manual CoT       | Explicit step examples        | Complex domain problems     |
+| Self-consistency | Generate multiple paths, vote | High-stakes decisions       |
+| Least-to-most    | Decompose into subproblems    | Complex multi-part problems |
 
 ---
 
@@ -285,9 +291,11 @@ def calculate_average(numbers):
 ### ReAct Structure
 
 ```
+
 You are an assistant that solves problems by thinking and taking actions.
 
 Available tools:
+
 - search(query): Search the web for information
 - calculate(expression): Evaluate a mathematical expression
 - lookup(term): Look up a definition or fact
@@ -301,11 +309,13 @@ Thought: I now have enough information to answer.
 Answer: [Final answer]
 
 Question: {user_question}
-```
+
+```text
 
 ### Example: ReAct for Research
 
 ```
+
 Question: What is the current market cap of the company that created ChatGPT?
 
 Thought: I need to find out which company created ChatGPT, then look up their market cap.
@@ -318,7 +328,8 @@ Observation: OpenAI's valuation reached $157 billion in 2024 after their latest 
 
 Thought: I now have the information needed to answer.
 Answer: ChatGPT was created by OpenAI, which has a valuation of approximately $157 billion (as of their 2024 funding round). Note: OpenAI is a private company, so this is a valuation rather than a public market cap.
-```
+
+```text
 
 ### ReAct Implementation Pattern
 
@@ -358,7 +369,7 @@ def react_loop(question: str, tools: dict, max_iterations: int = 10) -> str:
 
 ### ToT Structure
 
-```
+```yaml
 Problem: {complex_problem}
 
 ## Generate Candidate Approaches
@@ -393,7 +404,7 @@ Based on the analysis, Approach [X] is most promising because [reasoning].
 
 ### ToT for Code Architecture
 
-```
+```yaml
 Design a caching system for a high-traffic API endpoint.
 
 ## Candidate Architectures
@@ -439,7 +450,7 @@ Option A (Redis) selected for initial implementation:
 
 ## Pattern Comparison Quick Reference
 
-```
+```text
 ┌────────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │    Pattern     │   Tokens     │  Complexity  │  Reliability │   Best For   │
 ├────────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
@@ -463,7 +474,7 @@ Patterns can be combined for more powerful prompts:
 
 ### Few-Shot + CoT
 
-```
+```yaml
 Solve math word problems by showing your work.
 
 Example 1:
@@ -489,7 +500,7 @@ Solution:
 
 ### ReAct + CoT
 
-```
+```text
 Thought: Let me break this down step by step.
 First, I need to understand what information I'm looking for...
 [reasoning]

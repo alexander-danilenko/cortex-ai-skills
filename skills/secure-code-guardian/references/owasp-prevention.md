@@ -2,18 +2,18 @@
 
 ## OWASP Top 10 Quick Reference
 
-| # | Vulnerability | Prevention |
-|---|---------------|------------|
-| 1 | Injection | Parameterized queries, ORMs |
-| 2 | Broken Auth | Strong passwords, MFA, secure sessions |
-| 3 | Sensitive Data | Encryption at rest/transit |
-| 4 | XXE | Disable DTDs, use JSON |
-| 5 | Broken Access | Deny by default, server-side validation |
-| 6 | Misconfig | Security headers, disable defaults |
-| 7 | XSS | Output encoding, CSP |
-| 8 | Insecure Deserialization | Schema validation, allowlists |
-| 9 | Known Vulnerabilities | Dependency scanning |
-| 10 | Insufficient Logging | Log security events |
+| #   | Vulnerability            | Prevention                              |
+| --- | ------------------------ | --------------------------------------- |
+| 1   | Injection                | Parameterized queries, ORMs             |
+| 2   | Broken Auth              | Strong passwords, MFA, secure sessions  |
+| 3   | Sensitive Data           | Encryption at rest/transit              |
+| 4   | XXE                      | Disable DTDs, use JSON                  |
+| 5   | Broken Access            | Deny by default, server-side validation |
+| 6   | Misconfig                | Security headers, disable defaults      |
+| 7   | XSS                      | Output encoding, CSP                    |
+| 8   | Insecure Deserialization | Schema validation, allowlists           |
+| 9   | Known Vulnerabilities    | Dependency scanning                     |
+| 10  | Insufficient Logging     | Log security events                     |
 
 ## A01: Injection Prevention
 
@@ -126,10 +126,10 @@ const clean = DOMPurify.sanitize(userInput);
 
 ## Quick Reference
 
-| Attack | Defense |
-|--------|---------|
-| SQL Injection | Parameterized queries |
-| XSS | Output encoding, CSP |
-| CSRF | CSRF tokens |
-| IDOR | Authorization checks |
+| Attack            | Defense                      |
+| ----------------- | ---------------------------- |
+| SQL Injection     | Parameterized queries        |
+| XSS               | Output encoding, CSP         |
+| CSRF              | CSRF tokens                  |
+| IDOR              | Authorization checks         |
 | Command Injection | Avoid exec(), validate input |

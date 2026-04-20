@@ -2,7 +2,7 @@
 
 ## Command Hierarchy
 
-```
+```text
 mycli                           # Root command
 ├── init [options]              # Simple command
 ├── config
@@ -78,7 +78,7 @@ const EXIT_CODES = {
 
 ## Plugin Architecture
 
-```
+```text
 mycli/
 ├── core/                      # Core functionality
 ├── plugins/
@@ -92,6 +92,7 @@ mycli/
 ```
 
 Plugin discovery:
+
 1. Check `~/.mycli/plugins/`
 2. Check `node_modules/mycli-plugin-*`
 3. Check `MYCLI_PLUGIN_PATH` env var
@@ -136,7 +137,7 @@ if (isCI) {
 
 ## State Management
 
-```
+```text
 ~/.mycli/
 ├── config.yml           # User configuration
 ├── cache/               # Cached data
@@ -194,7 +195,7 @@ if (!semver.satisfies(process.version, `>=${MIN_NODE_VERSION}`)) {
 
 ## Help Text Design
 
-```
+```text
 USAGE
   mycli deploy [environment] [options]
 

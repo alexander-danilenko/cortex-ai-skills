@@ -60,7 +60,8 @@
 - name: Generate API docs
   run: npm run docs:generate
 ```
-```
+
+```text
 
 ## Checklist During Documentation
 
@@ -117,9 +118,9 @@ interrogate -v src/
 
 ## Quick Reference
 
-| Metric | Good | Acceptable | Poor |
-|--------|------|------------|------|
-| Function coverage | >90% | 70-90% | <70% |
-| Class coverage | 100% | >90% | <90% |
-| API endpoint coverage | 100% | 100% | <100% |
-| Example coverage | >50% | 30-50% | <30% |
+| Metric                | Good | Acceptable | Poor  |
+| --------------------- | ---- | ---------- | ----- |
+| Function coverage     | >90% | 70-90%     | <70%  |
+| Class coverage        | 100% | >90%       | <90%  |
+| API endpoint coverage | 100% | 100%       | <100% |
+| Example coverage      | >50% | 30-50%     | <30%  |

@@ -18,19 +18,23 @@
 
 ### Module Structure
 ```
+
 src/
 ├── auth/         # Authentication (JWT, guards)
 ├── users/        # User CRUD operations
 ├── orders/       # Order processing
 └── common/       # Shared utilities
-```
+
+```text
 
 ### Data Flow
 ```
+
 Request → Guard → Controller → Service → Repository → Database
                                      ↓
                               External APIs
-```
+
+```yaml
 
 ## Observed Functional Requirements
 
@@ -89,12 +93,12 @@ Save specification as: `specs/{project_name}_reverse_spec.md`
 
 ## Required Sections
 
-| Section | Purpose |
-|---------|---------|
-| Overview | High-level summary |
-| Architecture | Tech stack, structure, data flow |
-| Functional Requirements | EARS format observations |
-| Non-Functional | Security, performance, errors |
-| Acceptance Criteria | Given/When/Then format |
-| Uncertainties | Questions for clarification |
-| Recommendations | Improvements identified |
+| Section                 | Purpose                          |
+| ----------------------- | -------------------------------- |
+| Overview                | High-level summary               |
+| Architecture            | Tech stack, structure, data flow |
+| Functional Requirements | EARS format observations         |
+| Non-Functional          | Security, performance, errors    |
+| Acceptance Criteria     | Given/When/Then format           |
+| Uncertainties           | Questions for clarification      |
+| Recommendations         | Improvements identified          |

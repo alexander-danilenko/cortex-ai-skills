@@ -120,14 +120,14 @@ output "alb_dns_name" {
 
 ## Best Practices
 
-| Practice | Implementation |
-|----------|----------------|
-| State locking | S3 backend with DynamoDB |
-| Secrets | Use AWS Secrets Manager / SSM |
-| Modules | Reusable components |
-| Workspaces | Environment separation |
-| Tagging | Consistent resource tags |
-| Validation | `terraform validate`, `tflint` |
+| Practice      | Implementation                 |
+| ------------- | ------------------------------ |
+| State locking | S3 backend with DynamoDB       |
+| Secrets       | Use AWS Secrets Manager / SSM  |
+| Modules       | Reusable components            |
+| Workspaces    | Environment separation         |
+| Tagging       | Consistent resource tags       |
+| Validation    | `terraform validate`, `tflint` |
 
 ## Common Commands
 

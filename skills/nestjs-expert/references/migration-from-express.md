@@ -5,6 +5,7 @@
 ## When to Use This Guide
 
 **Use when:**
+
 - Migrating existing Express.js applications to NestJS
 - Modernizing legacy Node.js APIs with structured architecture
 - Adding TypeScript and dependency injection to Express codebases
@@ -25,18 +26,18 @@
 
 ## Concept Mapping: Express → NestJS
 
-| Express Concept | NestJS Equivalent | Key Difference |
-|----------------|-------------------|----------------|
-| `app.get('/path', handler)` | `@Get('/path')` decorator | Declarative vs imperative |
-| Middleware functions | Guards, Interceptors, Pipes | Specialized by purpose |
-| `req.params`, `req.body` | `@Param()`, `@Body()` decorators | Automatic injection |
-| Manual `require()` | Dependency Injection | IoC container managed |
-| `express.Router()` | Controller classes | Object-oriented grouping |
-| `app.use(express.json())` | Built-in body parsing | Automatic configuration |
-| Error handling middleware | Exception Filters | Class-based with inheritance |
-| `app.listen(3000)` | `NestFactory.create()` | Bootstrap pattern |
-| Custom validation | `class-validator` pipes | Decorator-based validation |
-| Manual service instances | Provider registration | Singleton by default |
+| Express Concept             | NestJS Equivalent                | Key Difference               |
+| --------------------------- | -------------------------------- | ---------------------------- |
+| `app.get('/path', handler)` | `@Get('/path')` decorator        | Declarative vs imperative    |
+| Middleware functions        | Guards, Interceptors, Pipes      | Specialized by purpose       |
+| `req.params`, `req.body`    | `@Param()`, `@Body()` decorators | Automatic injection          |
+| Manual `require()`          | Dependency Injection             | IoC container managed        |
+| `express.Router()`          | Controller classes               | Object-oriented grouping     |
+| `app.use(express.json())`   | Built-in body parsing            | Automatic configuration      |
+| Error handling middleware   | Exception Filters                | Class-based with inheritance |
+| `app.listen(3000)`          | `NestFactory.create()`           | Bootstrap pattern            |
+| Custom validation           | `class-validator` pipes          | Decorator-based validation   |
+| Manual service instances    | Provider registration            | Singleton by default         |
 
 ---
 
@@ -44,7 +45,7 @@
 
 ### Express Application Structure
 
-```
+```text
 src/
 ├── routes/
 │   ├── users.js
@@ -63,7 +64,7 @@ src/
 
 ### NestJS Application Structure
 
-```
+```text
 src/
 ├── users/
 │   ├── users.controller.ts
@@ -1013,6 +1014,7 @@ bootstrap();
 ```
 
 **Migration steps:**
+
 1. Set up NestJS alongside Express
 2. Migrate one module at a time to NestJS
 3. Route new endpoints to NestJS, old to Express
@@ -1024,7 +1026,7 @@ bootstrap();
 
 Migrate complete feature modules sequentially.
 
-```
+```text
 Phase 1: Authentication (Week 1-2)
 - Migrate auth middleware → Guards
 - Migrate JWT handling → @nestjs/jwt
@@ -1088,6 +1090,7 @@ export class UsersController {
 ### 2. Not Understanding Dependency Injection Lifecycle
 
 **Problem:**
+
 ```typescript
 // WRONG - Creates new instance, bypassing DI
 @Injectable()
@@ -1099,6 +1102,7 @@ export class UsersService {
 ```
 
 **Solution:**
+
 ```typescript
 // CORRECT - Let NestJS inject dependencies
 @Injectable()
@@ -1129,6 +1133,7 @@ async create(@Body() body: any) {
 ```
 
 **Solution:**
+
 ```typescript
 // CORRECT - Use DTOs with class-validator
 @Post()
@@ -1158,6 +1163,7 @@ export class UsersModule {}
 **Problem:** CORS working in Express but failing in NestJS.
 
 **Solution:**
+
 ```typescript
 // main.ts
 const app = await NestFactory.create(AppModule);
@@ -1185,6 +1191,7 @@ throw new UnauthorizedException('Invalid credentials');
 **Problem:** Validation inconsistent across endpoints.
 
 **Solution:**
+
 ```typescript
 // main.ts
 app.useGlobalPipes(
@@ -1201,6 +1208,7 @@ app.useGlobalPipes(
 ## Migration Checklist
 
 **Pre-Migration:**
+
 - [ ] Audit existing Express codebase structure
 - [ ] Document all routes and dependencies
 - [ ] Identify shared services and utilities
@@ -1208,6 +1216,7 @@ app.useGlobalPipes(
 - [ ] Set up NestJS project structure
 
 **During Migration:**
+
 - [ ] Migrate DTOs and validation rules
 - [ ] Convert route handlers to controllers
 - [ ] Refactor services for dependency injection
@@ -1218,6 +1227,7 @@ app.useGlobalPipes(
 - [ ] Write e2e tests for critical flows
 
 **Post-Migration:**
+
 - [ ] Performance testing and optimization
 - [ ] Update API documentation
 - [ ] Configure logging and monitoring
@@ -1230,8 +1240,8 @@ app.useGlobalPipes(
 
 ## Additional Resources
 
-- NestJS Official Documentation: https://docs.nestjs.com
-- NestJS Migration Guide: https://docs.nestjs.com/migration-guide
-- class-validator Decorators: https://github.com/typestack/class-validator
-- TypeORM with NestJS: https://docs.nestjs.com/techniques/database
-- Testing Guide: https://docs.nestjs.com/fundamentals/testing
+- NestJS Official Documentation: <https://docs.nestjs.com>
+- NestJS Migration Guide: <https://docs.nestjs.com/migration-guide>
+- class-validator Decorators: <https://github.com/typestack/class-validator>
+- TypeORM with NestJS: <https://docs.nestjs.com/techniques/database>
+- Testing Guide: <https://docs.nestjs.com/fundamentals/testing>

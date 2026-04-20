@@ -14,7 +14,7 @@ Applies to **all** Jest tests in a NestJS backend. Read before writing or modify
 
 `__tests__/` MUST live as a sibling **inside the same directory** as the source file it tests.
 
-```
+```text
 src/core/{module}/service/__tests__/{name}.service.spec.ts
 src/core/{module}/service/__tests__/{name}.service--{method}.spec.ts
 src/core/{module}/service/strategy/__tests__/{name}.strategy--{method}.spec.ts
@@ -27,7 +27,7 @@ src/core/{module}/listener/__tests__/{name}.listener.spec.ts
 - **MUST** use the `--method-kebab` double-dash convention to separate the service name from the method scope (e.g., `--cancel.spec.ts`).
 - **SHOULD** coalesce trivial methods whose tests total fewer than ~40 lines into a single `--queries` file to avoid tiny file proliferation.
 
-```
+```text
 {name}.service--{method-kebab}.spec.ts          # per-method
 {name}.service--queries.spec.ts                 # coalesced trivial getters/lookups
 {name}.service.spec.ts                          # unsplit (under threshold)
@@ -43,7 +43,7 @@ src/core/{module}/listener/__tests__/{name}.listener.spec.ts
 - **MUST** define a context interface that types all objects returned from the factory.
 - **MUST** call the factory in `beforeEach` (unit tests) or `beforeAll` (contract tests).
 
-```
+```text
 __tests__/
   __setup__/
     {name}.service.setup.ts           # module factory
@@ -135,12 +135,12 @@ describe("ExternalApiService @contract", () => {
 
 Every `it()` MUST have a TSDoc block. Use multiline TSDoc format — never single-line.
 
-| Field | Required | Purpose |
-|-------|----------|---------|
-| `@what` | **yes** | One sentence: what behavior is verified. |
-| `@expected` | **yes** | The observable outcome: return value, exception, or side-effect. |
-| `@prerequisites` | no | Non-obvious mock setup, data state, or environment. MUST omit when trivial. |
-| `@conditions` | no | The action/input that triggers the behavior. MUST omit when obvious from the `it()` name or test body. |
+| Field            | Required | Purpose                                                                                                |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| `@what`          | **yes**  | One sentence: what behavior is verified.                                                               |
+| `@expected`      | **yes**  | The observable outcome: return value, exception, or side-effect.                                       |
+| `@prerequisites` | no       | Non-obvious mock setup, data state, or environment. MUST omit when trivial.                            |
+| `@conditions`    | no       | The action/input that triggers the behavior. MUST omit when obvious from the `it()` name or test body. |
 
 File-level and top-level `describe()` blocks SHOULD have a TSDoc comment with `@remarks` describing the scope of the suite.
 

@@ -103,19 +103,19 @@ class UserService:
 
 ## Quick Reference
 
-| Style | Args Format | Returns Format |
-|-------|-------------|----------------|
-| Google | `Args:` block | `Returns:` block |
-| NumPy | `Parameters` section | `Returns` section |
-| Sphinx | `:param name:` | `:returns:` |
+| Style  | Args Format          | Returns Format    |
+| ------ | -------------------- | ----------------- |
+| Google | `Args:` block        | `Returns:` block  |
+| NumPy  | `Parameters` section | `Returns` section |
+| Sphinx | `:param name:`       | `:returns:`       |
 
 ## Sections Available
 
-| Section | Google | NumPy | Sphinx |
-|---------|--------|-------|--------|
-| Parameters | `Args:` | `Parameters` | `:param:` |
-| Returns | `Returns:` | `Returns` | `:returns:` |
-| Raises | `Raises:` | `Raises` | `:raises:` |
-| Examples | `Example:` | `Examples` | `.. code-block::` |
-| Notes | `Note:` | `Notes` | `.. note::` |
-| Attributes | `Attributes:` | `Attributes` | `:ivar:` |
+| Section    | Google        | NumPy        | Sphinx            |
+| ---------- | ------------- | ------------ | ----------------- |
+| Parameters | `Args:`       | `Parameters` | `:param:`         |
+| Returns    | `Returns:`    | `Returns`    | `:returns:`       |
+| Raises     | `Raises:`     | `Raises`     | `:raises:`        |
+| Examples   | `Example:`    | `Examples`   | `.. code-block::` |
+| Notes      | `Note:`       | `Notes`      | `.. note::`       |
+| Attributes | `Attributes:` | `Attributes` | `:ivar:`          |

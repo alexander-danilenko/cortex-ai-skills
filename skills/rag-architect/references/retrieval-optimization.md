@@ -4,15 +4,15 @@
 
 ## Optimization Techniques Overview
 
-| Technique | Impact | Complexity | When to Use |
-|-----------|--------|------------|-------------|
-| **Hybrid Search** | High | Medium | Always for production |
-| **Reranking** | High | Low | Top-k refinement |
-| **Query Expansion** | Medium | Medium | Ambiguous queries |
-| **HyDE** | Medium-High | Medium | Concept-heavy retrieval |
-| **Metadata Filtering** | High | Low | Multi-tenant, categorical |
-| **Query Decomposition** | Medium | High | Complex questions |
-| **Contextual Compression** | Medium | Medium | Long retrieved chunks |
+| Technique                  | Impact      | Complexity | When to Use               |
+| -------------------------- | ----------- | ---------- | ------------------------- |
+| **Hybrid Search**          | High        | Medium     | Always for production     |
+| **Reranking**              | High        | Low        | Top-k refinement          |
+| **Query Expansion**        | Medium      | Medium     | Ambiguous queries         |
+| **HyDE**                   | Medium-High | Medium     | Concept-heavy retrieval   |
+| **Metadata Filtering**     | High        | Low        | Multi-tenant, categorical |
+| **Query Decomposition**    | Medium      | High       | Complex questions         |
+| **Contextual Compression** | Medium      | Medium     | Long retrieved chunks     |
 
 ---
 
@@ -765,27 +765,27 @@ class OptimizedRetriever:
 
 ## Performance Benchmarks
 
-| Technique | Latency Impact | Quality Impact | Cost Impact |
-|-----------|----------------|----------------|-------------|
-| Vector only | Baseline | Baseline | Baseline |
-| + BM25 hybrid | +10-20ms | +5-15% precision | Minimal |
-| + Reranking | +50-100ms | +10-20% precision | +$0.001/query |
-| + Query expansion | +100-200ms | +5-10% recall | +$0.002/query |
-| + HyDE | +200-500ms | +10-25% precision | +$0.003/query |
+| Technique         | Latency Impact | Quality Impact    | Cost Impact   |
+| ----------------- | -------------- | ----------------- | ------------- |
+| Vector only       | Baseline       | Baseline          | Baseline      |
+| + BM25 hybrid     | +10-20ms       | +5-15% precision  | Minimal       |
+| + Reranking       | +50-100ms      | +10-20% precision | +$0.001/query |
+| + Query expansion | +100-200ms     | +5-10% recall     | +$0.002/query |
+| + HyDE            | +200-500ms     | +10-25% precision | +$0.003/query |
 
 ---
 
 ## Quick Reference
 
-| Goal | Technique | Implementation |
-|------|-----------|----------------|
-| Improve precision | Reranking | Cross-encoder or Cohere |
-| Improve recall | Query expansion | LLM-generated variations |
-| Handle synonyms | Hybrid search | BM25 + vector with RRF |
-| Concept search | HyDE | Hypothetical doc embedding |
-| Multi-tenant | Metadata filter | Mandatory tenant_id |
-| Fresh content | Temporal filter | Date range queries |
-| Complex questions | Decomposition | Sub-question retrieval |
+| Goal              | Technique       | Implementation             |
+| ----------------- | --------------- | -------------------------- |
+| Improve precision | Reranking       | Cross-encoder or Cohere    |
+| Improve recall    | Query expansion | LLM-generated variations   |
+| Handle synonyms   | Hybrid search   | BM25 + vector with RRF     |
+| Concept search    | HyDE            | Hypothetical doc embedding |
+| Multi-tenant      | Metadata filter | Mandatory tenant_id        |
+| Fresh content     | Temporal filter | Date range queries         |
+| Complex questions | Decomposition   | Sub-question retrieval     |
 
 ## Related Skills
 

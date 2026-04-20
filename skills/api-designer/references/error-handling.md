@@ -36,6 +36,7 @@ Content-Type: application/problem+json
 ```
 
 **Fields:**
+
 - `type` - URI reference identifying error type
 - `title` - Short, human-readable summary
 - `status` - HTTP status code
@@ -138,6 +139,7 @@ WWW-Authenticate: Bearer realm="api", error="invalid_token"
 ```
 
 **Common auth error codes:**
+
 - `MISSING_TOKEN` - No auth token provided
 - `INVALID_TOKEN` - Token is malformed or invalid
 - `EXPIRED_TOKEN` - Token has expired
@@ -257,6 +259,7 @@ Response: 500 Internal Server Error
 ```
 
 **Never expose:**
+
 - Stack traces
 - Database errors
 - Internal paths

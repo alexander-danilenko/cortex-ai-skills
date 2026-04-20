@@ -220,14 +220,14 @@ ON products (created_at DESC, id DESC);
 
 ## Query Pattern Red Flags
 
-| Pattern | Issue | Solution |
-|---------|-------|----------|
-| `SELECT *` | Fetches unnecessary columns | Select only needed columns |
-| `OR` conditions | Prevents index usage | Use UNION or separate queries |
-| `LIKE '%term%'` | Full table scan | Use full-text search or trigram indexes |
+| Pattern                    | Issue                         | Solution                                                      |
+| -------------------------- | ----------------------------- | ------------------------------------------------------------- |
+| `SELECT *`                 | Fetches unnecessary columns   | Select only needed columns                                    |
+| `OR` conditions            | Prevents index usage          | Use UNION or separate queries                                 |
+| `LIKE '%term%'`            | Full table scan               | Use full-text search or trigram indexes                       |
 | `WHERE DATE(column) = ...` | Function prevents index usage | Use range: `column >= '2024-01-01' AND column < '2024-01-02'` |
-| Large `IN` lists | Inefficient for >100 items | Use temporary table or JOIN |
-| Implicit type conversion | Prevents index usage | Match column data types exactly |
+| Large `IN` lists           | Inefficient for >100 items    | Use temporary table or JOIN                                   |
+| Implicit type conversion   | Prevents index usage          | Match column data types exactly                               |
 
 ## Performance Validation
 

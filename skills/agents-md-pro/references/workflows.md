@@ -7,6 +7,7 @@ Generate new AGENTS.md from scratch.
 ### 1. Detect Repository Structure
 
 Scan for monorepo indicators:
+
 - `lerna.json`, `pnpm-workspace.yaml`, `turbo.json`
 - `workspaces` in `package.json`
 - Multiple `package.json` files
@@ -16,6 +17,7 @@ Announce detection: "Detected [standard/monorepo] repository"
 ### 2. Analyze Codebase (Token-Conscious)
 
 Read selectively, focusing on:
+
 - `package.json` - Tech stack and scripts
 - Config files - `.eslintrc`, `.prettierrc`, `tsconfig.json`
 - `README.md` - Project purpose (1-2 sentences only)
@@ -105,6 +107,7 @@ See root AGENTS.md
 ### 4. Validate Output
 
 Check:
+
 - [ ] All sections actionable (no fluff)
 - [ ] Line count ≤ 150 for standard projects
 - [ ] Commands correct and tested
@@ -130,6 +133,7 @@ Read current AGENTS.md. Estimate token count (chars ÷ 4).
 ### 2. Identify Bloat
 
 Scan for anti-patterns (see [anti-patterns.md](anti-patterns.md)):
+
 - Verbose headers
 - Paragraph explanations
 - Duplicated tool config
@@ -140,6 +144,7 @@ Scan for anti-patterns (see [anti-patterns.md](anti-patterns.md)):
 ### 3. Apply Optimizations
 
 Use patterns from [optimization-patterns.md](optimization-patterns.md):
+
 - Compress headers: "## 1. Project Core Identity" → "## PROJECT"
 - Tech stack to header: Move to title line
 - Commands only: Remove explanations
@@ -151,6 +156,7 @@ Use patterns from [optimization-patterns.md](optimization-patterns.md):
 ### 4. Validate Quality
 
 Run validation checks from [validation-rules.md](validation-rules.md):
+
 - Token reduction ≥ 30%
 - All critical info preserved
 - No security information lost
@@ -160,6 +166,7 @@ Run validation checks from [validation-rules.md](validation-rules.md):
 ### 5. Report Results
 
 Display:
+
 - Original token estimate
 - Optimized token estimate
 - Reduction percentage
@@ -182,6 +189,7 @@ Load existing file to understand current state.
 ### 2. Detect Changes
 
 Compare AGENTS.md against:
+
 - `package.json` - New dependencies or scripts
 - Config files - Updated linting/formatting rules
 - Source structure - New directories or patterns
@@ -190,6 +198,7 @@ Compare AGENTS.md against:
 ### 3. Identify Gaps
 
 List what needs updating:
+
 - Missing commands
 - Outdated tech stack
 - New architectural patterns
@@ -221,24 +230,28 @@ Reference [validation-rules.md](validation-rules.md) for criteria.
 ### 2. Run Checks
 
 **Token Efficiency (40 pts):**
+
 - Line count ≤ 150?
 - No paragraphs > 3 lines?
 - Headers concise?
 - Configs referenced not duplicated?
 
 **Completeness (30 pts):**
+
 - Tech stack identified?
 - Essential commands present?
 - Security info included?
 - Structure documented?
 
 **Actionability (20 pts):**
+
 - All sections concrete?
 - Commands copy-pasteable?
 - Patterns shown with code?
 - No abstract guidance?
 
 **Quality (10 pts):**
+
 - Model-agnostic language?
 - Consistent terminology?
 - Well-organized?
@@ -247,6 +260,7 @@ Reference [validation-rules.md](validation-rules.md) for criteria.
 ### 3. Score and Grade
 
 Calculate total score (0-100):
+
 - 90-100: Excellent
 - 70-89: Good
 - 50-69: Fair
@@ -255,6 +269,7 @@ Calculate total score (0-100):
 ### 4. Report Findings
 
 List:
+
 - Overall grade and score
 - Issues found (by category)
 - Specific recommendations
@@ -271,6 +286,7 @@ If score < 90, ask: "Would you like me to optimize this AGENTS.md?"
 Every AGENTS.md must:
 
 **Structure:**
+
 - Tech stack in title/header
 - Commands section first (most actionable)
 - Patterns with code examples
@@ -278,6 +294,7 @@ Every AGENTS.md must:
 - Git conventions
 
 **Format:**
+
 - Concise headers (≤ 3 words)
 - Bullets over paragraphs
 - Code blocks for patterns
@@ -285,6 +302,7 @@ Every AGENTS.md must:
 - Imperative language
 
 **Content:**
+
 - Reference configs, don't duplicate
 - One example per pattern
 - Project-specific info only
@@ -292,6 +310,7 @@ Every AGENTS.md must:
 - Verified commands
 
 **Constraints:**
+
 - ≤ 150 lines for standard projects
 - ≤ 100 lines for monorepo sub-projects
 - ≤ 50 lines for monorepo root
@@ -303,11 +322,13 @@ Every AGENTS.md must:
 ## Success Metrics
 
 **Token Efficiency:**
+
 - Standard project: ~500-800 tokens
 - Monorepo root: ~300-400 tokens
 - Sub-project: ~400-600 tokens
 
 **Quality Indicators:**
+
 - All commands verified
 - Configs referenced, not duplicated
 - Security info complete
@@ -315,6 +336,7 @@ Every AGENTS.md must:
 - No redundancy
 
 **Completeness:**
+
 - Tech stack clear
 - Build/test/lint commands present
 - Key patterns documented

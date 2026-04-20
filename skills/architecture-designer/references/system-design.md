@@ -25,6 +25,7 @@
 ## High-Level Architecture
 
 ```
+
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Client    │────▶│  API Gateway │────▶│  Service    │
 │   (Web)     │     │   (Kong)    │     │  (Node.js)  │
@@ -35,7 +36,8 @@
                     │    Auth     │     │  Database   │
                     │  (Auth0)    │     │ (PostgreSQL)│
                     └─────────────┘     └─────────────┘
-```
+
+```yaml
 
 ## Component Details
 
@@ -91,10 +93,10 @@
 
 ## Quick Reference
 
-| Section | Key Questions |
-|---------|---------------|
-| Requirements | What must it do? How well? |
+| Section      | Key Questions                   |
+| ------------ | ------------------------------- |
+| Requirements | What must it do? How well?      |
 | Architecture | What components? How connected? |
-| Decisions | Why these choices? |
-| Scaling | How to grow? |
-| Failures | What can break? How to recover? |
+| Decisions    | Why these choices?              |
+| Scaling      | How to grow?                    |
+| Failures     | What can break? How to recover? |

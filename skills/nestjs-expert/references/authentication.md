@@ -156,11 +156,11 @@ export class AppModule {}
 
 ## Quick Reference
 
-| Component | Purpose |
-|-----------|---------|
-| `JwtStrategy` | Validate JWT tokens |
-| `JwtAuthGuard` | Protect routes |
-| `RolesGuard` | Role-based access |
-| `@Public()` | Skip auth |
-| `@Roles('admin')` | Require role |
-| `@UseGuards()` | Apply guard |
+| Component         | Purpose             |
+| ----------------- | ------------------- |
+| `JwtStrategy`     | Validate JWT tokens |
+| `JwtAuthGuard`    | Protect routes      |
+| `RolesGuard`      | Role-based access   |
+| `@Public()`       | Skip auth           |
+| `@Roles('admin')` | Require role        |
+| `@UseGuards()`    | Apply guard         |

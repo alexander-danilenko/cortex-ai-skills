@@ -15,10 +15,12 @@ One to three sentences describing what was accomplished at a high level. Connect
 Group changes by functional area. Each item should be a complete thought understandable by a non-technical stakeholder.
 
 **[Area Name]** (e.g., "Member Verification", "Payment Processing", "API Endpoints")
+
 - Description of what changed and why it matters
 - Another change in this area
 
 **[Another Area Name]**
+
 - Description of change
 
 ### What Was Added
@@ -45,10 +47,10 @@ Breaking changes, deprecations, or behavioral changes to existing functionality.
 
 List the parts of the system affected by these changes. Helps QA know where to focus testing.
 
-| Area | Impact |
-|------|--------|
+| Area                      | Impact                                            |
+| ------------------------- | ------------------------------------------------- |
 | e.g., Member Verification | New NPI Registry check added to verification flow |
-| e.g., API | New endpoint for provider lookup |
+| e.g., API                 | New endpoint for provider lookup                  |
 
 ### Testing Considerations
 
@@ -63,4 +65,3 @@ Specific scenarios QA should verify. Be concrete about inputs and expected outco
 New environment variables, feature flags, database migrations, or deployment steps required. Skip if none.
 
 - Note about deployment requirement
-

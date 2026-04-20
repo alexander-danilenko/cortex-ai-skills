@@ -117,17 +117,17 @@ res.cookie('session', token, {
 
 ## Quick Reference
 
-| Header | Value | Purpose |
-|--------|-------|---------|
-| X-Frame-Options | DENY | Clickjacking |
-| X-Content-Type-Options | nosniff | MIME sniffing |
-| Strict-Transport-Security | max-age=31536000 | Force HTTPS |
-| Content-Security-Policy | default-src 'self' | XSS |
-| Referrer-Policy | strict-origin-when-cross-origin | Privacy |
+| Header                    | Value                           | Purpose       |
+| ------------------------- | ------------------------------- | ------------- |
+| X-Frame-Options           | DENY                            | Clickjacking  |
+| X-Content-Type-Options    | nosniff                         | MIME sniffing |
+| Strict-Transport-Security | max-age=31536000                | Force HTTPS   |
+| Content-Security-Policy   | default-src 'self'              | XSS           |
+| Referrer-Policy           | strict-origin-when-cross-origin | Privacy       |
 
-| Cookie Flag | Purpose |
-|-------------|---------|
-| httpOnly | No JS access |
-| secure | HTTPS only |
+| Cookie Flag     | Purpose         |
+| --------------- | --------------- |
+| httpOnly        | No JS access    |
+| secure          | HTTPS only      |
 | sameSite=strict | CSRF protection |
-| maxAge | Expiration |
+| maxAge          | Expiration      |

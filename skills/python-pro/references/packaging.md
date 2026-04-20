@@ -2,7 +2,7 @@
 
 ## Project Structure
 
-```
+```text
 myproject/
 ├── pyproject.toml          # Project metadata and dependencies
 ├── README.md               # Project description
@@ -332,7 +332,7 @@ setup(
 
 ## Manifest for Package Data
 
-```
+```text
 # MANIFEST.in
 include README.md
 include LICENSE

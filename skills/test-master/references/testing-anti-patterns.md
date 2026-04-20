@@ -206,25 +206,25 @@ async function createUser(data: UserInput): Promise<User> {
 
 Review your tests for these warning signs:
 
-| Warning Sign | Anti-Pattern |
-|-------------|--------------|
-| `expect(mock).toHaveBeenCalled()` without testing output | Testing mock behavior |
-| Methods starting with `_` or `ForTesting` in production | Test-only methods |
-| Every dependency is mocked | Mocking without understanding |
-| Mocks return `{ success: true }` only | Incomplete mocks |
-| Test files added weeks after feature ships | Tests as afterthought |
+| Warning Sign                                             | Anti-Pattern                  |
+| -------------------------------------------------------- | ----------------------------- |
+| `expect(mock).toHaveBeenCalled()` without testing output | Testing mock behavior         |
+| Methods starting with `_` or `ForTesting` in production  | Test-only methods             |
+| Every dependency is mocked                               | Mocking without understanding |
+| Mocks return `{ success: true }` only                    | Incomplete mocks              |
+| Test files added weeks after feature ships               | Tests as afterthought         |
 
 ---
 
 ## Quick Reference
 
-| Anti-Pattern | Symptom | Fix |
-|-------------|---------|-----|
-| Testing mocks | Only mock assertions, no behavior tests | Assert on actual output |
-| Test-only methods | `_reset()`, `_setForTest()` in prod | Use fresh instances |
-| Over-mocking | 10+ mocks per test | Test with real deps first |
-| Incomplete mocks | Minimal stub responses | Use factories, match reality |
-| Tests as afterthought | Features ship untested | TDD from the start |
+| Anti-Pattern          | Symptom                                 | Fix                          |
+| --------------------- | --------------------------------------- | ---------------------------- |
+| Testing mocks         | Only mock assertions, no behavior tests | Assert on actual output      |
+| Test-only methods     | `_reset()`, `_setForTest()` in prod     | Use fresh instances          |
+| Over-mocking          | 10+ mocks per test                      | Test with real deps first    |
+| Incomplete mocks      | Minimal stub responses                  | Use factories, match reality |
+| Tests as afterthought | Features ship untested                  | TDD from the start           |
 
 ---
 

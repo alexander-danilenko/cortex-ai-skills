@@ -2,7 +2,7 @@
 
 ## Project Structure
 
-```
+```text
 Solution.sln
 ├── src/
 │   ├── Domain/                    # Core business logic
@@ -443,13 +443,13 @@ public static class ProductEndpoints
 
 ## Quick Reference
 
-| Pattern | Purpose |
-|---------|---------|
-| `IRequest<T>` | MediatR command/query interface |
-| `IRequestHandler<TReq, TRes>` | Handler implementation |
-| `IPipelineBehavior<,>` | Cross-cutting concerns |
-| `IValidator<T>` | FluentValidation interface |
-| `ISender` | MediatR sender for endpoints |
-| Domain entities | Business logic and invariants |
-| Application layer | Use cases and orchestration |
-| Infrastructure | External dependencies |
+| Pattern                       | Purpose                         |
+| ----------------------------- | ------------------------------- |
+| `IRequest<T>`                 | MediatR command/query interface |
+| `IRequestHandler<TReq, TRes>` | Handler implementation          |
+| `IPipelineBehavior<,>`        | Cross-cutting concerns          |
+| `IValidator<T>`               | FluentValidation interface      |
+| `ISender`                     | MediatR sender for endpoints    |
+| Domain entities               | Business logic and invariants   |
+| Application layer             | Use cases and orchestration     |
+| Infrastructure                | External dependencies           |

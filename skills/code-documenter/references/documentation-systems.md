@@ -19,6 +19,7 @@ docs/
 ```
 
 **docusaurus.config.js:**
+
 ```javascript
 module.exports = {
   title: 'My API',
@@ -162,21 +163,25 @@ client.authenticate(api_key)
 ```
 
 **v2:**
+
 ```python
 client = Client(api_key=api_key)  # Pass in constructor
 ```
 
 ### Renamed Methods
-| v1 | v2 | Notes |
-|----|----|----- |
-| `get_user()` | `fetch_user()` | Async now |
+
+| v1              | v2              | Notes           |
+| --------------- | --------------- | --------------- |
+| `get_user()`    | `fetch_user()`  | Async now       |
 | `delete_user()` | `remove_user()` | Returns Promise |
 
 ## Deprecation Timeline
+
 - v1.x: Supported until Dec 2025
 - v2.0: Released Jan 2025
 - v2.1: Current (June 2025)
-```
+
+```text
 
 ## Search Implementation
 
@@ -317,17 +322,17 @@ function trackSearch(query, results) {
 
 ## Quick Reference
 
-| Tool | Best For | Tech Stack |
-|------|----------|-----------|
-| Docusaurus | React projects, versioning | React, MDX |
-| MkDocs | Python projects, simple setup | Python, Jinja2 |
-| VitePress | Vue projects, fast builds | Vue, Vite |
-| Nextra | Next.js integration | React, Next.js |
-| Mintlify | Modern UI, AI search | React |
+| Tool       | Best For                      | Tech Stack     |
+| ---------- | ----------------------------- | -------------- |
+| Docusaurus | React projects, versioning    | React, MDX     |
+| MkDocs     | Python projects, simple setup | Python, Jinja2 |
+| VitePress  | Vue projects, fast builds     | Vue, Vite      |
+| Nextra     | Next.js integration           | React, Next.js |
+| Mintlify   | Modern UI, AI search          | React          |
 
-| Search Solution | Cost | Features |
-|----------------|------|----------|
-| Algolia DocSearch | Free (OSS) | Fast, typo-tolerant |
-| Local (Lunr.js) | Free | Offline, no server |
-| Typesense | Free (self-host) | Privacy-focused |
-| Meilisearch | Free (self-host) | Fast, relevance |
+| Search Solution   | Cost             | Features            |
+| ----------------- | ---------------- | ------------------- |
+| Algolia DocSearch | Free (OSS)       | Fast, typo-tolerant |
+| Local (Lunr.js)   | Free             | Offline, no server  |
+| Typesense         | Free (self-host) | Privacy-focused     |
+| Meilisearch       | Free (self-host) | Fast, relevance     |

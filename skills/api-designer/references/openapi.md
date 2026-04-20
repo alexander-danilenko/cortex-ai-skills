@@ -3,6 +3,7 @@
 ## What is OpenAPI?
 
 OpenAPI (formerly Swagger) is a standard for describing REST APIs. It enables:
+
 - Interactive documentation
 - Code generation (SDKs, clients, servers)
 - API testing tools
@@ -772,7 +773,8 @@ description: |
     "email": "john@example.com"
   }
   ```
-```
+
+```text
 
 ## Code Generation
 

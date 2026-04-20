@@ -136,11 +136,11 @@ function validateUpload(file: Express.Multer.File) {
 
 ## Quick Reference
 
-| Input Type | Validation |
-|------------|------------|
-| Email | Regex + max length |
-| URL | Protocol + host allowlist |
-| File path | basename + resolve check |
-| SQL | Parameterized queries |
-| Command | execFile + no shell |
+| Input Type  | Validation                |
+| ----------- | ------------------------- |
+| Email       | Regex + max length        |
+| URL         | Protocol + host allowlist |
+| File path   | basename + resolve check  |
+| SQL         | Parameterized queries     |
+| Command     | execFile + no shell       |
 | File upload | Type + size + magic bytes |

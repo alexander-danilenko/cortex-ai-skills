@@ -103,13 +103,13 @@ Performative agreement wastes time and provides no information. When you write "
 
 ### Forbidden Phrases
 
-| Phrase | Why It's Wrong |
-|--------|----------------|
-| "You're absolutely right!" | Sycophantic, adds no information |
-| "Great point!" | Empty praise, not a response |
-| "Excellent feedback!" | Flattery, not engagement |
-| "Thanks for catching this!" | Unnecessary, just fix it |
-| "I really appreciate..." | Social fluff, not technical |
+| Phrase                      | Why It's Wrong                   |
+| --------------------------- | -------------------------------- |
+| "You're absolutely right!"  | Sycophantic, adds no information |
+| "Great point!"              | Empty praise, not a response     |
+| "Excellent feedback!"       | Flattery, not engagement         |
+| "Thanks for catching this!" | Unnecessary, just fix it         |
+| "I really appreciate..."    | Social fluff, not technical      |
 
 ### Actions Demonstrate Understanding
 
@@ -139,13 +139,13 @@ Brief, technical acknowledgment when learning something new:
 
 Push back with technical reasoning when feedback:
 
-| Situation | How to Respond |
-|-----------|----------------|
-| Breaks existing functionality | "This change would break Feature X (see test at tests/feature-x.spec.ts:34)" |
-| Lacks full codebase context | "This pattern exists because of Y (see architecture.md#constraints)" |
-| Violates YAGNI | "This flexibility isn't needed yet - only one caller exists" |
-| Is technically incorrect | "This actually works because of Z (link to docs)" |
-| Conflicts with established architecture | "This conflicts with our JWT approach (see auth/README.md)" |
+| Situation                               | How to Respond                                                               |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| Breaks existing functionality           | "This change would break Feature X (see test at tests/feature-x.spec.ts:34)" |
+| Lacks full codebase context             | "This pattern exists because of Y (see architecture.md#constraints)"         |
+| Violates YAGNI                          | "This flexibility isn't needed yet - only one caller exists"                 |
+| Is technically incorrect                | "This actually works because of Z (link to docs)"                            |
+| Conflicts with established architecture | "This conflicts with our JWT approach (see auth/README.md)"                  |
 
 ### Good Pushback Format
 
@@ -212,26 +212,26 @@ If you cannot verify a fix:
 
 ## Quick Reference
 
-| Situation | Response |
-|-----------|----------|
-| Reviewer is correct | "Fixed. [What you changed]." |
-| You need clarification | "To confirm: you're suggesting [restatement]?" |
-| Reviewer is incorrect | "This works because [evidence]. [Link to proof]." |
+| Situation                | Response                                            |
+| ------------------------ | --------------------------------------------------- |
+| Reviewer is correct      | "Fixed. [What you changed]."                        |
+| You need clarification   | "To confirm: you're suggesting [restatement]?"      |
+| Reviewer is incorrect    | "This works because [evidence]. [Link to proof]."   |
 | You disagree on approach | "This conflicts with [X]. Should we [alternative]?" |
-| You learned something | "I wasn't aware of [X]. Fixed at line [N]." |
-| You can't verify | "Implemented. Unable to verify because [reason]." |
+| You learned something    | "I wasn't aware of [X]. Fixed at line [N]."         |
+| You can't verify         | "Implemented. Unable to verify because [reason]."   |
 
 ---
 
 ## Anti-Patterns
 
-| Pattern | Problem | Fix |
-|---------|---------|-----|
-| Defensive responses | Creates conflict, wastes time | Assume good faith, respond technically |
-| Apologetic responses | Unprofessional, adds noise | Just fix it |
-| Delayed responses | Blocks review cycle | Respond within hours, not days |
-| Vague responses | Leaves reviewer uncertain | Be specific about changes |
-| Ignoring feedback | Disrespectful, creates friction | Address every point |
+| Pattern              | Problem                         | Fix                                    |
+| -------------------- | ------------------------------- | -------------------------------------- |
+| Defensive responses  | Creates conflict, wastes time   | Assume good faith, respond technically |
+| Apologetic responses | Unprofessional, adds noise      | Just fix it                            |
+| Delayed responses    | Blocks review cycle             | Respond within hours, not days         |
+| Vague responses      | Leaves reviewer uncertain       | Be specific about changes              |
+| Ignoring feedback    | Disrespectful, creates friction | Address every point                    |
 
 ---
 

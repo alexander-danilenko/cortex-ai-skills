@@ -5,6 +5,7 @@
 ## When to Use This Guide
 
 **Migrate when:**
+
 - Adopting React 18+ features (concurrent rendering, Suspense)
 - Improving code reusability and composition
 - Reducing bundle size (hooks generally smaller)
@@ -14,6 +15,7 @@
 - Testing complexity needs reduction
 
 **Do NOT migrate when:**
+
 - Error boundaries (still require class components)
 - Legacy codebase with no maintenance budget
 - Component works perfectly and isn't changing
@@ -22,6 +24,7 @@
 - Migration risk exceeds benefit
 
 **Migration Priority:**
+
 1. New features (write with hooks)
 2. Frequently modified components
 3. Components with reusable logic
@@ -32,19 +35,19 @@
 
 ## Lifecycle to Hooks Concept Map
 
-| Class Component | Modern React Equivalent | Notes |
-|----------------|------------------------|-------|
-| `constructor` | `useState` initialization | No separate constructor needed |
-| `componentDidMount` | `useEffect(() => {}, [])` | Empty dependency array |
-| `componentDidUpdate` | `useEffect(() => {})` | Runs after every render |
-| `componentWillUnmount` | `useEffect` cleanup | Return cleanup function |
-| `shouldComponentUpdate` | `React.memo` | Wrap component, custom comparator |
-| `getDerivedStateFromProps` | Avoid or use render-time calculation | Usually an anti-pattern |
-| `getSnapshotBeforeUpdate` | `useLayoutEffect` | Rarely needed |
-| `componentDidCatch` | No hook equivalent | Keep class component |
-| `this.forceUpdate()` | `useState` + setter toggle | Avoid, fix architecture |
-| `this.state` | `useState` or `useReducer` | Multiple state slices |
-| `this.setState` callback | `useEffect` watching state | Separate effect |
+| Class Component            | Modern React Equivalent              | Notes                             |
+| -------------------------- | ------------------------------------ | --------------------------------- |
+| `constructor`              | `useState` initialization            | No separate constructor needed    |
+| `componentDidMount`        | `useEffect(() => {}, [])`            | Empty dependency array            |
+| `componentDidUpdate`       | `useEffect(() => {})`                | Runs after every render           |
+| `componentWillUnmount`     | `useEffect` cleanup                  | Return cleanup function           |
+| `shouldComponentUpdate`    | `React.memo`                         | Wrap component, custom comparator |
+| `getDerivedStateFromProps` | Avoid or use render-time calculation | Usually an anti-pattern           |
+| `getSnapshotBeforeUpdate`  | `useLayoutEffect`                    | Rarely needed                     |
+| `componentDidCatch`        | No hook equivalent                   | Keep class component              |
+| `this.forceUpdate()`       | `useState` + setter toggle           | Avoid, fix architecture           |
+| `this.state`               | `useState` or `useReducer`           | Multiple state slices             |
+| `this.setState` callback   | `useEffect` watching state           | Separate effect                   |
 
 ---
 
@@ -123,6 +126,7 @@ function Counter({ initialCount, userId }: Props) {
 ```
 
 **Key Differences:**
+
 - No constructor needed
 - Lazy initialization: `useState(() => expensiveComputation())`
 - Functional updates prevent stale closure bugs
@@ -255,6 +259,7 @@ function UserProfile({ userId }: Props) {
 ```
 
 **Critical Points:**
+
 - Separate effects for separate concerns
 - Always include cleanup for subscriptions
 - Cancellation flags prevent memory leaks
@@ -333,6 +338,7 @@ ExpensiveList.displayName = 'ExpensiveList';
 ```
 
 **Optimization Checklist:**
+
 - `React.memo` prevents re-renders when props unchanged
 - `useMemo` caches expensive calculations
 - `useCallback` stabilizes function references
@@ -488,6 +494,7 @@ function TodoManager() {
 ```
 
 **When to use useReducer:**
+
 - Multiple related state values
 - Complex state transitions
 - Next state depends on previous
@@ -576,6 +583,7 @@ function FormWithFocus() {
 ```
 
 **Ref Use Cases:**
+
 - DOM access (focus, scroll, measurements)
 - Storing mutable values (timers, subscriptions)
 - Previous value tracking
@@ -681,6 +689,7 @@ function Dashboard() {
 ```
 
 **Custom Hook Benefits:**
+
 - Easier composition (use multiple hooks)
 - Better TypeScript inference
 - No wrapper components (simpler tree)
@@ -771,6 +780,7 @@ function MouseTracker() {
 ```
 
 **Hook Advantages:**
+
 - No extra nesting
 - Clearer data flow
 - Combine multiple hooks easily
@@ -858,6 +868,7 @@ function ThemedButton({ children }: { children: React.ReactNode }) {
 ```
 
 **Context Best Practices:**
+
 - Custom hook for consuming context
 - Memoize context value to prevent re-renders
 - Split contexts by update frequency
@@ -917,6 +928,7 @@ export default async function UserProfile({ params }: { params: { id: string } }
 ```
 
 **Server vs Client Decision Tree:**
+
 - Need interactivity (onClick, state)? → Client Component
 - Need browser APIs (localStorage, window)? → Client Component
 - Need effects or hooks? → Client Component
@@ -933,6 +945,7 @@ See reference: `react-expert/references/server-components.md`
 ### 1. Stale Closures
 
 **Problem:**
+
 ```tsx
 function Counter() {
   const [count, setCount] = useState(0);
@@ -951,6 +964,7 @@ function Counter() {
 ```
 
 **Solution:**
+
 ```tsx
 function Counter() {
   const [count, setCount] = useState(0);
@@ -971,6 +985,7 @@ function Counter() {
 ### 2. Missing Effect Dependencies
 
 **Problem:**
+
 ```tsx
 function UserSearch({ userId }: { userId: string }) {
   const [user, setUser] = useState(null);
@@ -984,6 +999,7 @@ function UserSearch({ userId }: { userId: string }) {
 ```
 
 **Solution:**
+
 ```tsx
 function UserSearch({ userId }: { userId: string }) {
   const [user, setUser] = useState<User | null>(null);
@@ -1010,6 +1026,7 @@ function UserSearch({ userId }: { userId: string }) {
 ### 3. Over-Memoization
 
 **Problem:**
+
 ```tsx
 function TodoList({ todos }: { todos: Todo[] }) {
   // Unnecessary - React is already fast
@@ -1033,6 +1050,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
 ```
 
 **Solution:**
+
 ```tsx
 function TodoList({ todos }: { todos: Todo[] }) {
   // Only memoize expensive computations
@@ -1056,6 +1074,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
 ```
 
 **Memoization Rules:**
+
 - Measure before optimizing
 - Memoize expensive calculations only
 - Memoize callbacks passed to memoized children
@@ -1066,6 +1085,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
 ## Migration Checklist
 
 **Before Migration:**
+
 - [ ] Add tests to current class component
 - [ ] Identify all lifecycle methods used
 - [ ] Document props, state, and behavior
@@ -1073,6 +1093,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
 - [ ] Verify no third-party class inheritance
 
 **During Migration:**
+
 - [ ] Convert constructor/state to useState
 - [ ] Map lifecycle methods to useEffect
 - [ ] Convert methods to functions or useCallback
@@ -1082,6 +1103,7 @@ function TodoList({ todos }: { todos: Todo[] }) {
 - [ ] Add cleanup functions where needed
 
 **After Migration:**
+
 - [ ] All tests pass
 - [ ] No eslint-disable comments added
 - [ ] Performance equivalent or better
@@ -1093,23 +1115,28 @@ function TodoList({ todos }: { todos: Todo[] }) {
 
 ## Gradual Migration Strategy
 
-**Phase 1: New Code**
+### Phase 1: New Code
+
 - Write all new components with hooks
 - Establish team patterns and conventions
 
-**Phase 2: Leaf Components**
+### Phase 2: Leaf Components
+
 - Migrate components with no children first
 - Build confidence and muscle memory
 
-**Phase 3: Container Components**
+### Phase 3: Container Components
+
 - Migrate parent components
 - Extract custom hooks for reusable logic
 
-**Phase 4: Core Infrastructure**
+### Phase 4: Core Infrastructure
+
 - Migrate providers and contexts
 - Update routing and state management
 
 **Never:**
+
 - Don't migrate everything at once
 - Don't migrate stable code unnecessarily
 - Don't break working features for purity

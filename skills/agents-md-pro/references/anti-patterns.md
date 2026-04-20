@@ -5,6 +5,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ## 1. Verbose Headers
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## 1. Project Core Identity and Technical Overview
 ## 2. Ubiquitous Domain Language and Glossary of Terms
@@ -12,6 +13,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## PROJECT
 ## DOMAIN
@@ -25,6 +27,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ## 2. Redundant Tech Stack Section
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 # Project Documentation
 
@@ -36,6 +39,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 # Project | Next.js 14 | TypeScript | PostgreSQL | Prisma
 ```
@@ -47,6 +51,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ## 3. Duplicating Tool Configuration
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Code Style
 - Use 2 spaces for indentation (not tabs)
@@ -58,6 +63,7 @@ Common mistakes that bloat token count and reduce effectiveness.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## CODE STYLE
 Enforced by `.eslintrc` + `.prettierrc`
@@ -70,6 +76,7 @@ Enforced by `.eslintrc` + `.prettierrc`
 ## 4. Explaining Commands Instead of Listing Them
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Testing
 To run the test suite, execute the npm test command. This will run all
@@ -78,6 +85,7 @@ run test:watch. For coverage reports, use npm run test:coverage.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## TEST
 - Run: `npm test`
@@ -92,6 +100,7 @@ run test:watch. For coverage reports, use npm run test:coverage.
 ## 5. Philosophical Guidance
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Error Handling Philosophy
 We believe in graceful degradation and user-friendly error messages.
@@ -100,6 +109,7 @@ context about what went wrong and how to fix it.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## ERRORS
 \`\`\`ts
@@ -117,6 +127,7 @@ catch (e) {
 ## 6. Multiple Examples of Same Pattern
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## API Routes
 
@@ -137,6 +148,7 @@ export default async (req, res) => { /* ... */ }
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## API ROUTES
 Location: `src/pages/api`
@@ -154,6 +166,7 @@ export default async (req, res) => {
 ## 7. Restating Standard Practices
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Git Workflow
 - Create feature branches from main
@@ -165,6 +178,7 @@ export default async (req, res) => {
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## GIT
 Format: `type(scope): message`
@@ -178,6 +192,7 @@ Hooks: pre-commit (lint + test)
 ## 8. Historical Context
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Background
 This project was started in 2020 as a monolith. In 2022 we migrated
@@ -186,6 +201,7 @@ reflects lessons learned from these transitions.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 _Delete this section entirely_
 ```
@@ -197,6 +213,7 @@ _Delete this section entirely_
 ## 9. Negative Examples (What NOT to Do)
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Component Patterns
 
@@ -212,6 +229,7 @@ function GoodComponent() { /* ... */ }
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## COMPONENTS
 \`\`\`ts
@@ -226,6 +244,7 @@ function Component() { /* ... */ }
 ## 10. Verbose Introductions and Conclusions
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 # Welcome to the Project Documentation
 
@@ -238,6 +257,7 @@ Thank you for reading this documentation. If you have questions...
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 # Project | Tech Stack
 
@@ -251,6 +271,7 @@ Thank you for reading this documentation. If you have questions...
 ## 11. Explaining the Obvious
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Directory Structure
 The `src/` directory contains all source code files. The `tests/`
@@ -259,6 +280,7 @@ static assets that will be publicly accessible.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## STRUCTURE
 - `src/components/` - React components
@@ -272,6 +294,7 @@ static assets that will be publicly accessible.
 ## 12. Nested Lists Without Value
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Features
 - User Management
@@ -284,6 +307,7 @@ static assets that will be publicly accessible.
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## FEATURES
 Auth: `src/auth/` (registration, login, sessions)
@@ -296,6 +320,7 @@ Auth: `src/auth/` (registration, login, sessions)
 ## 13. Repeating Package.json Scripts
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Available Scripts
 - `npm run dev` - Starts development server
@@ -307,6 +332,7 @@ Auth: `src/auth/` (registration, login, sessions)
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## COMMANDS
 Dev: `npm run dev`
@@ -322,6 +348,7 @@ Lint: `npm run lint --fix`
 ## 14. Abstract Architecture Descriptions
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Architecture
 We follow clean architecture principles with clear separation of
@@ -330,6 +357,7 @@ layer through well-defined interfaces. Data access is abstracted...
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## ARCHITECTURE
 - `src/ui/` - Components
@@ -344,6 +372,7 @@ layer through well-defined interfaces. Data access is abstracted...
 ## 15. Exhaustive Domain Glossary
 
 ❌ **Anti-Pattern:**
+
 ```markdown
 ## Domain Glossary
 | Term | Definition |
@@ -357,6 +386,7 @@ layer through well-defined interfaces. Data access is abstracted...
 ```
 
 ✅ **Pattern:**
+
 ```markdown
 ## DOMAIN
 | Term | Definition |
@@ -371,15 +401,15 @@ layer through well-defined interfaces. Data access is abstracted...
 
 ## Token Impact Examples
 
-| Anti-Pattern | Tokens | Pattern | Tokens | Saved |
-|--------------|--------|---------|--------|-------|
-| "## 1. Project Core Identity" | 8 | "## PROJECT" | 3 | 63% |
-| Explaining `npm test` | 45 | "`npm test`" | 4 | 91% |
-| Duplicating .eslintrc | 89 | "See `.eslintrc`" | 4 | 96% |
-| Philosophy paragraph | 67 | Code example | 15 | 78% |
-| Three similar examples | 156 | One example | 52 | 67% |
+| Anti-Pattern                  | Tokens | Pattern           | Tokens | Saved |
+| ----------------------------- | ------ | ----------------- | ------ | ----- |
+| "## 1. Project Core Identity" | 8      | "## PROJECT"      | 3      | 63%   |
+| Explaining `npm test`         | 45     | "`npm test`"      | 4      | 91%   |
+| Duplicating .eslintrc         | 89     | "See `.eslintrc`" | 4      | 96%   |
+| Philosophy paragraph          | 67     | Code example      | 15     | 78%   |
+| Three similar examples        | 156    | One example       | 52     | 67%   |
 
-**Average savings per anti-pattern removed: 79%**
+### Average savings per anti-pattern removed: 79%
 
 ## Detection Checklist
 

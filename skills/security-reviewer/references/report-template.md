@@ -48,12 +48,14 @@ User input directly concatenated into SQL query without sanitization.
 const query = `SELECT * FROM users WHERE name LIKE '%${searchTerm}%'`;
 ```
 
-**Proof of Concept**
-```
+### Proof of Concept
+
+```http
 GET /api/users?search=' OR '1'='1
 ```
 
-**Impact**
+### Impact
+
 - Full database access
 - Data exfiltration
 - Data modification/deletion
@@ -61,6 +63,7 @@ GET /api/users?search=' OR '1'='1
 
 **Remediation**
 Use parameterized queries:
+
 ```typescript
 const query = 'SELECT * FROM users WHERE name LIKE $1';
 db.query(query, [`%${searchTerm}%`]);
@@ -73,27 +76,30 @@ db.query(query, [`%${searchTerm}%`]);
 
 ### [HIGH] Weak Password Requirements
 
-| Field | Value |
-|-------|-------|
-| **ID** | SEC-002 |
+| Field        | Value                       |
+| ------------ | --------------------------- |
+| **ID**       | SEC-002                     |
 | **Location** | `src/auth/validation.ts:12` |
-| **CWE** | CWE-521 |
-| **CVSS** | 7.5 (High) |
+| **CWE**      | CWE-521                     |
+| **CVSS**     | 7.5 (High)                  |
 
 **Description**
 Password policy requires only 6 characters with no complexity requirements.
 
-**Current Policy**
+#### Current Policy
+
 ```typescript
 const isValid = password.length >= 6;
 ```
 
-**Impact**
+#### Impact
+
 - Susceptible to brute force attacks
 - Dictionary attack vulnerability
 
 **Remediation**
 Implement stronger requirements:
+
 ```typescript
 const isValid =
   password.length >= 12 &&
@@ -109,29 +115,34 @@ const isValid =
 ## Automated Scan Results
 
 ### Dependency Vulnerabilities
-| Package | Severity | CVE | Fix |
-|---------|----------|-----|-----|
-| lodash | High | CVE-2021-xxxx | Upgrade to 4.17.21 |
+
+| Package | Severity | CVE           | Fix                |
+| ------- | -------- | ------------- | ------------------ |
+| lodash  | High     | CVE-2021-xxxx | Upgrade to 4.17.21 |
 
 ### SAST Findings
-| Tool | Critical | High | Medium | Low |
-|------|----------|------|--------|-----|
-| Semgrep | 1 | 3 | 5 | 8 |
-| npm audit | 0 | 2 | 4 | 10 |
+
+| Tool      | Critical | High | Medium | Low |
+| --------- | -------- | ---- | ------ | --- |
+| Semgrep   | 1        | 3    | 5      | 8   |
+| npm audit | 0        | 2    | 4      | 10  |
 
 ## Recommendations
 
 ### Immediate (This Sprint)
+
 1. Fix SQL injection vulnerability (SEC-001)
 2. Implement parameterized queries globally
 3. Update vulnerable dependencies
 
 ### Short-term (Next Sprint)
+
 1. Strengthen password policy (SEC-002)
 2. Add input validation middleware
 3. Enable security headers
 
 ### Long-term
+
 1. Implement SAST in CI/CD pipeline
 2. Schedule regular security reviews
 3. Security training for developers
@@ -139,32 +150,35 @@ const isValid =
 ## Appendix
 
 ### Tools Used
+
 - Semgrep v1.x
 - npm audit
 - Gitleaks v8.x
 - Manual code review
 
 ### References
+
 - OWASP Top 10 2021
 - CWE Database
 - CVSS Calculator
-```
+
+```text
 
 ## Severity Definitions
 
 | Severity | CVSS Score | Response Time |
-|----------|------------|---------------|
-| Critical | 9.0 - 10.0 | Immediate |
-| High | 7.0 - 8.9 | 24-48 hours |
-| Medium | 4.0 - 6.9 | 1-2 weeks |
-| Low | 0.1 - 3.9 | Next release |
+| -------- | ---------- | ------------- |
+| Critical | 9.0 - 10.0 | Immediate     |
+| High     | 7.0 - 8.9  | 24-48 hours   |
+| Medium   | 4.0 - 6.9  | 1-2 weeks     |
+| Low      | 0.1 - 3.9  | Next release  |
 
 ## Quick Reference
 
-| Section | Purpose |
-|---------|---------|
-| Executive Summary | Management overview |
-| Findings Summary | Quick count by severity |
-| Detailed Findings | Technical details |
-| Scan Results | Automated tool output |
-| Recommendations | Prioritized action items |
+| Section           | Purpose                  |
+| ----------------- | ------------------------ |
+| Executive Summary | Management overview      |
+| Findings Summary  | Quick count by severity  |
+| Detailed Findings | Technical details        |
+| Scan Results      | Automated tool output    |
+| Recommendations   | Prioritized action items |

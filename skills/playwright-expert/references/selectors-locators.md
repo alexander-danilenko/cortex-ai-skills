@@ -108,12 +108,12 @@ page.getByTestId('submit-button');
 
 ## Quick Reference
 
-| Locator | Best For |
-|---------|----------|
-| `getByRole()` | Buttons, links, inputs |
-| `getByLabel()` | Form fields |
-| `getByPlaceholder()` | Inputs without labels |
-| `getByTestId()` | Non-semantic elements |
-| `getByText()` | Static text |
-| `filter()` | Narrowing results |
-| `nth()` / `first()` | Multiple matches |
+| Locator              | Best For               |
+| -------------------- | ---------------------- |
+| `getByRole()`        | Buttons, links, inputs |
+| `getByLabel()`       | Form fields            |
+| `getByPlaceholder()` | Inputs without labels  |
+| `getByTestId()`      | Non-semantic elements  |
+| `getByText()`        | Static text            |
+| `filter()`           | Narrowing results      |
+| `nth()` / `first()`  | Multiple matches       |

@@ -6,14 +6,16 @@ Comprehensive guide for multi-cloud strategies, abstraction layers, portability 
 
 ### When to Use Multi-Cloud
 
-**Valid Use Cases**
+#### Valid Use Cases
+
 - Regulatory compliance requiring data residency in specific regions
 - Best-of-breed service selection (BigQuery for analytics, AWS for ML)
 - Acquisition integration (different clouds in merged organizations)
 - Disaster recovery with cloud provider as failure domain
 - Negotiating leverage with cloud vendors
 
-**Poor Reasons for Multi-Cloud**
+#### Poor Reasons for Multi-Cloud
+
 - "Avoiding vendor lock-in" without specific exit scenario
 - Assuming portability is free (it has significant costs)
 - Political decisions without technical justification
@@ -21,8 +23,9 @@ Comprehensive guide for multi-cloud strategies, abstraction layers, portability 
 
 ### Multi-Cloud Patterns
 
-**Active-Active**
-```
+#### Active-Active
+
+```text
 Users -> Global Load Balancer
               |
     +---------+---------+
@@ -31,28 +34,33 @@ Users -> Global Load Balancer
     |                   |
     +----> Data Sync <--+
 ```
+
 - Highest complexity and cost
 - Best for global latency optimization
 - Requires robust data synchronization
 
-**Active-Passive (DR)**
-```
+#### Active-Passive (DR)
+
+```text
 Users -> Primary (AWS)
               |
          [Failover]
               |
          Secondary (Azure)
 ```
+
 - Lower complexity than active-active
 - Cloud provider becomes failure domain
 - Cold or warm standby in secondary cloud
 
-**Segmented by Workload**
-```
+#### Segmented by Workload
+
+```text
 Analytics -> GCP (BigQuery)
 Core App  -> AWS (ECS, RDS)
 Office    -> Azure (M365 integration)
 ```
+
 - Each workload on best-fit cloud
 - No cross-cloud data synchronization
 - Simplest multi-cloud pattern
@@ -61,7 +69,8 @@ Office    -> Azure (M365 integration)
 
 ### Infrastructure Abstraction
 
-**Terraform (Recommended)**
+#### Terraform (Recommended)
+
 ```hcl
 # Provider-agnostic module structure
 module "compute" {
@@ -87,7 +96,8 @@ resource "azurerm_virtual_machine" "main" {
 }
 ```
 
-**Pulumi (Code-First)**
+#### Pulumi (Code-First)
+
 ```typescript
 // Abstract cloud resources with TypeScript
 interface ComputeConfig {
@@ -112,7 +122,8 @@ function createCompute(config: ComputeConfig, provider: "aws" | "gcp") {
 
 ### Container Orchestration (Kubernetes)
 
-**Portable Kubernetes Deployment**
+#### Portable Kubernetes Deployment
+
 ```yaml
 # Same manifests work across EKS, AKS, GKE
 apiVersion: apps/v1
@@ -138,17 +149,19 @@ spec:
             cpu: "500m"
 ```
 
-**Cloud-Specific Considerations**
-| Feature | EKS | AKS | GKE |
-|---------|-----|-----|-----|
-| Load Balancer | ALB/NLB annotations | Azure LB | GCP LB |
-| Storage Class | gp3, io2 | managed-premium | pd-ssd |
-| IAM Integration | IRSA | Workload Identity | Workload Identity |
-| Ingress | AWS ALB Controller | AGIC | GKE Ingress |
+#### Cloud-Specific Considerations
+
+| Feature         | EKS                 | AKS               | GKE               |
+| --------------- | ------------------- | ----------------- | ----------------- |
+| Load Balancer   | ALB/NLB annotations | Azure LB          | GCP LB            |
+| Storage Class   | gp3, io2            | managed-premium   | pd-ssd            |
+| IAM Integration | IRSA                | Workload Identity | Workload Identity |
+| Ingress         | AWS ALB Controller  | AGIC              | GKE Ingress       |
 
 ### Application Abstraction
 
-**Database Abstraction**
+#### Database Abstraction
+
 ```python
 # Use standard protocols (SQL, Redis, S3 API)
 from sqlalchemy import create_engine
@@ -163,7 +176,8 @@ DATABASE_URL = os.environ["DATABASE_URL"]
 engine = create_engine(DATABASE_URL)
 ```
 
-**Object Storage Abstraction**
+#### Object Storage Abstraction
+
 ```python
 import boto3
 from botocore.config import Config
@@ -186,8 +200,9 @@ s3_client = boto3.client(
 
 ### Database Replication
 
-**Cross-Cloud PostgreSQL**
-```
+#### Cross-Cloud PostgreSQL
+
+```bash
 AWS RDS Primary
       |
       | Logical Replication
@@ -196,6 +211,7 @@ GCP Cloud SQL Replica (read-only)
 ```
 
 Configuration:
+
 ```sql
 -- On primary (AWS RDS)
 CREATE PUBLICATION my_publication FOR ALL TABLES;
@@ -206,7 +222,8 @@ CREATE SUBSCRIPTION my_subscription
   PUBLICATION my_publication;
 ```
 
-**Conflict Resolution Strategies**
+#### Conflict Resolution Strategies
+
 - Last-write-wins (timestamp-based)
 - Application-level conflict resolution
 - CRDT data structures for eventually consistent data
@@ -214,7 +231,8 @@ CREATE SUBSCRIPTION my_subscription
 
 ### Object Storage Sync
 
-**Rclone for Cross-Cloud Sync**
+#### Rclone for Cross-Cloud Sync
+
 ```bash
 # Sync S3 to GCS
 rclone sync s3:my-bucket gcs:my-bucket \
@@ -227,8 +245,9 @@ rclone bisync s3:bucket gcs:bucket \
   --conflict-resolve newer
 ```
 
-**Event-Driven Replication**
-```
+#### Event-Driven Replication
+
+```text
 S3 Bucket -> S3 Event -> Lambda -> GCS Upload
                               |
                               v
@@ -239,26 +258,28 @@ S3 Bucket -> S3 Event -> Lambda -> GCS Upload
 
 ### Lock-In Risk Assessment
 
-| Service Type | Lock-In Risk | Mitigation Strategy |
-|--------------|--------------|---------------------|
-| Compute (VMs) | Low | Standard OS images, IaC |
-| Kubernetes | Low | Portable manifests, avoid proprietary add-ons |
-| Object Storage | Low | S3-compatible API, standard formats |
-| Managed Databases | Medium | Standard SQL, logical backups |
-| Serverless Functions | High | Abstraction layers, containers |
-| Proprietary AI/ML | High | Open-source alternatives, ONNX models |
-| Managed Services | High | Evaluate portability before adoption |
+| Service Type         | Lock-In Risk | Mitigation Strategy                           |
+| -------------------- | ------------ | --------------------------------------------- |
+| Compute (VMs)        | Low          | Standard OS images, IaC                       |
+| Kubernetes           | Low          | Portable manifests, avoid proprietary add-ons |
+| Object Storage       | Low          | S3-compatible API, standard formats           |
+| Managed Databases    | Medium       | Standard SQL, logical backups                 |
+| Serverless Functions | High         | Abstraction layers, containers                |
+| Proprietary AI/ML    | High         | Open-source alternatives, ONNX models         |
+| Managed Services     | High         | Evaluate portability before adoption          |
 
 ### Mitigation Strategies
 
-**1. Use Open Standards**
+#### 1. Use Open Standards
+
 - SQL databases over proprietary NoSQL
 - Kubernetes over ECS/Cloud Run
 - S3 API for object storage
 - OpenTelemetry for observability
 - OIDC for authentication
 
-**2. Abstract Proprietary Services**
+#### 2. Abstract Proprietary Services
+
 ```typescript
 // Wrap cloud-specific services
 interface QueueService {
@@ -287,13 +308,15 @@ function createQueue(provider: string): QueueService {
 }
 ```
 
-**3. Maintain Exit Capability**
+#### 3. Maintain Exit Capability
+
 - Regular data export testing
 - Document cloud-specific dependencies
 - Keep IaC portable across providers
 - Estimate migration effort annually
 
-**4. Containerize Everything**
+#### 4. Containerize Everything
+
 ```dockerfile
 # Portable container runs anywhere
 FROM node:20-alpine
@@ -309,8 +332,9 @@ CMD ["node", "server.js"]
 
 ### Cross-Cloud Networking
 
-**VPN Interconnect**
-```
+#### VPN Interconnect
+
+```bash
 AWS VPC                          GCP VPC
    |                                |
    +---> AWS VPN Gateway            |
@@ -320,8 +344,9 @@ AWS VPC                          GCP VPC
               +---> GCP Cloud VPN <-+
 ```
 
-**Dedicated Interconnect (Enterprise)**
-```
+#### Dedicated Interconnect (Enterprise)
+
+```text
 On-Premises Data Center
          |
     +----+----+
@@ -339,7 +364,8 @@ AWS VPC    GCP VPC
 
 ### Service Mesh Across Clouds
 
-**Istio Multi-Cluster**
+#### Istio Multi-Cluster
+
 ```yaml
 # Primary cluster (AWS EKS)
 apiVersion: install.istio.io/v1alpha1
@@ -366,14 +392,16 @@ spec:
 
 ### Cross-Cloud Cost Visibility
 
-**FinOps Tools**
+#### FinOps Tools
+
 - CloudHealth by VMware
 - Apptio Cloudability
 - Spot.io (now part of NetApp)
 - Kubecost for Kubernetes
 
-**Unified Tagging Strategy**
-```
+#### Unified Tagging Strategy
+
+```yaml
 Required Tags (all clouds):
 - environment: prod/staging/dev
 - cost-center: engineering/marketing/sales
@@ -384,7 +412,7 @@ Required Tags (all clouds):
 
 ### Cost Comparison Framework
 
-```
+```text
 | Workload Type | AWS | Azure | GCP | Decision |
 |---------------|-----|-------|-----|----------|
 | General Compute | EC2 m5 | D-series | n2-standard | Compare $/vCPU/hour |
@@ -398,7 +426,8 @@ Required Tags (all clouds):
 
 ### Unified Monitoring Stack
 
-**OpenTelemetry Collector**
+#### OpenTelemetry Collector
+
 ```yaml
 # Collect from all clouds, export to single backend
 receivers:
@@ -433,7 +462,8 @@ service:
       exporters: [prometheus]
 ```
 
-**Grafana for Unified Dashboards**
+#### Grafana for Unified Dashboards
+
 - AWS CloudWatch data source
 - Azure Monitor data source
 - GCP Cloud Monitoring data source
@@ -443,8 +473,9 @@ service:
 
 ### Identity Federation
 
-**Cross-Cloud Identity**
-```
+#### Cross-Cloud Identity
+
+```text
 Corporate IdP (Okta/Azure AD)
          |
     SAML/OIDC
@@ -457,7 +488,8 @@ Corporate IdP (Okta/Azure AD)
 
 ### Secrets Management
 
-**HashiCorp Vault (Cloud-Agnostic)**
+#### HashiCorp Vault (Cloud-Agnostic)
+
 ```hcl
 # Single secrets management across clouds
 resource "vault_aws_secret_backend_role" "aws_role" {
@@ -476,7 +508,8 @@ resource "vault_gcp_secret_roleset" "gcp_role" {
 
 ### Network Security
 
-**Zero-Trust Across Clouds**
+#### Zero-Trust Across Clouds
+
 - mTLS between all services (service mesh)
 - No implicit trust based on network location
 - Identity-based access control

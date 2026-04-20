@@ -9,12 +9,12 @@
 
 ### Severity Levels
 
-| Level | Impact | Response | Example |
-|-------|--------|----------|---------|
-| SEV1 | Complete outage | Immediate | Database down, payment failed |
-| SEV2 | Major degradation | 15 min | API latency >5s, 50% errors |
-| SEV3 | Minor degradation | 1 hour | Non-critical feature broken |
-| SEV4 | Low impact | Business hours | UI glitch, logging issues |
+| Level | Impact            | Response       | Example                       |
+| ----- | ----------------- | -------------- | ----------------------------- |
+| SEV1  | Complete outage   | Immediate      | Database down, payment failed |
+| SEV2  | Major degradation | 15 min         | API latency >5s, 50% errors   |
+| SEV3  | Minor degradation | 1 hour         | Non-critical feature broken   |
+| SEV4  | Low impact        | Business hours | UI glitch, logging issues     |
 
 ## Runbook Template
 
@@ -256,13 +256,13 @@ Thanks to @oncall-team for rapid response.
 
 ## Incident Classification
 
-| Type | Examples | Response Team | Escalation |
-|------|----------|---------------|------------|
-| **Security** | Breach, data leak, unauthorized access | Security + DevOps | CISO, Legal |
-| **Service** | Outage, degradation, errors | DevOps + SRE | Engineering VP |
-| **Data** | Corruption, loss, sync issues | DBA + DevOps | CTO |
-| **Compliance** | GDPR, SOC2, audit violations | Compliance + Legal | CEO |
-| **Third-party** | Provider outage, API failures | DevOps + Product | Account manager |
+| Type            | Examples                               | Response Team      | Escalation      |
+| --------------- | -------------------------------------- | ------------------ | --------------- |
+| **Security**    | Breach, data leak, unauthorized access | Security + DevOps  | CISO, Legal     |
+| **Service**     | Outage, degradation, errors            | DevOps + SRE       | Engineering VP  |
+| **Data**        | Corruption, loss, sync issues          | DBA + DevOps       | CTO             |
+| **Compliance**  | GDPR, SOC2, audit violations           | Compliance + Legal | CEO             |
+| **Third-party** | Provider outage, API failures          | DevOps + Product   | Account manager |
 
 ## Security Incident Specifics
 

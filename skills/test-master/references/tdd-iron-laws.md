@@ -17,6 +17,7 @@ This is non-negotiable. If you wrote production code before writing a failing te
 > "You shall not write any production code unless it is to make a failing test pass."
 
 Every line of production code must have a corresponding test that:
+
 1. Was written first
 2. Was observed to fail
 3. Now passes because of that code
@@ -26,6 +27,7 @@ Every line of production code must have a corresponding test that:
 > "If you didn't watch the test fail, you don't know if it tests the right thing."
 
 Mandatory verification steps:
+
 - Write the test
 - Run it and **observe the failure**
 - Verify the failure message is meaningful
@@ -54,6 +56,7 @@ it('should return 0 for empty array', () => {
 ```
 
 **Requirements:**
+
 - One test at a time
 - Minimal scope
 - Clear failure message
@@ -70,6 +73,7 @@ function sum(numbers: number[]): number {
 ```
 
 **Requirements:**
+
 - Simplest possible implementation
 - No extra features
 - No optimization
@@ -86,6 +90,7 @@ function sum(numbers: number[]): number {
 ```
 
 **Requirements:**
+
 - Tests must stay green
 - Remove duplication
 - Improve clarity
@@ -97,14 +102,14 @@ function sum(numbers: number[]): number {
 
 These thoughts indicate you're about to violate TDD:
 
-| Rationalization | Why It's Wrong |
-|-----------------|----------------|
-| "I can manually test this quickly" | Manual testing doesn't prevent regression |
-| "I'll write tests after to save time" | You'll skip edge cases and test implementation |
-| "This is too simple to need a test" | Simple code changes; tests document expectations |
-| "I've already written the code, I can't delete it now" | Sunk cost fallacy; delete it |
-| "I know this works, I've done it before" | Your memory isn't documentation |
-| "We're in a hurry" | Technical debt costs more than TDD |
+| Rationalization                                        | Why It's Wrong                                   |
+| ------------------------------------------------------ | ------------------------------------------------ |
+| "I can manually test this quickly"                     | Manual testing doesn't prevent regression        |
+| "I'll write tests after to save time"                  | You'll skip edge cases and test implementation   |
+| "This is too simple to need a test"                    | Simple code changes; tests document expectations |
+| "I've already written the code, I can't delete it now" | Sunk cost fallacy; delete it                     |
+| "I know this works, I've done it before"               | Your memory isn't documentation                  |
+| "We're in a hurry"                                     | Technical debt costs more than TDD               |
 
 ---
 

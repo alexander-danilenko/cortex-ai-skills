@@ -21,6 +21,7 @@ npm install @myapi/sdk
 ```
 
 ### 2. Create Your First Request
+
 ```typescript
 import { Client } from '@myapi/sdk';
 
@@ -30,9 +31,11 @@ console.log(users);
 ```
 
 ### 3. Verify It Works
+
 Run the code and you should see a list of users.
 
 **Expected output:**
+
 ```json
 {
   "data": [
@@ -44,10 +47,12 @@ Run the code and you should see a list of users.
 ```
 
 ## Next Steps
+
 - [Authentication Guide](/docs/auth) - Learn about OAuth and API keys
 - [Advanced Queries](/docs/queries) - Filtering, sorting, pagination
 - [Error Handling](/docs/errors) - Handle errors gracefully
-```
+
+```text
 
 ### Step-by-Step Tutorial
 
@@ -76,6 +81,7 @@ npm install @myapi/sdk react
 ## Step 2: Fetch Users
 
 Create `src/api/users.ts`:
+
 ```typescript
 import { Client } from '@myapi/sdk';
 
@@ -88,6 +94,7 @@ export async function getUsers(page = 1, limit = 20) {
 ```
 
 **What's happening:**
+
 1. We import the SDK client
 2. Initialize it with our API key from environment
 3. Create a helper function that fetches paginated users
@@ -95,6 +102,7 @@ export async function getUsers(page = 1, limit = 20) {
 ## Step 3: Create the Component
 
 Create `src/components/UserTable.tsx`:
+
 ```typescript
 import { useState, useEffect } from 'react';
 import { getUsers } from '../api/users';
@@ -138,6 +146,7 @@ export function UserTable() {
 ## Step 4: Test It
 
 Run your app:
+
 ```bash
 npm run dev
 ```
@@ -145,7 +154,9 @@ npm run dev
 You should see a table with user data.
 
 ## Checkpoint
+
 At this point, you have:
+
 - [x] Set up the SDK
 - [x] Created an API helper
 - [x] Built a user table component
@@ -155,7 +166,8 @@ At this point, you have:
 ## Next: Adding Pagination
 
 [Continue to Step 5 →](/docs/tutorial/step-5)
-```
+
+```text
 
 ## Information Architecture
 
@@ -217,6 +229,7 @@ const file = document.querySelector('input[type="file"]').files[0];
 ```
 
 ### 2. Create form data
+
 ```typescript
 const formData = new FormData();
 formData.append('file', file);
@@ -224,6 +237,7 @@ formData.append('folder', 'avatars');
 ```
 
 ### 3. Upload with the SDK
+
 ```typescript
 const result = await client.files.upload(formData);
 console.log('File URL:', result.url);
@@ -238,9 +252,11 @@ Maximum file size is 10MB. Compress images before uploading.
 Only .jpg, .png, .gif are allowed. Check the file extension.
 
 ## Related
+
 - [File API Reference](/api/files)
 - [Handling Upload Progress](/guides/upload-progress)
-```
+
+```text
 
 ### Progressive Disclosure
 
@@ -267,6 +283,7 @@ For user-facing applications, use OAuth 2.0.
 ### Authorization Code Flow
 
 1. Redirect user to authorization URL:
+
 ```typescript
 const authUrl = client.oauth.getAuthUrl({
   redirectUri: 'https://yourapp.com/callback',
@@ -275,13 +292,15 @@ const authUrl = client.oauth.getAuthUrl({
 window.location.href = authUrl;
 ```
 
-2. Handle the callback:
+1. Handle the callback:
+
 ```typescript
 const code = new URLSearchParams(window.location.search).get('code');
 const tokens = await client.oauth.exchangeCode(code);
 ```
 
-3. Use the access token:
+1. Use the access token:
+
 ```typescript
 const client = new Client({ accessToken: tokens.access_token });
 ```
@@ -355,7 +374,8 @@ erDiagram
         text content
     }
 ```
-```
+
+```text
 
 ### Screenshot Annotations
 
@@ -412,11 +432,13 @@ echo -n "$API_KEY" | wc -c  # Should be exactly 32 characters
 ```
 
 **2. Regenerate the key:**
+
 - Go to [dashboard](/dashboard)
 - Click "Revoke & Regenerate"
 - Update your environment variables
 
 **3. Check environment:**
+
 ```typescript
 console.log('Environment:', process.env.NODE_ENV);
 console.log('API URL:', client.baseUrl);
@@ -430,6 +452,7 @@ console.log('API URL:', client.baseUrl);
 ### "Rate limit exceeded"
 
 **Symptoms:**
+
 - 429 Too Many Requests error
 - Requests failing intermittently
 
@@ -439,6 +462,7 @@ Wait 60 seconds and retry.
 **Long-term solutions:**
 
 **1. Implement exponential backoff:**
+
 ```typescript
 async function retryWithBackoff(fn, maxRetries = 3) {
   for (let i = 0; i < maxRetries; i++) {
@@ -460,7 +484,8 @@ Instead of 100 individual requests, use batch endpoints.
 
 **3. Upgrade your plan:**
 [View plans](/pricing) - Higher tiers have increased limits.
-```
+
+```yaml
 
 ## FAQ Section
 
@@ -514,17 +539,17 @@ Credit card, PayPal, wire transfer (annual plans only).
 
 ## Quick Reference
 
-| Content Type | Best For | Key Elements |
-|-------------|----------|-------------|
-| Quick Start | New users (5 min) | Prerequisites, minimal code, verify |
-| Tutorial | Learning by doing | Steps, checkpoints, working code |
-| How-To Guide | Specific tasks | Goal, steps, troubleshooting |
-| Reference | Looking up details | Comprehensive, searchable |
-| Explanation | Understanding concepts | Why, not how |
+| Content Type | Best For               | Key Elements                        |
+| ------------ | ---------------------- | ----------------------------------- |
+| Quick Start  | New users (5 min)      | Prerequisites, minimal code, verify |
+| Tutorial     | Learning by doing      | Steps, checkpoints, working code    |
+| How-To Guide | Specific tasks         | Goal, steps, troubleshooting        |
+| Reference    | Looking up details     | Comprehensive, searchable           |
+| Explanation  | Understanding concepts | Why, not how                        |
 
-| Writing Principle | Technique |
-|------------------|-----------|
-| Clarity | Active voice, short sentences |
-| Scannability | Headings, lists, code blocks |
-| Completeness | Prerequisites, next steps, related links |
-| Accuracy | Test all code, version specifics |
+| Writing Principle | Technique                                |
+| ----------------- | ---------------------------------------- |
+| Clarity           | Active voice, short sentences            |
+| Scannability      | Headings, lists, code blocks             |
+| Completeness      | Prerequisites, next steps, related links |
+| Accuracy          | Test all code, version specifics         |

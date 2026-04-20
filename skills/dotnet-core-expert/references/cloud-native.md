@@ -536,13 +536,13 @@ app.MapPrometheusScrapingEndpoint();
 
 ## Quick Reference
 
-| Pattern | Usage |
-|---------|-------|
-| Multi-stage Dockerfile | Minimize image size |
-| Health checks | Kubernetes liveness/readiness |
-| Structured logging | JSON logs for aggregation |
-| Distributed cache | Redis for scalability |
-| Graceful shutdown | Clean resource cleanup |
-| Configuration | Environment-specific settings |
-| OpenTelemetry | Distributed tracing/metrics |
-| HPA | Auto-scaling based on metrics |
+| Pattern                | Usage                         |
+| ---------------------- | ----------------------------- |
+| Multi-stage Dockerfile | Minimize image size           |
+| Health checks          | Kubernetes liveness/readiness |
+| Structured logging     | JSON logs for aggregation     |
+| Distributed cache      | Redis for scalability         |
+| Graceful shutdown      | Clean resource cleanup        |
+| Configuration          | Environment-specific settings |
+| OpenTelemetry          | Distributed tracing/metrics   |
+| HPA                    | Auto-scaling based on metrics |

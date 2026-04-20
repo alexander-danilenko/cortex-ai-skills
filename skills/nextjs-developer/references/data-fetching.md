@@ -463,13 +463,13 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
 ## Quick Reference
 
-| Strategy | Config | Use Case |
-|----------|--------|----------|
-| **SSG** | `cache: 'force-cache'` | Static content |
-| **SSR** | `cache: 'no-store'` | Always fresh data |
-| **ISR** | `next: { revalidate: 60 }` | Periodic updates |
-| **Tag-based** | `next: { tags: ['posts'] }` | On-demand revalidation |
-| **Dynamic** | `export const dynamic = 'force-dynamic'` | Per-request data |
+| Strategy      | Config                                   | Use Case               |
+| ------------- | ---------------------------------------- | ---------------------- |
+| **SSG**       | `cache: 'force-cache'`                   | Static content         |
+| **SSR**       | `cache: 'no-store'`                      | Always fresh data      |
+| **ISR**       | `next: { revalidate: 60 }`               | Periodic updates       |
+| **Tag-based** | `next: { tags: ['posts'] }`              | On-demand revalidation |
+| **Dynamic**   | `export const dynamic = 'force-dynamic'` | Per-request data       |
 
 ## Best Practices
 

@@ -53,6 +53,7 @@ export function Counter() {
 ## When to Use Client Components
 
 Use `'use client'` when you need:
+
 - **Interactivity** - onClick, onChange, event handlers
 - **State** - useState, useReducer
 - **Effects** - useEffect, useLayoutEffect
@@ -366,15 +367,15 @@ export default async function Page() {
 
 ## Quick Reference
 
-| Capability | Server Component | Client Component |
-|------------|------------------|------------------|
-| Data fetching | ✅ Yes | ⚠️ Use SWR/React Query |
-| Backend access | ✅ Yes (DB, files) | ❌ No |
-| Event handlers | ❌ No | ✅ Yes |
-| State/Effects | ❌ No | ✅ Yes |
-| Browser APIs | ❌ No | ✅ Yes |
-| Bundle size | 0 KB | Adds to bundle |
-| Streaming | ✅ Yes | ❌ No |
+| Capability     | Server Component   | Client Component       |
+| -------------- | ------------------ | ---------------------- |
+| Data fetching  | ✅ Yes             | ⚠️ Use SWR/React Query |
+| Backend access | ✅ Yes (DB, files) | ❌ No                  |
+| Event handlers | ❌ No              | ✅ Yes                 |
+| State/Effects  | ❌ No              | ✅ Yes                 |
+| Browser APIs   | ❌ No              | ✅ Yes                 |
+| Bundle size    | 0 KB               | Adds to bundle         |
+| Streaming      | ✅ Yes             | ❌ No                  |
 
 ## Best Practices
 

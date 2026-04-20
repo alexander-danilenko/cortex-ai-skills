@@ -47,10 +47,13 @@ npx skills add alexander-danilenko/cortex-ai-skills --list
 <summary>Recommended skills from other repos</summary>
 
 - [anthropics/skills](https://github.com/anthropics/skills) — official Anthropic skills
+
   ```bash
   npx skills add anthropics/skills --skill skill-creator --agent claude-code --global --copy
   ```
+
 - [obra/superpowers](https://github.com/obra/superpowers) — enhanced Claude Code workflows
+
   ```bash
   claude plugin install superpowers@claude-plugins-official
   ```

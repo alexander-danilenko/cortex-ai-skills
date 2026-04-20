@@ -163,7 +163,7 @@ echo "✓ Service created! Merge to main to deploy."
 
 ## GitOps Repository Structure
 
-```
+```text
 gitops/
 ├── apps/
 │   ├── production/

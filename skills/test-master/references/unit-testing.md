@@ -103,11 +103,11 @@ describe('Feature', () => {
 
 ## Quick Reference
 
-| Pattern | Use Case |
-|---------|----------|
-| `describe()` | Group related tests |
-| `it()` / `test()` | Single test case |
-| `beforeEach()` | Setup before each test |
-| `jest.fn()` | Create mock function |
-| `mockResolvedValue()` | Mock async return |
-| `expect().toThrow()` | Assert exception |
+| Pattern               | Use Case               |
+| --------------------- | ---------------------- |
+| `describe()`          | Group related tests    |
+| `it()` / `test()`     | Single test case       |
+| `beforeEach()`        | Setup before each test |
+| `jest.fn()`           | Create mock function   |
+| `mockResolvedValue()` | Mock async return      |
+| `expect().toThrow()`  | Assert exception       |

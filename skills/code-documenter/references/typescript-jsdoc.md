@@ -166,6 +166,7 @@ class UserService implements IUserService {
 ```
 
 Key points:
+
 - `@inheritDoc` is always bare: no braces, no reference.
 - `@inheritDoc` must be the first line of the comment body.
 - A blank line separates `@inheritDoc` from any additional notes.
@@ -319,19 +320,19 @@ interface SessionToken {
 
 ## Quick Reference
 
-| Tag | Purpose | Example |
-|-----|---------|---------|
-| `@param` | Parameter description | `@param name - User's name.` |
-| `@returns` | Return value | `@returns The user object.` |
-| `@throws` | Exception thrown | `@throws {Error} If invalid.` |
-| `@example` | Usage example | Code block |
-| `@remarks` | Design rationale, constraints | Always a bullet list, even with one item |
-| `@see` | Cross-reference | `@see UserService` |
-| `@deprecated` | Mark deprecated | `@deprecated Use v2 instead.` |
-| `@template` | Generic type param | `@template T - Item type.` |
-| `@readonly` | Read-only property | Cannot modify |
-| `@inheritDoc` | Inherit interface docs | `@inheritDoc` (bare, no braces, no reference) |
-| `{@link}` | Link to symbol or URL | `{@link IUserService}` |
+| Tag           | Purpose                       | Example                                       |
+| ------------- | ----------------------------- | --------------------------------------------- |
+| `@param`      | Parameter description         | `@param name - User's name.`                  |
+| `@returns`    | Return value                  | `@returns The user object.`                   |
+| `@throws`     | Exception thrown              | `@throws {Error} If invalid.`                 |
+| `@example`    | Usage example                 | Code block                                    |
+| `@remarks`    | Design rationale, constraints | Always a bullet list, even with one item      |
+| `@see`        | Cross-reference               | `@see UserService`                            |
+| `@deprecated` | Mark deprecated               | `@deprecated Use v2 instead.`                 |
+| `@template`   | Generic type param            | `@template T - Item type.`                    |
+| `@readonly`   | Read-only property            | Cannot modify                                 |
+| `@inheritDoc` | Inherit interface docs        | `@inheritDoc` (bare, no braces, no reference) |
+| `{@link}`     | Link to symbol or URL         | `{@link IUserService}`                        |
 
 ## `{@link}` Usage
 

@@ -4,7 +4,7 @@
 
 ### When to Use What
 
-```
+```text
 Determinate (known total):
   [████████████░░░░░░░░] 60% (3/5 files)
   Use: File operations, downloads, batch processing
@@ -22,7 +22,7 @@ Multi-step:
 
 ### Progress Bar Best Practices
 
-```
+```yaml
 Good:
 [████████████░░░░░░░░] 60% | 120/200 MB | 2.4 MB/s | ETA: 33s
 ↑ Visual     ↑ Percent  ↑ Progress  ↑ Rate     ↑ Time
@@ -42,7 +42,7 @@ Processing... (no feedback)
 
 ### Spinner Styles
 
-```
+```text
 ⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏   Dots (elegant, low-key)
 ⣾ ⣽ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷        Blocks (bold, attention)
 ◐ ◓ ◑ ◒                  Circle (classic)
@@ -59,7 +59,7 @@ Choose based on:
 
 ### Semantic Colors
 
-```
+```yaml
 Red:     Errors, failures, destructive actions
 Yellow:  Warnings, deprecations, non-critical issues
 Green:   Success, completion, positive feedback
@@ -93,7 +93,7 @@ if (noColor) {
 
 ### Color Accessibility
 
-```
+```yaml
 - Don't rely on color alone (use symbols too)
 - Provide high contrast (test with various terminals)
 - Support color blindness (red/green alternatives)
@@ -112,7 +112,7 @@ Failed (only color, no symbol)
 
 ### Command Help Structure
 
-```
+```text
 USAGE
   mycli <command> [options]
 
@@ -141,7 +141,7 @@ Learn more: https://docs.mycli.dev
 
 ### Subcommand Help
 
-```
+```text
 USAGE
   mycli deploy <environment> [options]
 
@@ -182,7 +182,7 @@ For more information, visit https://docs.mycli.dev/deploy
 
 ### Good Error Messages
 
-```
+```yaml
 Pattern: [Context] → [Problem] → [Solution]
 
 Example 1: File not found
@@ -221,7 +221,7 @@ Try:
 
 ### Error Message Guidelines
 
-```
+```yaml
 DO:
 ✓ Be specific ("Port 3000 already in use" not "Port unavailable")
 ✓ Show context ("in file config.yml, line 42")
@@ -239,7 +239,7 @@ DON'T:
 
 ### Prompt Types
 
-```
+```yaml
 Text Input:
   Project name: my-awesome-app
   ↑ Clear label
@@ -268,7 +268,7 @@ Password:
 
 ### Prompt Guidelines
 
-```
+```yaml
 DO:
 ✓ Show keyboard hints ("Use arrow keys", "Press space")
 ✓ Provide sensible defaults (pre-select common choices)
@@ -287,7 +287,7 @@ DON'T:
 
 ### Tables
 
-```
+```text
 Good:
 ┌─────────────┬──────────┬──────────┐
 │ Environment │ Status   │ Updated  │
@@ -312,7 +312,7 @@ JSON (for programmatic use):
 
 ### Lists
 
-```
+```text
 Bulleted:
 Features:
   • TypeScript support
@@ -339,7 +339,7 @@ my-app/
 
 ### Real-time Updates
 
-```
+```yaml
 Multi-step process:
 ✓ Dependencies installed (2.3s)
 ✓ Application built (8.1s)
@@ -360,7 +360,7 @@ Updates:
 
 ### Summary/Completion
 
-```
+```yaml
 ✓ Deployment complete!
 
 Summary:
@@ -379,7 +379,7 @@ URL: https://app.example.com
 
 ## Debugging & Verbose Mode
 
-```
+```text
 Normal mode (default):
 ✓ Deployed to production (2m 34s)
 
@@ -412,7 +412,7 @@ DEBUG=* mycli deploy production
 
 ## Man Page Format
 
-```
+```text
 NAME
     mycli-deploy - Deploy application to environment
 

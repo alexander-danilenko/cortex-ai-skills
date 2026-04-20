@@ -7,7 +7,8 @@ REST APIs are built around resources, not actions. Resources are the nouns of yo
 ### Resource Identification
 
 **Good Resource URIs:**
-```
+
+```http
 GET    /users                  # Collection
 GET    /users/{id}             # Individual resource
 GET    /users/{id}/orders      # Nested collection
@@ -18,7 +19,8 @@ DELETE /users/{id}             # Delete resource
 ```
 
 **Bad Resource URIs:**
-```
+
+```http
 POST   /getUser                # Verb in URI
 POST   /createUser             # Verb in URI
 GET    /user?action=delete     # Action as query param
@@ -35,19 +37,20 @@ GET    /user?action=delete     # Action as query param
 
 ### Safe and Idempotent Methods
 
-| Method | Safe | Idempotent | Use Case |
-|--------|------|------------|----------|
-| GET | Yes | Yes | Retrieve resource(s) |
-| POST | No | No | Create resource, non-idempotent operations |
-| PUT | No | Yes | Replace entire resource |
-| PATCH | No | No | Partial update |
-| DELETE | No | Yes | Remove resource |
-| HEAD | Yes | Yes | Get metadata only |
-| OPTIONS | Yes | Yes | Get allowed methods |
+| Method  | Safe | Idempotent | Use Case                                   |
+| ------- | ---- | ---------- | ------------------------------------------ |
+| GET     | Yes  | Yes        | Retrieve resource(s)                       |
+| POST    | No   | No         | Create resource, non-idempotent operations |
+| PUT     | No   | Yes        | Replace entire resource                    |
+| PATCH   | No   | No         | Partial update                             |
+| DELETE  | No   | Yes        | Remove resource                            |
+| HEAD    | Yes  | Yes        | Get metadata only                          |
+| OPTIONS | Yes  | Yes        | Get allowed methods                        |
 
 ### Method Usage
 
-**GET - Retrieve Resources**
+#### GET - Retrieve Resources
+
 ```http
 GET /users/123
 Accept: application/json
@@ -61,7 +64,8 @@ Response: 200 OK
 }
 ```
 
-**POST - Create Resources**
+#### POST - Create Resources
+
 ```http
 POST /users
 Content-Type: application/json
@@ -81,7 +85,8 @@ Location: /users/124
 }
 ```
 
-**PUT - Replace Resource**
+#### PUT - Replace Resource
+
 ```http
 PUT /users/123
 Content-Type: application/json
@@ -100,7 +105,8 @@ Response: 200 OK
 }
 ```
 
-**PATCH - Partial Update**
+#### PATCH - Partial Update
+
 ```http
 PATCH /users/123
 Content-Type: application/json
@@ -118,7 +124,8 @@ Response: 200 OK
 }
 ```
 
-**DELETE - Remove Resource**
+#### DELETE - Remove Resource
+
 ```http
 DELETE /users/123
 
@@ -287,7 +294,7 @@ Response: 412 Precondition Failed (if ETag doesn't match)
 
 ### Consistent URI Structure
 
-```
+```text
 /{version}/{resource}
 /{version}/{resource}/{id}
 /{version}/{resource}/{id}/{sub-resource}
@@ -297,26 +304,30 @@ Response: 412 Precondition Failed (if ETag doesn't match)
 ### Query Parameters
 
 **Filtering:**
-```
+
+```http
 GET /users?status=active&role=admin
 GET /products?category=electronics&price_min=100&price_max=500
 ```
 
 **Sorting:**
-```
+
+```http
 GET /users?sort=created_at
 GET /users?sort=-created_at          # Descending
 GET /users?sort=name,created_at      # Multiple fields
 ```
 
 **Field Selection:**
-```
+
+```http
 GET /users?fields=id,name,email
 GET /users?exclude=password,social_security_number
 ```
 
 **Search:**
-```
+
+```http
 GET /users?q=john
 GET /products?search=laptop
 ```

@@ -2,12 +2,12 @@
 
 ## Strategy Comparison
 
-| Strategy | Use When | Rollback | Risk |
-|----------|----------|----------|------|
-| **Rolling** | Standard updates, can tolerate mixed versions | Automatic via health checks | Low |
-| **Blue-Green** | Zero downtime, instant rollback needed | Switch traffic to old env | Medium |
-| **Canary** | Risk mitigation, gradual rollout | Scale down canary | Low |
-| **Recreate** | Stateful apps, breaking changes | Redeploy previous version | High |
+| Strategy       | Use When                                      | Rollback                    | Risk   |
+| -------------- | --------------------------------------------- | --------------------------- | ------ |
+| **Rolling**    | Standard updates, can tolerate mixed versions | Automatic via health checks | Low    |
+| **Blue-Green** | Zero downtime, instant rollback needed        | Switch traffic to old env   | Medium |
+| **Canary**     | Risk mitigation, gradual rollout              | Scale down canary           | Low    |
+| **Recreate**   | Stateful apps, breaking changes               | Redeploy previous version   | High   |
 
 ## Rolling Deployment (Kubernetes)
 
@@ -81,6 +81,7 @@ spec:
 ## Rollback Procedures
 
 ### Kubernetes Rollback
+
 ```bash
 # View rollout history
 kubectl rollout history deployment/app
@@ -96,11 +97,13 @@ kubectl rollout status deployment/app
 ```
 
 ### ArgoCD Rollback
+
 ```bash
 argocd app rollback app-prod --revision=123
 ```
 
 ### Terraform Rollback
+
 ```bash
 # Identify previous state
 terraform state list
@@ -141,6 +144,7 @@ curl -f https://app.example.com/health
 ## Deployment Metrics (DORA)
 
 Track four key metrics:
+
 - **Deployment Frequency**: Target 10+/day
 - **Lead Time for Changes**: Target <1 hour
 - **Change Failure Rate**: Target <5%

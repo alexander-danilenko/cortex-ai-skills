@@ -111,10 +111,10 @@ async def test_invalid_email(client: AsyncClient):
 
 ## Quick Reference
 
-| Method | Purpose |
-|--------|---------|
-| `.send(body)` | Send request body |
-| `.set(header, value)` | Set header |
-| `.expect(status)` | Assert status code |
-| `.expect('Content-Type', /json/)` | Assert header |
-| `response.body` | Parsed JSON body |
+| Method                            | Purpose            |
+| --------------------------------- | ------------------ |
+| `.send(body)`                     | Send request body  |
+| `.set(header, value)`             | Set header         |
+| `.expect(status)`                 | Assert status code |
+| `.expect('Content-Type', /json/)` | Assert header      |
+| `response.body`                   | Parsed JSON body   |
