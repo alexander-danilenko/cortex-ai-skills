@@ -1,0 +1,12 @@
+# Local state and tooling
+.remember/
+.claude/
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Generated / vendored
+node_modules/
+LICENSE
