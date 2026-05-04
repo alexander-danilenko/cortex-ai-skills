@@ -11,11 +11,8 @@ Guidance for AI coding agents working in this repository.
 ```text
 skills/<skill-name>/
 ├── SKILL.md        # skill definition + YAML frontmatter
-├── metadata.yml    # validated by schemas/metadata.schema.json
 └── references/     # optional, loaded conditionally by SKILL.md
 ```
-
-`metadata.yml` fields, requirements, and allowed values are defined by `schemas/metadata.schema.json` — read the schema rather than guessing.
 
 ## Skill Authoring — `/skill-creator` Required
 
@@ -42,33 +39,24 @@ Then invoke `/skill-creator:skill-creator` for any skill-authoring task.
 
 ## Versioning
 
-**Bump as part of the change, not after.** Classify the change (patch / minor / major), then update both the touched skill's `metadata.yml` and `.claude-plugin/plugin.json` in the same diff. A commit without a matching bump is incomplete.
+**Bump as part of the change, not after.** Classify the change (patch / minor / major), then update `.claude-plugin/plugin.json` in the same diff. A commit without a matching bump is incomplete.
 
-### Skill (`metadata.yml`)
+Bump `plugin.json` to the highest level present in the diff:
 
-- **patch**: typos, wording, formatting
-- **minor**: new references, new sections, expanded guidance
-- **major**: rewritten role/workflow, changed scope or output-format, breaking behavior
-
-### Plugin (`plugin.json`)
-
-Bump on every commit to the highest level present in the diff:
-
-- **patch**: any skill patch, wording, config adjustments
-- **minor**: any skill minor, new/removed skill, schema change
-- **major**: any skill major, breaking structural change
+- **patch**: typos, wording, formatting, config adjustments
+- **minor**: expanded skill content, new references, new/removed skill
+- **major**: rewritten role/workflow, breaking structural change
 
 Mixed changes take the highest level (2 patches + 1 minor = minor).
 
 ### Review (every review task)
 
-Every review — code review, audit, PR, self-check — must verify version bumps:
+Every review — code review, audit, PR, self-check — must verify the version bump:
 
 1. Determine the actual semver level of the diff.
-2. Compare against the bumps in `metadata.yml` and `plugin.json`.
+2. Compare against the bump in `plugin.json`.
 3. **Missing or under-bumped**: fix in the same pass; note the change and reason to the user.
 4. **Over-bumped**: flag with a suggested downgrade; don't silently edit (may be intentional).
-5. **Asymmetric** (skill bumped but not plugin, or vice versa): fix the missing side and note it.
 
 ## Markdown Formatting
 
@@ -82,4 +70,3 @@ Add a markdownlint disable only when the rule is genuinely wrong for this codeba
 - **Formatting**: UTF-8, LF, 2-space indent — see `.editorconfig`.
 - **Reference files**: conditionally loaded by SKILL.md — never standalone skills.
 - **allowed-tools**: read-only → `Read, Grep, Glob`; editing → add `Write, Edit`; automation → add `Bash`.
-- **related-skills sync**: the `related-skills` enum in `schemas/metadata.schema.json` must list every skill directory. Adding or removing a skill requires updating the enum.

@@ -1,7 +1,7 @@
 {
   "$schema": "../schemas/plugin.schema.json",
   "name": "cortex",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Skills for AI coding assistants across architecture, security, DevOps, and language domains",
   "author": {
     "name": "Alexander Danilenko",
