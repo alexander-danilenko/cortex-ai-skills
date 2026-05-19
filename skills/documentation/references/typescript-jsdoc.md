@@ -6,6 +6,97 @@ When Context7 MCP is available, query `websites/tsdoc` for up-to-date TSDoc tag 
 
 **Do not use `@example` blocks.**
 
+## Bare Minimum — Do Not Restate the Signature
+
+The signature already tells the reader the symbol's name, parameter names, parameter types, return type, and modifiers (`readonly`, `?`, `async`). Documentation must add what the reader **cannot** infer from that — semantic intent, units, ranges, defaults, edge-value meaning, error cases, invariants, the "why" of the API's existence.
+
+Every public member still gets a brief summary so generated docs and IDE tooltips have content — but keep it to one short sentence that adds intent, never one that paraphrases the signature. For `@param` and `@returns`, drop the tag entirely when it would only restate the signature; the summary plus the type are enough.
+
+Use third-person descriptive voice in summaries — "Calculates…", "Finds…", "Returns…" — to match the Microsoft API reference style. Save the imperative mood for inline `//` comments on procedural steps.
+
+### Summary block
+
+The free-text body before any `@`-tag carries **intent, not restatement**. Do not paraphrase the symbol's name, list its parameters, or describe the shape of its return — those are already visible. Write what the reader cannot infer.
+
+```typescript
+// WRONG — every word is already in the signature.
+/**
+ * Calculates the total cost from items and a tax rate, and returns a number.
+ */
+function calculateTotal(items: Item[], taxRate: number): number;
+
+// CORRECT — adds semantics the signature cannot express.
+/**
+ * Applies tax once at the order level and rounds to two decimals so totals
+ * reconcile with the invoicing system.
+ */
+function calculateTotal(items: Item[], taxRate: number): number;
+```
+
+```typescript
+// WRONG — the name and type already say "user's email".
+/**
+ * The user's email address as a string.
+ */
+email: string;
+
+// CORRECT — adds the constraint that isn't in the type.
+/**
+ * Unique across the system; lookups are case-insensitive.
+ */
+email: string;
+```
+
+When a property name plus its type really do say everything, write the shortest line that adds intent — a usage hint, a constraint, the role the value plays — rather than dropping the comment.
+
+### `@param`, `@returns`
+
+Include a `@param` or `@returns` **only when it adds information the signature does not already carry** — units, ranges, defaults, the meaning of edge values (e.g. "0 disables the cap"), or the meaning of `null` / empty results. If the parameter name and type already make the contract obvious, drop the tag.
+
+`@throws` is the opposite default: include it whenever a function can throw, because the throw set is invisible from the signature.
+
+```typescript
+// WRONG — every tag restates the type.
+/**
+ * Finds a user by ID.
+ *
+ * @param id - The user's ID, as a string.
+ * @returns The user as a `User` object, or `null`.
+ */
+function findById(id: string): Promise<User | null>;
+
+// CORRECT — only the non-obvious bit is documented.
+/**
+ * Finds a user by ID.
+ *
+ * @returns `null` when no user matches; never rejects on missing.
+ */
+function findById(id: string): Promise<User | null>;
+```
+
+```typescript
+// CORRECT — `@param` earns its keep by adding units and clamping behaviour.
+/**
+ * Computes the next backoff delay.
+ *
+ * @param attempt - Zero-based; values above 10 are clamped.
+ * @returns Delay in milliseconds, capped at 30 s.
+ */
+function nextDelay(attempt: number): number;
+```
+
+A `@param` is worth writing when it answers at least one of:
+
+- What unit is this in? (ms, bytes, decimal fraction, …)
+- What range or clamp applies?
+- What default is used when the argument is omitted?
+- What does an edge value mean? (`0` disables, `-1` = unlimited, empty array = "all", …)
+- What does a `null` / empty return signify, versus an exception?
+
+If none of those apply, the tag is noise.
+
+**Interfaces are not an exception to this rule.** Interface methods still need `@throws` and any return-semantics note (e.g. "`null` means not found"), but a `@param id - User's unique identifier.` adds nothing over `id: string` and should be dropped.
+
 ## Formatting Rules
 
 Every `/**` comment block places its body on a new line. One-line doc comments are not allowed because they become hard to extend and visually inconsistent.
@@ -36,10 +127,9 @@ Use them sparingly — only when the block is genuinely complex enough that a re
 // CORRECT — doc comment describes the contract; inline comment summarises
 // how the body achieves it.
 /**
- * Compute the next backoff delay in milliseconds.
+ * Computes the next backoff delay in milliseconds.
  *
  * @param attempt - Zero-based retry attempt number.
- * @returns Delay before the next retry.
  */
 function nextDelay(attempt: number): number {
   // Full jitter: cap exponential growth at 30 s, then pick a random point
@@ -50,7 +140,7 @@ function nextDelay(attempt: number): number {
 
 // WRONG — implementation detail leaked into the doc comment
 /**
- * Compute the next backoff delay using full jitter, capping the
+ * Computes the next backoff delay using full jitter, capping the
  * exponential at 30 s and seeding from Math.random.
  */
 ```
@@ -69,23 +159,22 @@ Interfaces represent abstractions — the _contract_, not the machinery behind i
  */
 interface IUserService {
   /**
-   * Create a new user account.
+   * Creates a new user account.
    *
-   * @param data - Required fields for account creation.
-   * @returns The newly created user.
    * @throws {ValidationError} If required fields are missing or invalid.
    */
   create(data: CreateUserDto): Promise<User>;
 
   /**
-   * Find a user by their unique identifier.
+   * Finds a user by their unique identifier.
    *
-   * @param id - User's unique identifier.
    * @returns The user, or `null` if not found.
    */
   findById(id: string): Promise<User | null>;
 }
 ```
+
+The `@param` lines that used to live on `create` and `findById` only echoed the parameter names and types — they're gone. `@throws` stays because exceptions are invisible from the signature, and the `@returns` on `findById` stays because "`null` means not found" is a contract detail the type alone cannot express.
 
 ## Interface Property Documentation
 
@@ -95,22 +184,23 @@ interface IUserService {
  */
 interface CreateUserDto {
   /**
-   * User's email address.
-   * Must be unique across the system.
+   * Unique across the system; lookups are case-insensitive.
    */
   email: string;
 
   /**
-   * User's display name.
+   * Display name shown across the UI.
    */
   name: string;
 
   /**
-   * Optional phone number in E.164 format.
+   * Must be in E.164 format.
    */
   phone?: string;
 }
 ```
+
+Each property gets a single short line. `email` notes the uniqueness constraint the type can't carry. `name` adds where the value is used — not the fact that it's a string. `phone` records the format requirement; the `?` already conveys "optional", so the comment doesn't repeat it.
 
 ## Implementation Documentation — `@inheritDoc` and DRY
 
@@ -180,7 +270,7 @@ Untagged prose below `@inheritDoc` silently replaces the inherited summary, so t
 /**
  * @inheritDoc
  *
- * Some documentation clarification
+ * Some documentation clarification.
  */
 
 // CORRECT — clarification lives inside a TSDoc tag block
@@ -188,7 +278,7 @@ Untagged prose below `@inheritDoc` silently replaces the inherited summary, so t
  * @inheritDoc
  *
  * @remarks
- * - Any other documentation clarification
+ * - Any other documentation clarification.
  */
 ```
 
@@ -203,19 +293,20 @@ Key points:
 
 ## Function Documentation
 
-Standalone functions (not implementing an interface) are documented fully. Describe the contract — what + why — never the implementation.
+Standalone functions document their contract — what + why — never the implementation, and never information the signature already conveys. Keep the summary focused on intent; reach for `@param` / `@returns` only when they add something the types cannot.
 
 ```typescript
 /**
- * Calculate total cost including tax.
+ * Applies tax once at the order level and rounds to two decimals so totals
+ * reconcile with the invoicing system.
  *
- * @param items - Line items to sum.
- * @param taxRate - Tax rate as a decimal (e.g., 0.08 for 8%).
- * @returns Total cost with tax applied.
- * @throws {Error} If taxRate is negative or items is empty.
+ * @param taxRate - Decimal fraction; `0.08` represents 8 %. Defaults to `0`.
+ * @throws {Error} If `taxRate` is negative or `items` is empty.
  */
 function calculateTotal(items: Item[], taxRate = 0): number {
 ```
+
+`items` has no `@param` — the name and `Item[]` type are self-explanatory. `taxRate` keeps one because the unit (decimal fraction, not percent) and the default behaviour are not visible from `taxRate = 0`. `@returns` is omitted; the summary already states that the function produces the tax-inclusive total.
 
 ## Class Documentation
 
@@ -227,33 +318,32 @@ Describe the contract of the class — what it represents and why it exists — 
  */
 class ConnectionPool {
   /**
-   * Create a new pool instance.
-   *
-   * @param config - Pool configuration options.
+   * Initializes a new pool. Health checks start on first acquire.
    */
   constructor(private readonly config: PoolConfig) {}
 }
 ```
 
+The class summary earns its keep by adding "automatic health checks" — a behaviour the class name alone doesn't reveal. The constructor summary is brief, follows the Microsoft "Initializes a new …" convention, and adds the non-obvious timing of when health checks begin.
+
 ## Simple Mappers and Delegators
 
-When a **class method or standalone function** is a simple mapper or merely delegates to another function or service, document it briefly — a single-line summary is enough. Do not pad with `@param`/`@returns` if the signature is self-explanatory; the contract is already obvious from the types and the name.
+When a **class method or standalone function** is a simple mapper or merely delegates to another function or service, a single-line summary is enough — but always include that one line so generated docs and IDE tooltips have something to show. Do not add `@param`/`@returns` to pad out a trivial signature; redundancy is worse than a missing tag.
 
-**This rule does not apply to interface methods.** Interface methods always require full contract documentation — `@param`, `@returns`, `@throws` as applicable — because the interface defines the contract that consumers depend on, regardless of how trivial any particular implementation turns out to be.
+**Interface methods still document genuine contract details** — `@throws`, return-semantics notes (e.g. "`null` if not found") — because the interface is the consumer-facing boundary. They do not, however, need `@param` lines that only restate names and types.
 
 ```typescript
-// CORRECT — interface method: full contract.
+// CORRECT — interface method: only the non-obvious return semantics is documented.
 interface IUserRepository {
   /**
-   * Find a user by ID.
+   * Finds a user by ID.
    *
-   * @param id - User's unique identifier.
    * @returns The user, or `null` if not found.
    */
   findById(id: string): Promise<User | null>;
 }
 
-// CORRECT — class method that simply delegates: brief one-liner.
+// CORRECT — class method that simply delegates: `@inheritDoc` is enough.
 class UserRepository implements IUserRepository {
   /**
    * @inheritDoc
@@ -263,15 +353,15 @@ class UserRepository implements IUserRepository {
   }
 }
 
-// CORRECT — standalone delegator: brief one-liner is enough.
+// CORRECT — standalone delegator: one short summary line, no tag padding.
 /**
- * Format a user's display name.
+ * Formats a user's first and last name into a single display string.
  */
 const formatName = (u: User): string => formatPersonName(u.first, u.last);
 
 // WRONG — needlessly re-documents every parameter for a trivial delegator.
 /**
- * Format a user's display name.
+ * Formats a user's display name.
  *
  * @param u - The user whose name to format.
  * @returns The formatted display name.
@@ -282,22 +372,36 @@ const formatNameVerbose = (u: User): string =>
 
 ## Generic Types
 
+A single-letter type parameter named alongside an obvious carrier (`T` in `Box<T>`, `K`/`V` in a map) is self-explanatory; `@template` only earns its keep when the relationship between multiple type parameters isn't obvious from the signature.
+
 ```typescript
 /**
  * Paginated response wrapper.
- *
- * @template T - Type of items in the data array.
  */
 interface PaginatedResponse<T> {
   /**
-   * Items for the current page.
+   * Items on the current page.
    */
   data: T[];
+
+  /**
+   * Total number of items across all pages.
+   */
   total: number;
+
+  /**
+   * Zero-based current page index.
+   */
   page: number;
+
+  /**
+   * Maximum number of items per page.
+   */
   limit: number;
 }
 ```
+
+`@template T - Type of items in the data array.` would only restate what `data: T[]` already shows; it's gone. Each property gets a short line that adds the piece the type cannot carry — "current page" versus "all pages", "zero-based" versus "one-based", "maximum" versus "actual" — not a paraphrase of its name.
 
 ## `@remarks` — Use Sparingly
 
@@ -339,7 +443,7 @@ interface SessionToken {
 
 // WRONG — implementation details do not belong in @remarks
 /**
- * Fetch user preferences.
+ * Fetches user preferences.
  *
  * @remarks
  * - Uses a Redis LRU cache with a 5-minute TTL, falling back to a
@@ -384,25 +488,39 @@ class UserService implements IUserService {
 function validate(input: unknown): Result {
 ```
 
-## Common Patterns
+## When a `@param` Earns Its Keep
+
+Each of these adds information the signature cannot carry on its own, so the tag is worth writing:
 
 ```typescript
-// Optional parameters
+// Default value behaviour — invisible from `options?: Options`.
 /**
- * @param options - Optional configuration.
+ * @param options - Defaults to `DEFAULT_OPTIONS` when omitted.
  */
 
-// Default values
+// Unit / range — invisible from `limit: number`.
 /**
- * @param limit - Items per page (default: 10).
+ * @param limit - Items per page; 1-100, defaults to 10.
  */
 
-// Callback parameters
+// Edge-value semantics — invisible from `timeout: number`.
 /**
- * Predicate for filtering items.
- *
- * @param item - Item to evaluate.
- * @returns Whether the item passes the filter.
+ * @param timeout - Milliseconds before aborting; `0` disables the timeout.
+ */
+```
+
+Callback type aliases also get a short summary, but make it carry something the shape cannot — most often the polarity of a boolean return, the call frequency, or a purity guarantee. A line like "Predicate for filtering items." restates `(item: T) => boolean` and adds nothing.
+
+```typescript
+// CORRECT — minimal alias doc: polarity, which the type can't express.
+/**
+ * Returns `true` to keep the item.
+ */
+type FilterFn<T> = (item: T) => boolean;
+
+// CORRECT — alias with a non-obvious calling contract; add the why.
+/**
+ * Returns `true` to keep the item. Called once per element per render pass.
  */
 type FilterFn<T> = (item: T) => boolean;
 ```

@@ -17,7 +17,9 @@ Follow Microsoft Code Documentation style. Documentation describes the **contrac
 
 ### Key Principles
 
-- **Interfaces are abstractions.** Document what the consumer needs to know: purpose, parameters, return values, thrown errors, examples. Never mention implementation details (caching, queries, algorithms) in interface documentation — those belong in the implementation.
+- **Bare minimum — never restate the code.** The signature already carries the symbol's name, parameter names and types, return type, and modifiers (`readonly`, `?`, `async`). Documentation adds what the reader cannot infer: intent, units, ranges, defaults, edge-value meaning, error cases, invariants. Every public member still gets a brief summary so generated docs and IDE tooltips have content — but keep it to one short sentence that adds intent, never one that paraphrases the signature. For `@param` and `@returns` specifically, drop the tag entirely when it would only restate the signature.
+- **Third-person descriptive summaries.** Match the Microsoft API reference convention: "Calculates…", "Finds…", "Returns…", "Initializes a new …" — not the imperative "Calculate…", "Find…". Keep imperative mood for inline `//` comments on procedural steps.
+- **Interfaces are abstractions.** Document what the consumer needs to know: purpose, thrown errors, return semantics, invariants. Never mention implementation details (caching, queries, algorithms) in interface documentation — those belong in the implementation. Even on interfaces, do not pad with `@param` lines that only echo names and types.
 - **DRY across interface and implementation.** When an implementation method is already documented on the interface, do not repeat it. Only add implementation-specific notes. See language-specific references for syntax.
 - **No release tags by default.** Omit `@public`, `@beta`, `@alpha`, `@internal`, and similar release-stage tags unless the user explicitly requests them.
 - **Multi-line doc comments only.** All `/**` blocks place the body on a new line. One-line `/** ... */` comments are not allowed.
@@ -79,6 +81,8 @@ Load detailed guidance based on context:
 - Write inaccurate or untested documentation
 - Skip error documentation
 - Document obvious getters/setters verbosely
+- Restate the signature in prose — paraphrasing names, types, or return shape is redundancy, not documentation
+- Pad with `@param`/`@returns` whose only content is the parameter name and type
 - Create documentation that's hard to maintain
 - Put implementation details in interface documentation
 - Repeat interface documentation in the implementation (use documentation inheritance if documentation engine supports it)
