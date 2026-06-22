@@ -101,6 +101,26 @@ class UserService:
         """
 ```
 
+## Data Classes — Describe WHAT
+
+A `dataclass`, `NamedTuple`, `TypedDict`, or Pydantic model that exists to _hold_ data answers what each field **is** — its meaning, units, format, and constraints the annotation can't carry — not **why** the field exists. Keep the `Attributes:` block to the _what_; design rationale belongs with the behavior that produces or consumes the value, not on the field.
+
+```python
+@dataclass
+class ShippingAddress:
+    """A postal destination for an order.
+
+    Attributes:
+        postal_code: ZIP or ZIP+4; validated against the country's format.
+        country: ISO 3166-1 alpha-2 code, uppercase.
+    """
+
+    postal_code: str
+    country: str
+```
+
+`postal_code` and `country` each state what the value is and the constraint the type can't express — not why an address is stored.
+
 ## Quick Reference
 
 | Style  | Args Format          | Returns Format    |

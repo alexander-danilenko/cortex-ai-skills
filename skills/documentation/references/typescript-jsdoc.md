@@ -202,6 +202,26 @@ interface CreateUserDto {
 
 Each property gets a single short line. `email` notes the uniqueness constraint the type can't carry. `name` adds where the value is used — not the fact that it's a string. `phone` records the format requirement; the `?` already conveys "optional", so the comment doesn't repeat it.
 
+## Data Shapes — WHAT, Not WHY
+
+A DTO, value object, record, or any `interface`/`type`/object shape that exists to _hold_ data documents what each member **is** — its meaning, units, format, allowed values, and constraints the type cannot express. It does not justify **why** the field exists. A function or service interface earns a "why" because its contract is the operation; a data field is read at the point of use, where design rationale rots and is better kept with the behavior that produces or consumes the value.
+
+```typescript
+// WRONG — justifies why the field is stored; rationale the consumer can't act on.
+/**
+ * Kept so the billing service can reconcile invoices at month end.
+ */
+externalCustomerId: string;
+
+// CORRECT — says what the value is and the constraint the type can't carry.
+/**
+ * Stripe customer ID; stable for the account's lifetime.
+ */
+externalCustomerId: string;
+```
+
+The rare exception is a non-obvious constraint a maintainer must not break — the same sparing `@remarks` covered below, not the default voice of a data shape.
+
 ## Implementation Documentation — `@inheritDoc` and DRY
 
 When a class implements an interface, do not repeat documentation that already exists on the interface. The implementation doc starts with `@inheritDoc` on the first line, followed by a blank line, and then only implementation-specific details that a maintainer of this class would need — expressed exclusively through TSDoc block tags such as `@remarks` or `@see`.
