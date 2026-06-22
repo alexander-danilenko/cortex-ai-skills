@@ -220,37 +220,39 @@ function App() {
 ### GraphQL Schema Documentation
 
 ```graphql
+# Descriptions are rendered in introspection/playground, so they add what the
+# schema can't show (constraints, format, uniqueness) — never restate the field
+# name. No inline @example annotations: they aren't executed and rot.
+
 """
-User account in the system
+User account in the system.
 """
 type User {
   """
-  Unique user identifier
+  Opaque; stable for the account's lifetime.
   """
   id: ID!
 
   """
-  User's email address (unique)
-  @example "user@example.com"
+  Unique; lookups are case-insensitive.
   """
   email: String!
 
   """
-  Display name
-  @example "John Doe"
+  Shown across the UI.
   """
   name: String!
 
   """
-  User's posts (paginated)
+  Most recent first; paginated.
   """
   posts(
     """
-    Number of items per page (max 100)
+    Items per page; max 100.
     """
     limit: Int = 20
     """
-    Page offset
+    Items to skip from the start.
     """
     offset: Int = 0
   ): PostConnection!
@@ -258,52 +260,34 @@ type User {
 
 type Query {
   """
-  Fetch a user by ID
+  Fetch a user by ID.
   """
-  user(
-    """
-    User's unique identifier
-    """
-    id: ID!
-  ): User
+  user(id: ID!): User
 
   """
-  Search users by name or email
+  Search users by name or email, case-insensitive.
   """
-  searchUsers(
-    """
-    Search query
-    """
-    query: String!
-    """
-    Maximum results to return
-    """
-    limit: Int = 10
-  ): [User!]!
+  searchUsers(query: String!, limit: Int = 10): [User!]!
 }
 
 type Mutation {
   """
-  Create a new user account
+  Create a new user account.
   """
-  createUser(
-    """
-    User creation input
-    """
-    input: CreateUserInput!
-  ): CreateUserPayload!
+  createUser(input: CreateUserInput!): CreateUserPayload!
 }
 
 """
-Input for creating a user
+Input for creating a user.
 """
 input CreateUserInput {
   """
-  User's email address
+  Unique; lookups are case-insensitive.
   """
   email: String!
+
   """
-  Display name
+  Shown across the UI.
   """
   name: String!
 }
@@ -411,16 +395,16 @@ service UserService {
 
 // User account
 message User {
-  // Unique identifier
+  // Opaque; stable for the account's lifetime.
   string id = 1;
 
-  // Email address (unique, required)
+  // Unique; required.
   string email = 2;
 
-  // Display name
+  // Shown across the UI.
   string name = 3;
 
-  // Account creation timestamp
+  // Set server-side at creation (UTC).
   google.protobuf.Timestamp created_at = 4;
 }
 ```
@@ -520,8 +504,8 @@ Create a new user.
 
 **Parameters:**
 
-- `data.name` (string, required) - User's display name
-- `data.email` (string, required) - User's email address
+- `data.name` (string, required) - Shown across the UI
+- `data.email` (string, required) - Unique; case-insensitive
 
 **Returns:** Promise<User>
 

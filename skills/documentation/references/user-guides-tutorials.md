@@ -4,16 +4,15 @@
 
 ### Progressive Learning Path
 
+Use a quick-start with prerequisites checklist, minimal working code, expected output, and next-steps links.
+
 ````markdown
 # Getting Started with API
 
 ## Prerequisites
 
-Before you begin, ensure you have:
-
 - [ ] Node.js 18+ installed
 - [ ] An API key from your dashboard
-- [ ] Basic knowledge of REST APIs
 
 ## Quick Start (5 minutes)
 
@@ -22,7 +21,6 @@ Before you begin, ensure you have:
 ```bash
 npm install @myapi/sdk
 ```
-````
 
 ### 2. Create Your First Request
 
@@ -36,92 +34,65 @@ console.log(users);
 
 ### 3. Verify It Works
 
-Run the code and you should see a list of users.
-
-**Expected output:**
+Expected output:
 
 ```json
-{
-  "data": [
-    { "id": "1", "name": "Alice" },
-    { "id": "2", "name": "Bob" }
-  ],
-  "total": 2
-}
+{ "data": [{ "id": "1", "name": "Alice" }], "total": 1 }
 ```
 
 ## Next Steps
 
-- [Authentication Guide](/docs/auth) - Learn about OAuth and API keys
-- [Advanced Queries](/docs/queries) - Filtering, sorting, pagination
-- [Error Handling](/docs/errors) - Handle errors gracefully
-
-````text
+- [Authentication Guide](/docs/auth)
+- [Error Handling](/docs/errors)
+````
 
 ### Step-by-Step Tutorial
 
-```markdown
+Each step: goal, code, brief "what's happening" note. Use a checkpoint list mid-way. End with a "next step" link. Show 2–3 representative steps; remaining steps follow the same pattern.
+
+````markdown
 # Tutorial: Building a User Dashboard
 
-**What you'll learn:**
-- Fetching user data from the API
-- Handling pagination
-- Displaying data in a table
-- Adding real-time updates
+**What you'll learn:** Fetch users, handle pagination, display in a table
 
-**Time:** 30 minutes
-**Level:** Intermediate
+**Time:** 30 minutes | **Level:** Intermediate
 
 ## Step 1: Set Up the Project
 
-Create a new project:
 ```bash
-mkdir user-dashboard
-cd user-dashboard
-npm init -y
-npm install @myapi/sdk react
-````
+mkdir user-dashboard && cd user-dashboard
+npm init -y && npm install @myapi/sdk react
+```
 
 ## Step 2: Fetch Users
 
-Create `src/api/users.ts`:
-
 ```typescript
+// src/api/users.ts
 import { Client } from "@myapi/sdk";
 
 const client = new Client({ apiKey: process.env.API_KEY });
 
 export async function getUsers(page = 1, limit = 20) {
-  const response = await client.users.list({ page, limit });
-  return response;
+  return client.users.list({ page, limit });
 }
 ```
 
-**What's happening:**
-
-1. We import the SDK client
-2. Initialize it with our API key from environment
-3. Create a helper function that fetches paginated users
-
 ## Step 3: Create the Component
 
-Create `src/components/UserTable.tsx`:
-
 ```typescript
-import { useState, useEffect } from 'react';
-import { getUsers } from '../api/users';
+// src/components/UserTable.tsx
+import { useState, useEffect } from "react";
+import { getUsers } from "../api/users";
 
 export function UserTable() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await getUsers();
+    getUsers().then((data) => {
       setUsers(data.data);
       setLoading(false);
-    }
-    fetchData();
+    });
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -135,7 +106,7 @@ export function UserTable() {
         </tr>
       </thead>
       <tbody>
-        {users.map(user => (
+        {users.map((user) => (
           <tr key={user.id}>
             <td>{user.name}</td>
             <td>{user.email}</td>
@@ -147,166 +118,92 @@ export function UserTable() {
 }
 ```
 
-## Step 4: Test It
-
-Run your app:
-
-```bash
-npm run dev
-```
-
-You should see a table with user data.
-
 ## Checkpoint
 
-At this point, you have:
+- [x] SDK set up
+- [x] API helper created
+- [x] Table component built
+- [ ] Pagination (Step 4)
 
-- [x] Set up the SDK
-- [x] Created an API helper
-- [x] Built a user table component
-- [ ] Added pagination
-- [ ] Added real-time updates
-
-## Next: Adding Pagination
-
-[Continue to Step 5 →](/docs/tutorial/step-5)
-
-````text
+[Continue to Step 4 →](/docs/tutorial/step-4)
+````
 
 ## Information Architecture
 
 ### Content Hierarchy
 
-```markdown
+Organise docs into a predictable tree so users can orient themselves quickly.
+
+```text
 Documentation/
-├── Getting Started/
-│   ├── Quick Start (5 min)
-│   ├── Installation
-│   ├── Authentication
-│   └── First Request
-│
-├── Guides/
-│   ├── User Management
-│   ├── File Uploads
-│   ├── Webhooks
-│   └── Rate Limiting
-│
-├── API Reference/
-│   ├── Users API
-│   ├── Files API
-│   └── Webhooks API
-│
-├── SDK Documentation/
-│   ├── Python SDK
-│   ├── TypeScript SDK
-│   └── Go SDK
-│
-├── Tutorials/
-│   ├── Build a Dashboard (30 min)
-│   ├── Integrate Authentication (45 min)
-│   └── Real-time Sync (60 min)
-│
-└── Resources/
-    ├── Troubleshooting
-    ├── FAQ
-    ├── Best Practices
-    └── Migration Guides
-````
+├── Getting Started/ (Quick Start, Installation, Authentication)
+├── Guides/ (User Management, File Uploads, Webhooks)
+├── API Reference/ (per-resource pages)
+├── Tutorials/ (end-to-end, time-labelled)
+└── Resources/ (Troubleshooting, FAQ, Migration Guides)
+```
 
 ## Writing Techniques
 
 ### Task-Based Writing
 
+Frame every guide around a goal. Include time estimate, ordered steps with inline code, a "Common Issues" section, and related links.
+
 ````markdown
 # How to Upload a File
 
-**Goal:** Upload an image file to your account storage
+**Goal:** Upload an image to account storage | **Time:** 5 minutes
 
-**Time:** 5 minutes
-
-## Steps
-
-### 1. Prepare the file
-
-Get the file from user input or file system:
+### 1. Get the file
 
 ```typescript
 const file = document.querySelector('input[type="file"]').files[0];
 ```
-````
 
-### 2. Create form data
+### 2. Upload with the SDK
 
 ```typescript
 const formData = new FormData();
 formData.append("file", file);
-formData.append("folder", "avatars");
-```
-
-### 3. Upload with the SDK
-
-```typescript
 const result = await client.files.upload(formData);
 console.log("File URL:", result.url);
 ```
 
 ## Common Issues
 
-**"File too large" error:** Maximum file size is 10MB. Compress images before uploading.
-
-**"Invalid file type" error:** Only .jpg, .png, .gif are allowed. Check the file extension.
+- **"File too large"** — Max 10 MB; compress before uploading.
+- **"Invalid file type"** — Only `.jpg`, `.png`, `.gif` are accepted.
 
 ## Related
 
 - [File API Reference](/api/files)
-- [Handling Upload Progress](/guides/upload-progress)
-
-````text
+````
 
 ### Progressive Disclosure
 
-```markdown
-# Authentication
+Show the simplest option first; hide advanced alternatives in `<details>` blocks so beginners aren't overwhelmed.
 
+````markdown
 ## Basic: API Keys (Recommended for Getting Started)
 
-API keys are the simplest way to authenticate.
-
 ```typescript
-const client = new Client({ apiKey: 'your_key' });
+const client = new Client({ apiKey: "your_key" });
+```
 ````
 
 **When to use:** Scripts, internal tools, testing
 
-[Generate an API key →](/dashboard/api-keys)
-
 <details>
 <summary>Advanced: OAuth 2.0</summary>
 
-For user-facing applications, use OAuth 2.0.
-
-### Authorization Code Flow
-
-1. Redirect user to authorization URL:
+For user-facing apps, use the Authorization Code flow:
 
 ```typescript
-const authUrl = client.oauth.getAuthUrl({
-  redirectUri: "https://yourapp.com/callback",
-  scopes: ["read:users", "write:users"],
-});
-window.location.href = authUrl;
-```
-
-1. Handle the callback:
-
-```typescript
-const code = new URLSearchParams(window.location.search).get("code");
+// Step 1 — redirect
+const authUrl = client.oauth.getAuthUrl({ redirectUri: "...", scopes: [...] });
+// Step 2 — exchange code
 const tokens = await client.oauth.exchangeCode(code);
-```
-
-1. Use the access token:
-
-```typescript
+// Step 3 — use token
 const client = new Client({ accessToken: tokens.access_token });
 ```
 
@@ -317,161 +214,84 @@ const client = new Client({ accessToken: tokens.access_token });
 <details>
 <summary>Enterprise: JWT Tokens</summary>
 
-For service-to-service authentication, use JWTs.
-
 ```typescript
 const jwt = createJWT({
   issuer: "your-service",
-  subject: "service-account-id",
   privateKey: process.env.PRIVATE_KEY,
 });
-
 const client = new Client({ jwt });
 ```
 
-[JWT setup guide →](/guides/jwt)
-
 </details>
-```
 
 ## Visual Communication
 
 ### Diagram Integration
 
+Use Mermaid for flow and data-model diagrams; keep them close to the prose they illustrate.
+
 ````markdown
-# System Architecture
-
-## Request Flow
-
 ```mermaid
 sequenceDiagram
     participant Client
     participant API
     participant Database
-    participant Cache
 
     Client->>API: POST /users
-    API->>Cache: Check cache
-    Cache-->>API: Cache miss
     API->>Database: Insert user
     Database-->>API: User created
-    API->>Cache: Store user
     API-->>Client: 201 Created
 ```
 ````
 
-## Data Model
-
-```mermaid
-erDiagram
-    USER ||--o{ POST : creates
-    USER ||--o{ COMMENT : writes
-    POST ||--o{ COMMENT : has
-
-    USER {
-        string id PK
-        string email UK
-        string name
-        datetime created_at
-    }
-
-    POST {
-        string id PK
-        string user_id FK
-        string title
-        text content
-    }
-```
-
-````text
-
 ### Screenshot Annotations
 
-```markdown
-# Dashboard Overview
+Pair annotated screenshots with a numbered key; follow with step-by-step instructions that reference the annotation numbers.
 
+```markdown
 ![Dashboard with numbered annotations](./images/dashboard-annotated.png)
 
-**Key features:**
-
-1. **Navigation** - Switch between sections
-2. **API Key** - Copy your key (click to reveal)
-3. **Usage Stats** - Current month's API calls
-4. **Quick Actions** - Generate new key, view docs
-5. **Recent Activity** - Last 10 API requests
+1. **Navigation** — switch sections
+2. **API Key** — click to reveal and copy
+3. **Usage Stats** — current month's calls
 
 ## Creating Your First API Key
 
-1. Click "Generate New Key" (highlighted in green)
-2. Enter a description like "Production API"
-3. Select permissions (default: all)
-4. Click "Create"
-5. **Important:** Copy the key immediately - it won't be shown again
-
-![Create API key dialog](./images/create-key.png)
-````
+1. Click "Generate New Key" (item 2 above)
+2. Enter a description and select permissions
+3. **Copy immediately** — it won't be shown again
+```
 
 ## Troubleshooting Guides
 
 ### Problem-Solution Format
 
+Each entry: symptom → causes → numbered solutions → escalation path.
+
 ````markdown
 # Troubleshooting
 
-## Authentication Errors
+## "Invalid API key" (401)
 
-### "Invalid API key"
+**Causes:** extra spaces when copying, key revoked, test key in production.
 
-**Symptoms:**
-
-- 401 Unauthorized error
-- Error message: "Invalid API key"
-
-**Causes:**
-
-1. API key was copied incorrectly (extra spaces)
-2. API key was revoked
-3. Using test key in production environment
-
-**Solutions:**
-
-**1. Verify the key:**
+**Fix 1 — verify length:**
 
 ```bash
-# Check for extra spaces
-echo -n "$API_KEY" | wc -c  # Should be exactly 32 characters
-```
-````
-
-**2. Regenerate the key:**
-
-- Go to [dashboard](/dashboard)
-- Click "Revoke & Regenerate"
-- Update your environment variables
-
-**3. Check environment:**
-
-```typescript
-console.log("Environment:", process.env.NODE_ENV);
-console.log("API URL:", client.baseUrl);
+echo -n "$API_KEY" | wc -c  # must be 32
 ```
 
-**Still not working?** [Contact support](/support) with your request ID from the error response.
+**Fix 2 — regenerate:** Dashboard → "Revoke & Regenerate" → update env vars.
+
+**Still failing?** [Contact support](/support) with the request ID from the error.
 
 ---
 
-### "Rate limit exceeded"
+## "Rate limit exceeded" (429)
 
-**Symptoms:**
+**Immediate fix:** wait 60 s and retry.
 
-- 429 Too Many Requests error
-- Requests failing intermittently
-
-**Immediate fix:** Wait 60 seconds and retry.
-
-**Long-term solutions:**
-
-**1. Implement exponential backoff:**
+**Long-term — exponential backoff:**
 
 ```typescript
 async function retryWithBackoff(fn, maxRetries = 3) {
@@ -480,7 +300,7 @@ async function retryWithBackoff(fn, maxRetries = 3) {
       return await fn();
     } catch (error) {
       if (error.status === 429 && i < maxRetries - 1) {
-        await sleep(Math.pow(2, i) * 1000);
+        await new Promise((r) => setTimeout(r, 2 ** i * 1000));
         continue;
       }
       throw error;
@@ -489,71 +309,48 @@ async function retryWithBackoff(fn, maxRetries = 3) {
 }
 ```
 
-**2. Batch requests:** Instead of 100 individual requests, use batch endpoints.
-
-**3. Upgrade your plan:** [View plans](/pricing) - Higher tiers have increased limits.
-
-````yaml
+**Other options:** batch requests, or [upgrade your plan](/pricing).
+````
 
 ## FAQ Section
+
+Group by audience (General, Technical, Billing). Keep answers to 1–3 lines; link to full guides for complex topics. End with an escalation block.
 
 ```markdown
 # Frequently Asked Questions
 
 ## General
 
-### What's included in the free tier?
-- 1,000 API requests/month
-- 1GB storage
-- Community support
-- All core features
+**What's in the free tier?** 1 000 requests/month, 1 GB storage, all core features.
 
-### How do I upgrade?
-Click "Upgrade" in your [dashboard](/dashboard) and select a plan.
+**How do I upgrade?** Click "Upgrade" in your [dashboard](/dashboard).
 
 ## Technical
 
-### Can I use this in production?
-Yes, the API is production-ready with 99.9% SLA on paid plans.
+**Production-ready?** Yes — 99.9% SLA on paid plans.
 
-### What's the rate limit?
-- Free: 10 requests/minute
-- Pro: 100 requests/minute
-- Enterprise: Custom limits
+**Rate limits?** Free: 10 req/min · Pro: 100 req/min · Enterprise: custom.
 
-### Do you support webhooks?
-Yes! See [Webhooks Guide](/guides/webhooks) for setup.
-
-### Which regions are available?
-Currently: US East, US West, EU Central, Asia Pacific.
+**Webhooks supported?** Yes. See [Webhooks Guide](/guides/webhooks).
 
 ## Billing
 
-### How does billing work?
-- Monthly subscription
-- Pay-as-you-go for overages
-- Cancel anytime
-
-### What payment methods do you accept?
-Credit card, PayPal, wire transfer (annual plans only).
+**How does billing work?** Monthly subscription + pay-as-you-go overages; cancel anytime.
 
 ---
 
-**Can't find your answer?**
-- [Browse all docs](/docs)
-- [Ask the community](https://community.example.com)
-- [Contact support](/support)
-````
+**Can't find your answer?** [Browse docs](/docs) · [Community](https://community.example.com) · [Support](/support)
+```
 
 ## Quick Reference
 
-| Content Type | Best For               | Key Elements                        |
-| ------------ | ---------------------- | ----------------------------------- |
-| Quick Start  | New users (5 min)      | Prerequisites, minimal code, verify |
-| Tutorial     | Learning by doing      | Steps, checkpoints, working code    |
-| How-To Guide | Specific tasks         | Goal, steps, troubleshooting        |
-| Reference    | Looking up details     | Comprehensive, searchable           |
-| Explanation  | Understanding concepts | Why, not how                        |
+| Content Type | Best For           | Key Elements                        |
+| ------------ | ------------------ | ----------------------------------- |
+| Quick Start  | New users (5 min)  | Prerequisites, minimal code, verify |
+| Tutorial     | Learning by doing  | Steps, checkpoints, working code    |
+| How-To Guide | Specific tasks     | Goal, steps, troubleshooting        |
+| Reference    | Looking up details | Comprehensive, searchable           |
+| Explanation  | Understanding why  | Why, not how                        |
 
 | Writing Principle | Technique                                |
 | ----------------- | ---------------------------------------- |

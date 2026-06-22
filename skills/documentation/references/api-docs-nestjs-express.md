@@ -1,5 +1,7 @@
 # API Documentation: NestJS & Express
 
+The bare-minimum rule applies here too. An `@ApiProperty`/swagger `description` is rendered to API consumers, but the schema already shows them each field name and type — so make the text add what the schema cannot (constraints, format, uniqueness, role), never restate the field name. Operation `summary` fields keep the imperative convention ("Create a new user"); always document the responses a route can return.
+
 ## NestJS (@nestjs/swagger)
 
 NestJS requires explicit decorators for OpenAPI documentation.
@@ -58,7 +60,7 @@ import { IsEmail, IsString, MinLength } from "class-validator";
 
 export class CreateUserDto {
   @ApiProperty({
-    description: "User's display name",
+    description: "Shown across the UI.",
     example: "John Doe",
     minLength: 1,
     maxLength: 100,
@@ -68,14 +70,14 @@ export class CreateUserDto {
   name: string;
 
   @ApiProperty({
-    description: "User's email address",
+    description: "Unique; lookups are case-insensitive.",
     example: "john@example.com",
   })
   @IsEmail()
   email: string;
 
   @ApiPropertyOptional({
-    description: "Profile picture URL",
+    description: "Absolute HTTPS URL to the avatar image.",
     example: "https://example.com/avatar.jpg",
   })
   avatarUrl?: string;
@@ -175,12 +177,12 @@ router.get("/users/:id", getUser);
  *       properties:
  *         name:
  *           type: string
- *           description: User's display name
+ *           description: Shown across the UI.
  *           example: John Doe
  *         email:
  *           type: string
  *           format: email
- *           description: User's email address
+ *           description: Unique; case-insensitive lookups.
  *           example: john@example.com
  *     User:
  *       allOf:
@@ -189,7 +191,7 @@ router.get("/users/:id", getUser);
  *           properties:
  *             id:
  *               type: string
- *               description: Unique identifier
+ *               description: Server-assigned; stable for the account's lifetime.
  *             createdAt:
  *               type: string
  *               format: date-time

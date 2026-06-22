@@ -1,30 +1,33 @@
-# Coverage Reports
+# Documentation Health Reports
 
-## Documentation Coverage Report Template
+A documentation report measures **health, not headcount**. A file where every member carries a doc block is not the goal — many of those blocks just restate the signature and will rot. Report what actually improved the docs: redundancy removed, stale or contradicted comments corrected, and the genuinely missing pieces (intent summaries, `@throws`) added. A bare coverage percentage is a weak floor signal, not the score.
 
-````markdown
+## Documentation Health Report Template
+
+```markdown
 # Documentation Report: {project_name}
 
-## Summary
+## Health Actions
 
-- **Files analyzed**: 45
-- **Functions documented**: 120/150 (80%)
-- **Classes documented**: 25/25 (100%)
-- **API endpoints documented**: 30/30 (100%)
+- **Redundant comments removed**: 38 (signature restatements, noise, commented-out code)
+- **Stale / contradicted docs corrected**: 12 (text no longer matched behaviour)
+- **Intent summaries added**: 27 public members that had none
+- **`@throws` added**: 19 functions whose throw set was undocumented
+- **`@param`/`@returns` added**: 9 (only where they carry units, ranges, defaults, or edge-value/`null` semantics the signature can't)
 
-## Coverage Before/After
+## Coverage (floor signal only)
 
-- Before: 45%
-- After: 92%
+- Public members with a summary: 146/150 — the 4 gaps are listed below
+- Functions that can throw and document it: 19/19
 
 ## Files Modified
 
-| File                     | Functions Added | Notes                 |
-| ------------------------ | --------------- | --------------------- |
-| src/services/user.ts     | 8               | All public methods    |
-| src/services/auth.ts     | 5               | Added examples        |
-| src/controllers/users.ts | 6               | Added @Api decorators |
-| src/dto/user.dto.ts      | 4               | Added @ApiProperty    |
+| File                     | Health change                             |
+| ------------------------ | ----------------------------------------- |
+| src/services/user.ts     | +8 summaries, −5 restated `@param` blocks |
+| src/services/auth.ts     | +5 `@throws`, 2 stale summaries corrected |
+| src/controllers/users.ts | +6 endpoint summaries, −3 noise comments  |
+| src/dto/user.dto.ts      | 4 fields reframed WHAT-not-WHY            |
 
 ## API Documentation
 
@@ -36,97 +39,88 @@
 ## Documentation Style
 
 - **Python**: Google style docstrings
-- **TypeScript**: JSDoc with @param, @returns
-- **API**: OpenAPI 3.0 via decorators
+- **TypeScript**: TSDoc (Microsoft contract-first conventions)
+- **API**: OpenAPI 3.1 via decorators
+
+## Remaining Gaps
+
+| File                | Gap                                  | Priority |
+| ------------------- | ------------------------------------ | -------- |
+| src/utils/crypto.ts | 3 functions throw, none document it  | High     |
+| src/helpers/date.ts | 2 public helpers lack intent summary | Medium   |
 
 ## Next Steps
 
-### Recommendations
-
-1. Run `npm run docs:lint` to validate JSDoc
-2. Add `eslint-plugin-jsdoc` to enforce documentation
-3. Consider adding examples for complex functions
-4. Set up documentation CI checks
-
-### Missing Documentation
-
-| File                | Missing     | Priority |
-| ------------------- | ----------- | -------- |
-| src/utils/crypto.ts | 3 functions | High     |
-| src/helpers/date.ts | 2 functions | Medium   |
-
-### CI Integration
-
-```yaml
-# Add to CI pipeline
-- name: Check documentation
-  run: npm run docs:check
-
-- name: Generate API docs
-  run: npm run docs:generate
+1. Run the docstring linter (see below) to catch restated or malformed tags
+2. Audit, don't pad — gaps above are about missing _intent_ and `@throws`, not headcount
+3. Add tested examples only where they earn their keep
 ```
-````
 
-````text
+## Health Audit Checklist
 
-## Checklist During Documentation
+A coverage tool tells you what is _missing_; this checklist is how you tell what is _wrong_. Run it over both new and existing docs — existing comments rot, so auditing them matters as much as filling gaps.
 
 ```markdown
-## Documentation Checklist
+## Documentation Health Checklist
 
 ### Before Starting
-- [ ] Confirmed format preference (Google/JSDoc/etc.)
+
+- [ ] Confirmed format preference (Google/TSDoc/etc.)
 - [ ] Identified files to exclude (tests, generated)
 - [ ] Detected framework for API docs
 
-### Functions/Methods
-- [ ] All public functions documented
-- [ ] Parameters described with types
-- [ ] Return values documented
-- [ ] Exceptions/errors documented
-- [ ] Examples added for complex functions
+### Remove / Correct (existing docs)
 
-### Classes
-- [ ] Class purpose described
-- [ ] Constructor parameters documented
-- [ ] Public methods documented
-- [ ] Important attributes explained
+- [ ] Deleted comments that only restate the signature
+- [ ] Deleted commented-out code, changelog/journal notes, and attribution bylines
+- [ ] Corrected summaries that no longer match the code's behaviour
+- [ ] Reframed data-shape docs from WHY to WHAT (meaning, units, format, constraints)
+
+### Add (genuine gaps)
+
+- [ ] Every public function/class has a one-line intent summary
+- [ ] `@throws` documented wherever code can throw
+- [ ] `@param`/`@returns` present only where they add units, ranges, defaults, or edge-value/`null` semantics — never a name+type echo
 
 ### API Endpoints
-- [ ] All endpoints have summaries
-- [ ] Request bodies documented
-- [ ] Response schemas defined
-- [ ] Error responses documented
+
+- [ ] Endpoints have intent summaries (not paraphrased route names)
+- [ ] Request/response schemas defined; error responses documented
 - [ ] Authentication requirements noted
 
 ### Final Checks
-- [ ] Ran documentation linter
-- [ ] Verified Swagger UI renders correctly
-- [ ] No inaccurate documentation
-- [ ] Coverage report generated
-````
 
-## Framework-Specific Linting
+- [ ] Ran the docstring linter
+- [ ] Verified Swagger UI renders correctly
+- [ ] Tested every code example shipped (an untested example is a comment that lies)
+```
+
+## Linting and Coverage Tooling
+
+Coverage tools (`interrogate`, `docstr-coverage`) find members with _no_ docstring — a useful floor. They cannot tell a redundant block from a valuable one, so treat a high score as "nothing is empty," not "the docs are good."
 
 ```bash
-# JavaScript/TypeScript - ESLint
+# JavaScript/TypeScript - ESLint (catches malformed/empty/restated tags)
 npm install eslint-plugin-jsdoc --save-dev
 # Add to .eslintrc: "plugins": ["jsdoc"]
 
-# Python - pydocstyle
+# Python - pydocstyle (style/format conformance)
 pip install pydocstyle
 pydocstyle --convention=google src/
 
-# Python - interrogate (coverage)
+# Python - interrogate (presence-only coverage; a floor signal)
 pip install interrogate
 interrogate -v src/
 ```
 
-## Quick Reference
+## Health Signals
 
-| Metric                | Good | Acceptable | Poor  |
-| --------------------- | ---- | ---------- | ----- |
-| Function coverage     | >90% | 70-90%     | <70%  |
-| Class coverage        | 100% | >90%       | <90%  |
-| API endpoint coverage | 100% | 100%       | <100% |
-| Example coverage      | >50% | 30-50%     | <30%  |
+Judge the report by these, not by a coverage percentage.
+
+| Signal | Healthy | Needs work |
+| --- | --- | --- |
+| Restated-signature comments | None remain | Present (delete them) |
+| Stale / contradicted docs | None found, or all corrected | Comments disagree with the code |
+| Functions that throw | All document `@throws` | Throw set undocumented |
+| Public members with intent summary | All | Gaps that mislead generated docs |
+| Code examples | All tested | Untested examples shipped |
