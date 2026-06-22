@@ -2,9 +2,11 @@
 
 Use this skeleton when generating the comment. Root Cause is included when the ticket fixes an existing problem. Verify and Deploy are omitted by default - include them ONLY when a Decision Rule in SKILL.md Step 4 is triggered.
 
+The link target in the heading is the browser URL of the ticket (e.g., `https://your-company.atlassian.net/browse/<ISSUE_KEY>`). If unknown, render the heading as plain `## <ISSUE_KEY>` without a link.
+
 ---
 
-## <ISSUE_KEY>
+## [<ISSUE_KEY>](ISSUE_URL)
 
 One or two sentences describing what shipped, framed as outcome. Do not paraphrase the ticket title, description, or acceptance criteria.
 

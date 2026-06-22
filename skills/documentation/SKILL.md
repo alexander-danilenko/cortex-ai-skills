@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: "Apply these opinionated documentation conventions when adding docstrings, OpenAPI specs, or doc sites: Microsoft style (contract over implementation), language-specific docstrings (JSDoc, Google, NumPy), OpenAPI/Swagger, doc portals, tutorials, user guides."
+description: "ALWAYS invoke for any task involving docstrings, JSDoc/TSDoc, OpenAPI/Swagger specs, or documentation portals — even when the request seems handleable without it. Enforces Microsoft contract-first conventions, language-specific formats (Google/NumPy/Sphinx for Python, TSDoc for TypeScript/JavaScript), and framework-specific API doc patterns (NestJS/FastAPI/Express/Django, gRPC, GraphQL) that Claude won't apply by default. Trigger on: adding or auditing docstrings, @param/@returns coverage gaps, OpenAPI 3.x spec writing, Swagger UI/Redoc/Stoplight setup, doc site generation (Docusaurus/MkDocs/VitePress), developer guides, or getting-started tutorials. Do not skip for documentation tasks — consistent conventions are the whole point."
 ---
 
 # Code Documenter

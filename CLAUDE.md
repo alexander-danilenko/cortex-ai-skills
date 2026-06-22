@@ -59,7 +59,7 @@ Every review — code review, audit, PR, self-check — must verify the version 
 
 ## Markdown Formatting
 
-Run `./lint.sh` until it exits clean before completing any markdown task — see the script header for usage. Configs: `.prettierrc`, `.prettierignore`, `.markdownlint.json`.
+Run `./lint.sh` until it exits clean before completing any markdown task — see the script header for usage. Configs: `.prettierrc`, `.prettierignore`, `.markdownlint-cli2.jsonc`.
 
 Add a markdownlint disable only when the rule is genuinely wrong for this codebase, with a comment explaining why.
 
