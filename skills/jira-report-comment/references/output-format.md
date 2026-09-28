@@ -27,13 +27,14 @@ One or two sentences on what shipped, framed as outcome.
 
 ## Limits
 
-| Part       | Limit                                              |
-| ---------- | -------------------------------------------------- |
-| Summary    | 1–2 sentences, ~25 words                           |
-| Root Cause | ≤2 bullets, ≤25 words each                         |
-| Verify     | ≤3 bullets, ≤15 words each                         |
-| Deploy     | ≤3 bullets, ≤15 words each                         |
-| Total      | 60–100 words; up to 150 when Root Cause is present |
+| Part       | Limit         |
+| ---------- | ------------- |
+| Summary    | 1–2 sentences |
+| Root Cause | 2 bullets max |
+| Verify     | 3 bullets max |
+| Deploy     | 3 bullets max |
+
+Each bullet is one short line. The whole comment reads in a few seconds by someone who already has the ticket open, so it carries only what the diff adds.
 
 ## Style
 

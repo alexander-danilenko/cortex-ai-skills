@@ -154,5 +154,3 @@ Rule 8.6 is what makes the limits workable in software text. `terraform apply -v
 | GR-6 | Avoid Latin abbreviations. "e.g." becomes "for example", "i.e." becomes "that is", and "etc." is deleted in favor of naming the items. |
 | GR-7 | Use inclusive language. |
 | GR-8 | Use the possessive apostrophe only when you are certain it is correct. Non-native readers find it hard, so restructure if in doubt. |
-
-</content>

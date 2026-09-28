@@ -197,4 +197,4 @@ Treat this file as a helper, not as a certification. ASD and the STE Maintenance
 ## References
 
 - `references/rules.md` — the 53 numbered writing rules. Read it before citing a rule number in an audit.
-- `references/contexts.md` — how the rules land on error messages, runbooks, incident reports, release notes, UI copy, agent instructions, and localization. </content> </invoke>
+- `references/contexts.md` — how the rules land on error messages, runbooks, incident reports, release notes, UI copy, agent instructions, and localization.

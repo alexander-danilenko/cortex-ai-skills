@@ -1,10 +1,7 @@
 ---
 name: jira-report-comment
 description: >-
-  This skill should be used when the user asks to "jira report", "post update to jira", "summarize commits for jira", "report to jira", "update the ticket", "comment on the ticket", "generate implementation report", "write a jira comment", "summarize my changes", or wants to notify PM/QA about completed work on a Jira ticket. Generates a business-friendly implementation report from git commits and saves it as a local markdown report.
-
-
-user-invocable: true
+  Turn the git commits for a Jira ticket into a short, business-friendly implementation report and save it as local markdown. Use when the user wants to report finished work on a Jira ticket: a Jira report, update, or comment, a summary of their commits or changes for the ticket, or a note telling PM/QA what shipped.
 ---
 
 # Jira Report Comment
@@ -30,7 +27,7 @@ touch "docs/jira-reports/$(date +%Y-%m-%d-%H%M%S)-<ISSUE_KEY>.md"
 
 ## Step 2 — Fetch the ticket
 
-Try `mcp__atlassian__getJiraIssue` with the key. If it is unavailable, ask the user to paste the title, description, and acceptance criteria.
+Try the Atlassian MCP server's `getJiraIssue` tool with the key. If it is unavailable, ask the user to paste the title, description, and acceptance criteria.
 
 Read the title, description, type, and status. **This is the material to leave out, not material to write from.** Use it as the exclusion list.
 

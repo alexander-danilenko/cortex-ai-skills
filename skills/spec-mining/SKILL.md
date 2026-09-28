@@ -1,6 +1,6 @@
 ---
 name: spec-mining
-description: "Apply this opinionated workflow when reverse-engineering legacy or undocumented systems: scope, explore with Glob/Grep/Read, trace data flows, document in EARS format, flag uncertainties. For code archaeology, onboarding, and requirements extraction."
+description: "Apply this opinionated workflow when reverse-engineering legacy or undocumented systems: scope, explore the code, trace data flows, document in EARS format, flag uncertainties. For code archaeology, onboarding, and requirements extraction."
 ---
 
 # Spec Mining

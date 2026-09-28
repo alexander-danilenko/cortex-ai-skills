@@ -1,6 +1,6 @@
 # Jest Contract Testing Standards (NestJS Backend)
 
-> **PREREQUISITE:** Read `nestjs-jest-common.md` first. Its rules apply here and are not repeated — file placement, naming, TSDoc, import ordering, type safety, assertion philosophy.
+> Read `nestjs-jest-common.md` first. Its rules apply here and are not repeated — file placement, naming, TSDoc, import ordering, type safety, assertion philosophy.
 
 ## Purpose
 
@@ -8,17 +8,17 @@ Contract tests verify that an **external** API still behaves as this application
 
 ## What to test
 
-- **MUST** assert the response envelope: fields, types, nullability.
-- **MUST** assert a known-entity lookup returns the expected data.
-- **MUST** assert the error response structure.
-- **SHOULD** cover input parameter behaviour (filters, wildcards, offsets) and edge cases (limit boundaries, empty results, mismatched criteria).
+- Assert the response envelope: fields, types, nullability.
+- Assert a known-entity lookup returns the expected data.
+- Assert the error response structure.
+- Cover input parameter behaviour (filters, wildcards, offsets) and edge cases (limit boundaries, empty results, mismatched criteria).
 
 ## What NOT to test
 
-- **MUST NOT** test internal service logic or branching.
-- **MUST NOT** assert exact counts for broad queries — use `toBeGreaterThanOrEqual`. Live data changes, and a hard count turns into a failing build on someone else's edit.
-- **MUST NOT** assert volatile fields (addresses, phone numbers, dates).
-- **MUST NOT** test latency or performance — network variance makes it noise.
+- Don't test internal service logic or branching.
+- Don't assert exact counts for broad queries — use `toBeGreaterThanOrEqual`. Live data changes, and a hard count turns into a failing build on someone else's edit.
+- Don't assert volatile fields (addresses, phone numbers, dates).
+- Don't test latency or performance — network variance makes it noise.
 
 ## No-mock policy
 
@@ -49,13 +49,13 @@ afterAll(async () => {
 });
 ```
 
-A `describe` block **MAY** have its own `beforeAll` when it needs a different query.
+A `describe` block can have its own `beforeAll` when it needs a different query.
 
 ## Timeouts
 
-- **MUST** export `API_TIMEOUT` (recommend `15_000`) from the `__setup__/` file.
-- **MUST** pass it as the third argument to every `it()` making a live call, and as the second to any `beforeAll` that does.
-- **MUST NOT** set a global Jest timeout — it would hide slow unit tests too.
+- Export `API_TIMEOUT` (recommend `15_000`) from the `__setup__/` file.
+- Pass it as the third argument to every `it()` making a live call, and as the second to any `beforeAll` that does.
+- Don't set a global Jest timeout — it would hide slow unit tests too.
 
 ```typescript
 it(
@@ -127,9 +127,9 @@ function expectStringOrAbsent(value: unknown): void {
 
 ## Flaky upstreams
 
-- **MUST** tag flaky tests `@flaky` in the description and exclude them from CI — a red build nobody trusts is worse than a known gap.
-- **MUST NOT** put retry logic inside an `it()`.
-- **MAY** use `jest.retryTimes(2)` at `describe` level for a known-unstable endpoint, with a comment saying which one and why.
+- Tag flaky tests `@flaky` in the description and exclude them from CI — a red build nobody trusts is worse than a known gap.
+- Don't put retry logic inside an `it()`.
+- `jest.retryTimes(2)` at `describe` level is acceptable for a known-unstable endpoint, with a comment saying which one and why.
 
 ## Checklist (`.contract-spec.ts` only)
 

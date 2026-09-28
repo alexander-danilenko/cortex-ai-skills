@@ -57,7 +57,7 @@ export class CreateUserDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ description: "Unique; lookups are case-insensitive." })
+  @ApiProperty({ description: "Unique, with case-insensitive lookups." })
   @IsEmail()
   email: string;
 
@@ -93,7 +93,7 @@ class UserSerializer(serializers.ModelSerializer):
     name = serializers.CharField(
         help_text="Shown across the UI.", max_length=100)
     email = serializers.EmailField(
-        help_text="Unique; lookups are case-insensitive.")
+        help_text="Unique, with case-insensitive lookups.")
 
 
 @extend_schema(

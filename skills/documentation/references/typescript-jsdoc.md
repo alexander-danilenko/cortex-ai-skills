@@ -54,7 +54,7 @@ function findById(id: string): Promise<User | null>;
 /**
  * Finds a user by ID.
  *
- * @returns `null` when no user matches; never rejects on a miss.
+ * @returns `null` when no user matches. Never rejects on a miss.
  */
 function findById(id: string): Promise<User | null>;
 ```
@@ -64,7 +64,7 @@ function findById(id: string): Promise<User | null>;
 /**
  * Computes the next backoff delay.
  *
- * @param attempt - Zero-based; values above 10 are clamped.
+ * @param attempt - Zero-based. Values above 10 are clamped.
  * @returns Delay in milliseconds, capped at 30 s.
  */
 function nextDelay(attempt: number): number;
@@ -83,7 +83,7 @@ id: string;
 
 // CORRECT — body on a new line
 /**
- * Stable for the entity's lifetime; safe to use as a map key.
+ * Stable for the entity's lifetime, so it is safe to use as a map key.
  */
 id: string;
 ```
@@ -153,7 +153,7 @@ interface IUserService {
  */
 interface CreateUserDto {
   /**
-   * Unique across the system; lookups are case-insensitive.
+   * Unique across the system, with case-insensitive lookups.
    */
   email: string;
 
@@ -184,7 +184,7 @@ externalCustomerId: string;
 
 // CORRECT — what the value is, plus the constraint the type can't carry.
 /**
- * Stripe customer ID; stable for the account's lifetime.
+ * Stripe customer ID, stable for the account's lifetime.
  */
 externalCustomerId: string;
 ```
@@ -205,8 +205,8 @@ class UserService implements IUserService {
    * @inheritDoc
    *
    * @remarks
-   * - The bcrypt cost factor is pinned at 12 to satisfy the SOC 2 control;
-   *   lowering it will fail the next audit.
+   * - The bcrypt cost factor is pinned at 12 to satisfy the SOC 2 control.
+   *   Lowering it fails the next audit.
    */
   async create(data: CreateUserDto): Promise<User> {
     // ...
@@ -229,7 +229,7 @@ Standalone functions and classes document their contract — what + why — neve
 /**
  * Applies tax once at the order level, rounded to two decimals.
  *
- * @param taxRate - Decimal fraction; `0.08` represents 8 %. Defaults to `0`.
+ * @param taxRate - Decimal fraction, so `0.08` represents 8 %. Defaults to `0`.
  * @throws {Error} If `taxRate` is negative or `items` is empty.
  */
 function calculateTotal(items: Item[], taxRate = 0): number {}
@@ -239,13 +239,15 @@ function calculateTotal(items: Item[], taxRate = 0): number {}
  */
 class ConnectionPool {
   /**
-   * Initializes a new pool. Health checks start on first acquire.
+   * Initializes a new pool.
+   *
+   * Health checks start on the first acquire, not at construction.
    */
   constructor(private readonly config: PoolConfig) {}
 }
 ```
 
-`items` needs no `@param`; `taxRate` keeps one for the unit and default. The constructor summary adds the non-obvious timing of when health checks begin.
+`items` needs no `@param`; `taxRate` keeps one for the unit and default. The constructor's detail line adds the non-obvious timing of when health checks begin.
 
 A simple mapper or delegator needs only its one-line summary — never `@param`/`@returns` padding for a trivial signature.
 
@@ -283,11 +285,13 @@ interface PaginatedResponse<T> {
 }
 ```
 
-A callback type alias gets a summary that carries what the shape cannot — the polarity of a boolean return, the call frequency, a purity guarantee — not "Predicate for filtering items.", which just restates `(item: T) => boolean`.
+A callback type alias gets a doc block that carries what the shape cannot — the polarity of a boolean return, the call frequency, a purity guarantee — not "Predicate for filtering items.", which just restates `(item: T) => boolean`.
 
 ```typescript
 /**
- * Returns `true` to keep the item. Called once per element per render pass.
+ * Returns `true` to keep the item.
+ *
+ * Called once per element per render pass.
  */
 type FilterFn<T> = (item: T) => boolean;
 ```
@@ -302,7 +306,7 @@ type FilterFn<T> = (item: T) => boolean;
  *
  * @remarks
  * - The upstream provider enforces a 100 req/s hard cap with no burst
- *   allowance; exceeding it triggers a 24-hour ban, so the limiter is pinned
+ *   allowance. Exceeding it triggers a 24-hour ban, so the limiter is pinned
  *   at 80 req/s to stay safely under the cap.
  */
 class ApiRateLimiter {}

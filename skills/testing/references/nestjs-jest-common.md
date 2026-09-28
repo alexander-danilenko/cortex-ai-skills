@@ -11,7 +11,7 @@ Applies to **all** Jest tests in a NestJS backend. Read before writing or modify
 
 ### File Placement (co-located)
 
-`__tests__/` MUST live as a sibling **inside the same directory** as the source file it tests.
+`__tests__/` lives as a sibling **inside the same directory** as the source file it tests.
 
 ```text
 src/core/{module}/service/__tests__/{name}.service.spec.ts
@@ -23,8 +23,8 @@ src/core/{module}/listener/__tests__/{name}.listener.spec.ts
 
 ### Per-Method File Splitting
 
-- **MUST** use the `--method-kebab` double-dash convention to separate the service name from the method scope (e.g., `--cancel.spec.ts`).
-- **SHOULD** coalesce trivial methods whose tests total fewer than ~40 lines into a single `--queries` file to avoid tiny file proliferation.
+- Use the `--method-kebab` double-dash convention to separate the service name from the method scope (e.g., `--cancel.spec.ts`).
+- Prefer coalescing trivial methods whose tests total fewer than ~40 lines into a single `--queries` file, to avoid tiny file proliferation.
 
 ```text
 {name}.service--{method-kebab}.spec.ts          # per-method
@@ -32,15 +32,15 @@ src/core/{module}/listener/__tests__/{name}.listener.spec.ts
 {name}.service.spec.ts                          # unsplit (under threshold)
 ```
 
-- **MUST** split when the test file exceeds 400 lines OR the service has 8+ public methods with decisions.
-- **SHOULD** keep a single file when fewer than 5 testable methods AND tests are under 300 lines total.
+- Split when the test file exceeds 400 lines OR the service has 8+ public methods with decisions.
+- Keep a single file when fewer than 5 testable methods AND tests are under 300 lines total.
 
 ## Shared Setup & Fixtures
 
-- **MUST** extract shared `TestingModule` setup into `__tests__/__setup__/` when splitting across multiple spec files.
-- **MUST** place static test data in `__tests__/__fixtures__/`.
-- **MUST** define a context interface that types all objects returned from the factory.
-- **MUST** call the factory in `beforeEach` (unit tests) or `beforeAll` (contract tests).
+- Extract shared `TestingModule` setup into `__tests__/__setup__/` when splitting across multiple spec files.
+- Place static test data in `__tests__/__fixtures__/`.
+- Define a context interface that types all objects returned from the factory.
+- Call the factory in `beforeEach` (unit tests) or `beforeAll` (contract tests).
 
 ```text
 __tests__/
@@ -112,9 +112,9 @@ export async function createExternalApiModule(): Promise<ExternalApiTestContext>
 
 ## Naming Conventions
 
-- **MUST** organize as `describe(ServiceName @tag)` → `describe(method)` → `describe(scenario)`.
-- **MUST** name tests as `it("should [outcome] when [condition]")`.
-- **MUST** use `@ci` tag for unit tests, `@contract` tag for contract tests, and `@smoke` for critical-path unit tests.
+- Organize as `describe(ServiceName @tag)` → `describe(method)` → `describe(scenario)`.
+- Name tests as `it("should [outcome] when [condition]")`.
+- Use `@ci` tag for unit tests, `@contract` tag for contract tests, and `@smoke` for critical-path unit tests.
 
 ```typescript
 // WRONG
@@ -136,19 +136,19 @@ describe("ExternalApiService @contract", () => {
 
 ## Test Documentation
 
-Every `it()` MUST have a TSDoc block. Use multiline TSDoc format — never single-line.
+Every `it()` has a TSDoc block, in multiline format — never single-line.
 
 | Field | Required | Purpose |
 | --- | --- | --- |
 | `@what` | **yes** | One sentence: what behavior is verified. |
 | `@expected` | **yes** | The observable outcome: return value, exception, or side-effect. |
-| `@prerequisites` | no | Non-obvious mock setup, data state, or environment. MUST omit when trivial. |
-| `@conditions` | no | The action/input that triggers the behavior. MUST omit when obvious from the `it()` name or test body. |
+| `@prerequisites` | no | Non-obvious mock setup, data state, or environment. Omit when trivial. |
+| `@conditions` | no | The action/input that triggers the behavior. Omit when obvious from the `it()` name or test body. |
 
-File-level and top-level `describe()` blocks SHOULD have a TSDoc comment with `@remarks` describing the scope of the suite.
+Give file-level and top-level `describe()` blocks a TSDoc comment with `@remarks` describing the scope of the suite.
 
 ```typescript
-/** Happy path — prerequisites/conditions obvious from code, omit them. */
+// Happy path — prerequisites/conditions obvious from code, omit them.
 
 /**
  * @what Disconnect resolves for a valid resource deletion.
@@ -163,7 +163,7 @@ it("should resolve when resource is deleted successfully", async () => {
   ).resolves.toBeUndefined();
 });
 
-/** Error path — prerequisites explain the non-obvious setup. */
+// Error path — prerequisites explain the non-obvious setup.
 
 /**
  * @what Disconnect silently succeeds for already-removed resource.
@@ -184,10 +184,10 @@ it("should silently succeed on resource_missing error", async () => {
 
 ## Assertions
 
-- **MUST** assert outputs (return values or thrown exceptions), not wiring.
-- **MUST** use `toEqual` for values, `toBe` for identity, and `toThrow(Class)` for errors.
-- **MUST NOT** use `toHaveBeenCalledWith` as the sole assertion; use it only to confirm skipped paths or when no output exists.
-- **MUST** assert translated/project exceptions, not raw SDK errors.
+- Assert outputs (return values or thrown exceptions), not wiring.
+- Use `toEqual` for values, `toBe` for identity, and `toThrow(Class)` for errors.
+- Don't use `toHaveBeenCalledWith` as the sole assertion; use it only to confirm skipped paths or when no output exists.
+- Assert translated/project exceptions, not raw SDK errors.
 
 ```typescript
 // WRONG — sole assertion is on wiring, not output
@@ -206,14 +206,14 @@ it("should return processed result", async () => {
 
 ## Anti-Patterns
 
-- **MUST NOT** use snapshot assertions for business objects.
-- **MUST NOT** chase coverage on branchless code — line coverage for no-branch code is noise.
-- **MUST NOT** share mutable state between tests; tests **MUST** be order-independent.
-- **MUST NOT** write one-assert-per-line tests; group assertions by decision boundaries.
+- Don't use snapshot assertions for business objects.
+- Don't chase coverage on branchless code — line coverage for no-branch code is noise.
+- Don't share mutable state between tests. Tests are order-independent.
+- Don't write one-assert-per-line tests; group assertions by decision boundaries.
 
 ## Import Ordering
 
-- **MUST** order imports: external libraries first, internal modules second, type-only imports last.
+- Order imports: external libraries first, internal modules second, type-only imports last.
 
 ```typescript
 // WRONG — type imports mixed with value imports
@@ -232,8 +232,8 @@ import type { MyService } from "../my.service";
 
 ## Type Safety
 
-- **MUST NOT** use `any` — use `unknown`, `as never`, or `as unknown as Type` instead.
-- **MUST** add explicit return types on all helper and factory functions.
-- **MUST** use `Array<T>` instead of `T[]` for non-simple element types.
-- **SHOULD** use `@ts-expect-error` with a justification comment when casting is unavoidable.
-- **MUST** use the `satisfies` operator instead of `as` for type assertions where possible.
+- Don't use `any` — use `unknown`, `as never`, or `as unknown as Type` instead.
+- Add explicit return types on all helper and factory functions.
+- Use `Array<T>` instead of `T[]` for non-simple element types.
+- Use `@ts-expect-error` with a justification comment when casting is unavoidable.
+- Use the `satisfies` operator instead of `as` for type assertions wherever it applies.

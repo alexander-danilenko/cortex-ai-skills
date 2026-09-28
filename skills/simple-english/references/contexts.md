@@ -65,4 +65,4 @@ Strict. The standard exists because maintenance crews read English as a foreign 
 
 ## Where it does not fit
 
-Marketing pages, launch announcements, blog voice, brand writing. The rules delete persuasion deliberately. Write those in your own voice, then apply the standard to the documentation they link to. </content>
+Marketing pages, launch announcements, blog voice, brand writing. The rules delete persuasion deliberately. Write those in your own voice, then apply the standard to the documentation they link to.

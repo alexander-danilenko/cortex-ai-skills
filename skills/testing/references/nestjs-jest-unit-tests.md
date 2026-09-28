@@ -1,34 +1,34 @@
 # Jest Unit Testing Standards (NestJS Backend)
 
-> **PREREQUISITE:** Read `nestjs-jest-common.md` BEFORE this file. Rules from that file apply here and are not repeated.
+> Read `nestjs-jest-common.md` first. Its rules apply here and are not repeated.
 
 **Not covered here:** file placement, naming conventions, TSDoc format, import ordering, type safety rules, assertion philosophy, anti-patterns. Those are in `nestjs-jest-common.md`.
 
 ## What to Test
 
-- **MUST** test methods with decisions: branching (`if`/`switch`/ternary), error translation, conditional data transforms, state transitions, pagination/aggregation, prefix/type dispatch.
+- Test methods with decisions: branching (`if`/`switch`/ternary), error translation, conditional data transforms, state transitions, pagination/aggregation, prefix/type dispatch.
 
 **Rule:** No `if`/`else`/`switch`/`throw`/`catch` in source method → no test needed.
 
 ## What NOT to Test
 
-- **MUST NOT** test pass-through delegation: `detach(id) { await this.$dep.detach(id) }`
-- **MUST NOT** test simple field mapping without conditional logic.
-- **MUST NOT** test one-liner builders, getter/setter wrappers.
-- **MUST NOT** test constructor-only services, `*.module.ts`, DTOs, barrel files, config files.
-- **MUST NOT** test DTO validation decorators (`@IsString`, `@IsEnum`, `@Matches`, etc.) — these test the `class-validator` library, not application code.
+- Don't test pass-through delegation: `detach(id) { await this.$dep.detach(id) }`
+- Don't test simple field mapping without conditional logic.
+- Don't test one-liner builders, getter/setter wrappers.
+- Don't test constructor-only services, `*.module.ts`, DTOs, barrel files, config files.
+- Don't test DTO validation decorators (`@IsString`, `@IsEnum`, `@Matches`, etc.) — these test the `class-validator` library, not application code.
 
 Zero tests is correct when a service contains only delegation and mapping.
 
 ## Setup & Lifecycle
 
-- **MUST** use `Test.createTestingModule()` for NestJS services.
-- **MAY** instantiate pure utility classes with zero DI dependencies directly with `new`. Add a comment explaining why DI is not used.
-- **MUST** make `beforeEach`/`afterEach` async when using `TestingModule`.
-- **MUST** call `jest.clearAllMocks()` in `afterEach`.
-- **MUST** call `await module.close()` in `afterEach` when a `TestingModule` was created.
-- **MUST** set mock return values inside each `it()`, not in `beforeEach`.
-- **MUST** declare `let module`, `let service`, and all mock variables inside the top-level `describe()` block — never at file scope. Node.js CJS has a global `module`; shadowing it at file scope crashes Jest.
+- Use `Test.createTestingModule()` for NestJS services.
+- Pure utility classes with zero DI dependencies can be instantiated directly with `new`. Add a comment explaining why DI is not used.
+- Make `beforeEach`/`afterEach` async when using `TestingModule`.
+- Call `jest.clearAllMocks()` in `afterEach`.
+- Call `await module.close()` in `afterEach` when a `TestingModule` was created.
+- Set mock return values inside each `it()`, not in `beforeEach`.
+- Declare `let module`, `let service`, and all mock variables inside the top-level `describe()` block — never at file scope. Node.js CJS has a global `module`; shadowing it at file scope crashes Jest.
 
 ```typescript
 // WRONG — variables at file scope, mock returns in beforeEach
@@ -78,8 +78,8 @@ const module = await Test.createTestingModule({
 }).compile();
 ```
 
-- **MUST** use only the `providers` array (no `imports` array) in `createTestingModule()` — using `imports` pulls real modules and makes the test an integration test.
-- **MUST** import dependency classes with value imports (`import { Dep }`), not type-only (`import type { Dep }`). NestJS needs the class reference at runtime for DI token resolution.
+- Use only the `providers` array (no `imports` array) in `createTestingModule()` — using `imports` pulls real modules and makes the test an integration test.
+- Import dependency classes with value imports (`import { Dep }`), not type-only (`import type { Dep }`). NestJS needs the class reference at runtime for DI token resolution.
 
 ```typescript
 import { Test } from "@nestjs/testing";
@@ -116,16 +116,16 @@ describe("MyService @ci", () => {
 
 ## Mocking & DI
 
-- **MUST** mock all dependencies via DI (`useValue`); no real DB/API/HTTP.
-- **MUST** only mock methods that are actually called — not every method on the dependency "for completeness."
-- **SHOULD** use typed mock factories for reused mocks; inline object literals are OK for single-use.
-- **MUST** use `jest.spyOn(...).mockResolvedValue(...)` / `mockRejectedValue(...)` for per-test overrides.
-- **MUST** provide repositories via `{ provide: getRepositoryToken(Entity), useValue: { ... } }`.
-- **MUST** provide custom tokens via `{ provide: "TOKEN", useValue: mock }`.
-- **MUST** provide `forwardRef` dependencies directly (no `forwardRef` in tests).
-- **MUST NOT** access private/protected members. If unavoidable, cast through `unknown` (never `any`) or use `@ts-expect-error` with a justification comment.
-- **MUST NOT** use `any`; prefer `unknown`, `as never`, or `as unknown as Type`.
-- Top-level `jest.mock()` is acceptable **only** for modules with side effects on import (e.g., error-tracking SDKs, auth libraries, HTTP clients, static JSON data). **MUST** prefer DI mocking for everything else.
+- Mock all dependencies via DI (`useValue`); no real DB/API/HTTP.
+- Mock only the methods that are actually called — not every method on the dependency "for completeness."
+- Use typed mock factories for reused mocks; inline object literals are OK for single-use.
+- Use `jest.spyOn(...).mockResolvedValue(...)` / `mockRejectedValue(...)` for per-test overrides.
+- Provide repositories via `{ provide: getRepositoryToken(Entity), useValue: { ... } }`.
+- Provide custom tokens via `{ provide: "TOKEN", useValue: mock }`.
+- Provide `forwardRef` dependencies directly (no `forwardRef` in tests).
+- Don't access private/protected members. If unavoidable, cast through `unknown` (never `any`) or use `@ts-expect-error` with a justification comment.
+- Don't use `any`; prefer `unknown`, `as never`, or `as unknown as Type`.
+- Top-level `jest.mock()` is acceptable **only** for modules with side effects on import (e.g., error-tracking SDKs, auth libraries, HTTP clients, static JSON data). Use DI mocking for everything else.
 
 ## Common Patterns
 
@@ -167,9 +167,9 @@ describe("MyService @ci", () => {
 
 ## Best Practices
 
-- **SHOULD** prefer public behavior over implementation details; avoid private/protected access unless unavoidable.
-- **MUST** keep Arrange → Act → Assert clear and minimal.
-- **SHOULD** cover success + error + boundary cases for each decision branch.
-- **MUST** control time/randomness/env/feature flags; tests must be deterministic.
-- **SHOULD** use small, representative inputs; avoid huge fixtures.
+- Prefer public behavior over implementation details; avoid private/protected access unless unavoidable.
+- Keep Arrange → Act → Assert clear and minimal.
+- Cover success + error + boundary cases for each decision branch.
+- Control time/randomness/env/feature flags; tests must be deterministic.
+- Use small, representative inputs; avoid huge fixtures.
 - If a test needs multiple modules or real IO, it is integration/e2e, not unit.

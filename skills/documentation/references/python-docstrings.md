@@ -25,7 +25,7 @@ def find_user(user_id: str) -> User | None:
     """Find a user by id.
 
     Returns:
-        None when no user matches; the lookup never raises on a miss.
+        None when no user matches. The lookup never raises on a miss.
     """
 ```
 
@@ -46,7 +46,7 @@ def next_delay(attempt: int) -> float:
     """Compute the exponential backoff delay.
 
     Args:
-        attempt: Zero-based; values above 10 are clamped.
+        attempt: Zero-based. Values above 10 are clamped.
 
     Returns:
         Delay in seconds, capped at 30.
@@ -102,7 +102,7 @@ def calculate_total(items: list[Item], tax_rate: float = 0.0) -> float:
     """Calculate the order total, tax included.
 
     Args:
-        tax_rate: Decimal fraction; 0.08 is 8%. Defaults to no tax.
+        tax_rate: Decimal fraction, so 0.08 is 8%. Defaults to no tax.
 
     Raises:
         ValueError: If tax_rate is negative or items is empty.
@@ -120,7 +120,7 @@ def calculate_total(items: list[Item], tax_rate: float = 0.0) -> float:
     Parameters
     ----------
     tax_rate
-        Decimal fraction; 0.08 is 8%. Defaults to no tax.
+        Decimal fraction, so 0.08 is 8%. Defaults to no tax.
 
     Raises
     ------
@@ -137,7 +137,7 @@ No `tax_rate : float` type line — the annotation carries the type.
 def calculate_total(items: list[Item], tax_rate: float = 0.0) -> float:
     """Calculate the order total, tax included.
 
-    :param tax_rate: Decimal fraction; 0.08 is 8%. Defaults to no tax.
+    :param tax_rate: Decimal fraction, so 0.08 is 8%. Defaults to no tax.
     :raises ValueError: If tax_rate is negative or items is empty.
     """
 ```
@@ -170,7 +170,7 @@ class ShippingAddress:
     """A postal destination for an order.
 
     Attributes:
-        postal_code: ZIP or ZIP+4; validated against the country's format.
+        postal_code: ZIP or ZIP+4, validated against the country's format.
         country: ISO 3166-1 alpha-2 code, uppercase.
     """
 
