@@ -159,7 +159,9 @@ glossary: <path / none>
 
 **Automated tests:**
 
-- `<path/from/git/root/to/file.spec.ts>` — `<test name exactly as in the code>`
+- `<path/from/git/root/to/file.spec.ts>`
+  - <describe block name>
+    - <test name exactly as in the code>
 
 ## Open questions
 
@@ -186,7 +188,8 @@ Rules for scenarios:
 Rules for _Automated tests_:
 
 - List a test only when it checks the exact scenario: the same state, the same action and the same result. A test that touches the same code but checks something else is not coverage. A wrong link makes QA skip a check that nobody runs.
-- Give the full file path from the git repo root (`git rev-parse --show-toplevel`), never a path relative to a package or the test folder. Several suites can share a spec name — `apps/web/src/search.spec.ts` and `apps/admin/src/search.spec.ts` — and only the full path tells them apart. Copy the test name from the code. For nested blocks, join the names with `>`: `search > empty state > shows a hint`. The QA lead uses the list to decide what to run by hand; a developer uses it to find the test.
+- Give the full file path from the git repo root (`git rev-parse --show-toplevel`), never a path relative to a package or the test folder. Several suites can share a spec name — `apps/web/src/search.spec.ts` and `apps/admin/src/search.spec.ts` — and only the full path tells them apart.
+- Write the tests as a tree: the file path at the top, then one nested list level per `describe` block, then the test name. Copy each name exactly from the code. Tests in the same file share one file item, and tests in the same block share one block item, so the reader sees which tests belong together. The QA lead uses the list to decide what to run by hand; a developer uses it to find the test.
 - No matching test → leave out the _Automated tests_ block for that scenario. This is the one place in the draft where file paths are allowed.
 
 Leave out any section that is empty, except _Summary_ and _Test scenarios_.
