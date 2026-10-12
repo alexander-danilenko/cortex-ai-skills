@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "docs/solutions learning frontmatter",
+  "type": "object",
+  "required": [
+    "title",
+    "date",
+    "category",
+    "module",
+    "problem_type",
+    "component",
+    "severity"
+  ],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "date": { "$ref": "#/$defs/date" },
+    "last_updated": { "$ref": "#/$defs/date" },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*$"
+    },
+    "module": { "type": "string", "minLength": 1 },
+    "problem_type": {
+      "enum": [
+        "build_error",
+        "test_failure",
+        "runtime_error",
+        "performance_issue",
+        "database_issue",
+        "security_issue",
+        "ui_bug",
+        "integration_issue",
+        "logic_error",
+        "best_practice",
+        "documentation_gap",
+        "workflow_issue",
+        "developer_experience",
+        "architecture_pattern",
+        "design_pattern",
+        "tooling_decision",
+        "convention"
+      ]
+    },
+    "component": { "type": "string", "minLength": 1 },
+    "severity": { "enum": ["critical", "high", "medium", "low"] },
+    "symptoms": { "$ref": "#/$defs/strings", "maxItems": 5 },
+    "root_cause": { "type": "string", "minLength": 1 },
+    "resolution_type": {
+      "enum": [
+        "code_fix",
+        "migration",
+        "config_change",
+        "test_fix",
+        "dependency_update",
+        "environment_setup",
+        "workflow_improvement",
+        "documentation_update",
+        "tooling_addition",
+        "seed_data_update"
+      ]
+    },
+    "applies_when": { "$ref": "#/$defs/strings", "maxItems": 5 },
+    "framework_version": { "type": "string" },
+    "related_components": { "$ref": "#/$defs/strings" },
+    "tags": {
+      "type": "array",
+      "maxItems": 8,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }
+    },
+    "retire_when": { "type": "string", "minLength": 1 },
+    "status": { "const": "stale" },
+    "stale_reason": { "type": "string" },
+    "stale_date": { "$ref": "#/$defs/date" },
+    "supersedes": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "problem_type": {
+            "enum": [
+              "build_error",
+              "test_failure",
+              "runtime_error",
+              "performance_issue",
+              "database_issue",
+              "security_issue",
+              "ui_bug",
+              "integration_issue",
+              "logic_error"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": ["symptoms", "root_cause", "resolution_type"],
+        "properties": { "symptoms": { "minItems": 1 } }
+      },
+      "else": { "not": { "required": ["framework_version"] } }
+    }
+  ],
+  "$defs": {
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "strings": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

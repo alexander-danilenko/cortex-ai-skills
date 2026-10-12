@@ -22,6 +22,7 @@ No slash commands to memorize. Each skill describes when it should fire, and Cla
 - Draft API docs → **documentation** handles the voice and OpenAPI structure.
 - Wrap up a ticket → **jira-report-comment** writes the Jira update from your commits.
 - Hand a ticket to QA → **jira-qa-scope** writes the test scope and scenarios from the ticket and its commits.
+- Solve a tricky bug → **learn-with-docs** captures the lesson in `docs/solutions/` so the next session doesn't rediscover it.
 
 Install it once and your conventions follow you around. Nothing to paste at the start of a session, nothing to repeat on a fresh repo. (You can still call any skill yourself with `/cortex:<skill>` if you'd rather.)
 
@@ -50,6 +51,8 @@ Install it once and your conventions follow you around. Nothing to paste at the 
 - **`/cortex:jira-report-comment`** — Turn git commits into a business-friendly Jira implementation report.
 - **`/cortex:jira-qa-scope`** — Draft a QA scope and Given/When/Then scenarios from a Jira ticket and its commits.
 - **`/cortex:coderabbit-resolve-feedback`** — Judge and fix CodeRabbit findings on a PR, then post approved replies.
+- **`/cortex:learn-with-docs`** — Capture a solved problem as a grounded learning in `docs/solutions/`, with a `CONCEPTS.md` glossary.
+- **`/cortex:learn-with-docs-refresh`** — Audit `docs/solutions/` against the code: update, merge, replace, or delete stale learnings.
 - **`/cortex:humanize-text`** — Strip "AI fingerprints" from text so writing reads natural.
 - **`/cortex:simple-english`** — ASD-STE100 Simplified Technical English for docs, runbooks, and error messages.
 
