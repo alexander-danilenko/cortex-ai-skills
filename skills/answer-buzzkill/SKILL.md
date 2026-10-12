@@ -5,6 +5,8 @@ description: Write a short, fact-checked reply that answers a colleague's questi
 
 # Answer Buzzkill
 
+> "What's the word for душнила? Buzzkill?" — [Oleksandr Usyk](https://www.youtube.com/shorts/GFOxVAQeK3g)
+
 The input is a message from a colleague, pasted as is. The output is one reply that the user can paste back to them without editing.
 
 ## Who the colleague is
