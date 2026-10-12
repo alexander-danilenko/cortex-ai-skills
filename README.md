@@ -55,6 +55,7 @@ Install it once and your conventions follow you around. Nothing to paste at the 
 - **`/cortex:learn-with-docs-refresh`** — Audit `docs/solutions/` against the code: update, merge, replace, or delete stale learnings.
 - **`/cortex:humanize-text`** — Strip "AI fingerprints" from text so writing reads natural.
 - **`/cortex:simple-english`** — ASD-STE100 Simplified Technical English for docs, runbooks, and error messages.
+- **`/cortex:answer-buzzkill`** — Fact-check a colleague's question against the code and write one short, unambiguous reply that ends the follow-up loop.
 
 ## 💡 Why Cortex
 
@@ -70,7 +71,7 @@ Pick the path for your AI coding assistant:
 
 ```bash
 claude plugin marketplace add alexander-danilenko/cortex-ai-skills
-claude plugin install cortex@alexander-danilenko
+claude plugin install cortex@alexander-danilenko-cortex
 ```
 
 Done. Claude will pull in the right skills as you work and keep them updated.

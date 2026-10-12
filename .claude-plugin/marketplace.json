@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/marketplace.schema.json",
-  "name": "alexander-danilenko",
+  "name": "alexander-danilenko-cortex",
   "owner": {
     "name": "Alexander Danilenko"
   },
