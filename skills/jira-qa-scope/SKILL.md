@@ -98,6 +98,7 @@ Read the commits of the change, message with diff, as _Commits_ describes. Then 
 - Which **roles** see different behaviour — an end user, an admin, a support agent, a guest?
 - Which **states** does behaviour branch on — account status, permission, feature flag, a setting?
 - What changed with **no screen** (webhook, scheduled job, export)? Name the nearest thing a tester can observe: an email, a field on a page, an admin view.
+- Which **automated tests** (unit, integration, e2e, any kind) cover this behaviour? Look at the test files in the change and at existing tests for the changed code. You match them to scenarios in Step 4.
 
 Compare this with Step 2. Note ticket items the diff does not touch and diff changes the ticket does not explain — both go to _Open questions_, not into scenarios. Do not audit the code; this is a test plan, not a review.
 
@@ -107,7 +108,7 @@ Read the glossary from Step 1, if there is one. Every domain word in the draft m
 
 Write in simple English: invoke `/cortex:simple-english` when it is available. If it is not, keep sentences under 20 words, one idea per sentence, active voice, no idioms.
 
-Write for a manual tester who has never seen the code. No class names, endpoints, field names, file paths or vendor object ids. A page is named by its relative URL plus what is on it.
+Write for a manual tester who has never seen the code. No class names, endpoints, field names, file paths or vendor object ids — except in the _Automated tests_ block. A page is named by its relative URL plus what is on it.
 
 Save to `docs/qa-scope/YYYY-MM-DD-<KEY>-qa-scope.md` with this shape:
 
@@ -156,6 +157,10 @@ glossary: <path / none>
 - **Then** <what they must see>
 - **And** <extra check, if needed>
 
+**Automated tests:**
+
+- `<path/from/git/root/to/file.spec.ts>` — `<test name exactly as in the code>`
+
 ## Open questions
 
 - <contradiction, unanswered comment, or ticket item the change does not cover>
@@ -177,6 +182,12 @@ Rules for scenarios:
 - `Given` sets up an account state a tester can create or find. When the state is hard to reach (a suspended account, a specific role), say so — they may need an admin or a developer to set it up.
 - `Then` is visible: text on a page, a button that appears or goes away, an email, a new row in a list. "The system updates the record" is not a check.
 - Scenario count follows the change. A one-line fix earns two or three scenarios; do not pad. Stay high level — steps like "click Save" belong to QA.
+
+Rules for _Automated tests_:
+
+- List a test only when it checks the exact scenario: the same state, the same action and the same result. A test that touches the same code but checks something else is not coverage. A wrong link makes QA skip a check that nobody runs.
+- Give the full file path from the git repo root (`git rev-parse --show-toplevel`), never a path relative to a package or the test folder. Several suites can share a spec name — `apps/web/src/search.spec.ts` and `apps/admin/src/search.spec.ts` — and only the full path tells them apart. Copy the test name from the code. For nested blocks, join the names with `>`: `search > empty state > shows a hint`. The QA lead uses the list to decide what to run by hand; a developer uses it to find the test.
+- No matching test → leave out the _Automated tests_ block for that scenario. This is the one place in the draft where file paths are allowed.
 
 Leave out any section that is empty, except _Summary_ and _Test scenarios_.
 
