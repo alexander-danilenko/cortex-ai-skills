@@ -38,7 +38,7 @@ q 'query($owner:String!,$repo:String!,$pr:Int!,$endCursor:String){viewer{login} 
   pageInfo{hasNextPage endCursor}}}}}' > "$tmp/reviews"
 
 q 'query($owner:String!,$repo:String!,$pr:Int!,$endCursor:String){repository(owner:$owner,name:$repo){pullRequest(number:$pr){
-  comments(first:100,after:$endCursor){nodes{author{login} body url}
+  comments(first:100,after:$endCursor){nodes{author{login} body createdAt url}
   pageInfo{hasNextPage endCursor}}}}}' > "$tmp/comments"
 
 jq -n --slurpfile t "$tmp/threads" --slurpfile r "$tmp/reviews" --slurpfile c "$tmp/comments" '

@@ -18,7 +18,7 @@ Every reply posts under the user's GitHub name. A wrong pushback spends their cr
 
 ## 1. Collect
 
-Find the PR: the argument, or `gh pr view --json number -q .number` for the current branch. Take the host and base `OWNER/REPO` from the PR URL, so a fork PR is answered on the upstream repo. On GitHub Enterprise, prefix every `gh` call with `GH_HOST=<host>`.
+Find the PR: the argument, or `gh pr view --json number,url` for the current branch. Take the host and base `OWNER/REPO` from the PR URL, so a fork PR is answered on the upstream repo. On GitHub Enterprise, prefix every `gh` call with `GH_HOST=<host>`.
 
 ```bash
 bash <this skill's directory>/scripts/fetch-coderabbit-feedback PR_NUMBER OWNER/REPO
@@ -29,15 +29,15 @@ It prints `pr` (`url`, `headRefName`, `headRefOid`), `viewer`, `pending_review`,
 Stop and tell the user when:
 
 - `pending_review` is set. A thread reply posted now is absorbed into their unsubmitted review and nobody sees it. They submit or discard it first.
-- The checkout is not the PR head: the current branch must be `headRefName`, and `git merge-base --is-ancestor <headRefOid> HEAD` must succeed. Fixes land on this branch.
+- The checkout is not the PR head. Run `git fetch` first, so a push someone else made is visible. Then `git merge-base --is-ancestor <headRefOid> HEAD` must succeed, and the branch's upstream must be the PR's `headRefName` (a fork checkout can have a different local name). Fixes land on this branch.
 - Tracked files have uncommitted changes (`git status --porcelain --untracked-files=no` prints anything). The fix commit takes whole files and a revert discards them, so the user's own edits would go up with the fixes or be lost. They commit or stash first.
 
 A `#discussion_r<ID>` URL narrows the run to the thread holding comment `<ID>`.
 
 **Pick the new findings.**
 
-- **Threads** — new when CodeRabbit's request is the last open word. Skip a thread where the user or an earlier run already answered and CodeRabbit has not pushed back, or where someone deferred the decision ("let's align on this"). Drop a thread where CodeRabbit conceded.
-- **Review bodies** — split each into one finding per item in its "Nitpick comments" and "Outside diff range comments" sections. Skip the walkthrough, summary, and counts. Skip a "Duplicate comments" item that repeats an open thread. Skip an item a top-level comment already quotes and answers.
+- **Threads** — new when CodeRabbit's request is the last open word. Skip a thread where the user, a teammate, or an earlier run already answered and CodeRabbit has not pushed back, or where someone deferred the decision ("let's align on this"). Drop a thread where CodeRabbit conceded.
+- **Review bodies** — split each into one finding per item in its "Nitpick comments" and "Outside diff range comments" sections. Skip the walkthrough, summary, and counts. Skip a "Duplicate comments" item that repeats an open thread. Skip an item a top-level comment already quotes and answers, unless a later CodeRabbit comment pushes back on that answer.
 
 Nothing new → say so and stop.
 
@@ -47,7 +47,7 @@ Nothing new → say so and stop.
 
 Group the findings by file. A finding that spans files joins every group it touches, and groups that share a file merge. Two workers never edit the same file.
 
-Spawn one subagent per group, in parallel, on a model Rule 1 allows. Set the model explicitly: the workers make the verdicts, and a subagent's default model can be a weaker one. Give each one [references/worker.md](references/worker.md) as its instructions and its findings with every field: ID, URL, `path`, the line fields, `isOutdated`, and the full comment text. If the harness has no subagents, or cannot set their model, work the groups yourself one at a time with the same instructions.
+Spawn one subagent per group, in parallel, on a model Rule 1 allows. Set the model explicitly: the workers make the verdicts, and a subagent's default model can be a weaker one. Give each one [references/worker.md](references/worker.md) as its instructions and its findings with every field: ID, URL, `path`, the line fields, `isOutdated`, and the full comment text. For a thread, that is every comment in order, so a worker answering a pushback sees the argument it answers. If the harness has no subagents, or cannot set their model, work the groups yourself one at a time with the same instructions.
 
 Each worker returns a verdict per finding: `fixed`, `fixed-differently`, `not-addressing`, `declined`, `replied`, or `needs-human`.
 
@@ -58,8 +58,9 @@ Read `git diff` against the full set of findings. You are the only one who sees 
 - **One pattern, one solution.** When several findings needed the same kind of fix, make the fixes identical in approach. Where the callers share a path, put one guard there instead of one per caller. When an accepted fix also applies to another finding or to a sibling site this PR changed, apply it there and fold that finding into it.
 - **Shared wrong premise.** When CodeRabbit's claim failed in one place, re-check its siblings that rest on the same claim.
 - **Cut the excess.** CodeRabbit suggestions lean toward extra layers. Remove wrappers, flags, and helpers that serve one caller.
+- **Out-of-group edits.** A worker that needed a file outside its group described the edit instead of making it. Make it now, then confirm the finding's verdict against the complete fix.
 
-Run the same validation once against the whole change and compare it with the baseline. A failure the baseline did not have is a regression, even in a file nobody touched → one fix pass. Still red → revert that finding's edits and make it `needs-human`. A failure the baseline already had is pre-existing; note it in the commit body.
+Run the same validation once against the whole change and compare it with the baseline. A failure the baseline did not have is a regression, even in a file nobody touched → one fix pass. Still red → undo only the edits of the finding that causes it (by hand, hunk by hunk, when other findings share the file), confirm the failure is gone, and make that finding `needs-human`. Write its options yourself: fix forward, drop the fix, or leave it open. A failure the baseline already had is pre-existing; note it in the commit body.
 
 **Settle `needs-human` now**, before drafting, so the answer joins this batch. Ask about all of them at once. For each: the quoted finding with its link, what you found, two or three options with trade-offs, your recommendation first, and "leave it open". Apply the answers and re-validate if code changed.
 
@@ -67,9 +68,11 @@ Stage exactly the files the fixes touched, new test files included (`git add -- 
 
 ## 4. Ask to push
 
-Show the commits that will go up (short sha and subject, including earlier unpushed ones) and ask to push.
+No unpushed commits (every verdict left the code alone) → nothing to push; go to step 5.
 
-- **Yes** → `git push`, never forced. Then confirm `gh pr view N --json headRefOid -q .headRefOid` equals `git rev-parse HEAD`, re-checking for a few seconds. Replies cite commits, and a commit CodeRabbit cannot see is a claim nobody can check.
+Otherwise, show the commits that will go up (short sha and subject, including earlier unpushed ones) and ask to push.
+
+- **Yes** → `git push`, never forced. Then confirm `gh pr view N --json headRefOid -q .headRefOid` equals `git rev-parse HEAD`, re-checking for a few seconds. Replies cite commits, and a commit CodeRabbit cannot see is a claim nobody can check. Push rejected, or the shas still differ → the remote moved. Stop, tell the user, and post nothing.
 - **No** → nothing posts. Print the drafts from step 5 and stop.
 
 ## 5. Show the drafts, ask to post
