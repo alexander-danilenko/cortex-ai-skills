@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Prints one JSON object with the open CodeRabbit feedback on a PR:
+#   pr               - url, headRefName, headRefOid
+#   viewer           - login the replies will post as
+#   pending_review   - ID of the viewer's unsubmitted review, or null
+#   review_threads   - unresolved threads CodeRabbit opened, each with the
+#                      numeric root_comment_id a REST reply goes to
+#   review_bodies    - non-empty CodeRabbit review bodies (nitpicks and
+#                      outside-diff findings live here)
+#   pr_comments      - every non-empty top-level comment, so earlier answers
+#                      to review bodies can be recognised
+#
+# Each connection is paginated in its own query: `gh api graphql --paginate`
+# only follows the outermost pageInfo.
+set -euo pipefail
+
+if [ $# -lt 2 ]; then
+  echo "Usage: fetch-coderabbit-feedback PR_NUMBER OWNER/REPO" >&2
+  exit 1
+fi
+
+PR=$1
+OWNER=${2%%/*}
+REPO=${2#*/}
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+q() { gh api graphql --paginate --slurp -f owner="$OWNER" -f repo="$REPO" -F pr="$PR" -f query="$1"; }
+
+q 'query($owner:String!,$repo:String!,$pr:Int!,$endCursor:String){repository(owner:$owner,name:$repo){pullRequest(number:$pr){
+  url headRefName headRefOid
+  reviewThreads(first:100,after:$endCursor){nodes{id isResolved isOutdated path line originalLine startLine originalStartLine
+    comments(first:100){nodes{databaseId author{__typename login} body createdAt url}}}
+  pageInfo{hasNextPage endCursor}}}}}' > "$tmp/threads"
+
+q 'query($owner:String!,$repo:String!,$pr:Int!,$endCursor:String){viewer{login} repository(owner:$owner,name:$repo){pullRequest(number:$pr){
+  reviews(first:100,after:$endCursor){nodes{id databaseId author{__typename login} body state url}
+  pageInfo{hasNextPage endCursor}}}}}' > "$tmp/reviews"
+
+q 'query($owner:String!,$repo:String!,$pr:Int!,$endCursor:String){repository(owner:$owner,name:$repo){pullRequest(number:$pr){
+  comments(first:100,after:$endCursor){nodes{author{login} body url}
+  pageInfo{hasNextPage endCursor}}}}}' > "$tmp/comments"
+
+jq -n --slurpfile t "$tmp/threads" --slurpfile r "$tmp/reviews" --slurpfile c "$tmp/comments" '
+  def rabbit: .author.__typename == "Bot" and .author.login == "coderabbitai";
+  def filled: (.body // "") | test("^\\s*$") | not;
+  ($t[0][0].data.repository.pullRequest) as $pr |
+  ($r[0][0].data.viewer.login) as $viewer |
+  [$r[0][].data.repository.pullRequest.reviews.nodes[]] as $reviews |
+  {
+    pr: {url: $pr.url, headRefName: $pr.headRefName, headRefOid: $pr.headRefOid},
+    viewer: $viewer,
+    pending_review: (first($reviews[] | select(.state == "PENDING" and .author.login == $viewer) | .id) // null),
+    review_threads: [$t[0][].data.repository.pullRequest.reviewThreads.nodes[]
+      | select(.isResolved | not) | select(.comments.nodes[0] | rabbit)
+      | . + {root_comment_id: .comments.nodes[0].databaseId}],
+    review_bodies: [$reviews[] | select(rabbit and filled)],
+    pr_comments: [$c[0][].data.repository.pullRequest.comments.nodes[] | select(filled)]
+  }'

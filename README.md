@@ -21,6 +21,7 @@ No slash commands to memorize. Each skill describes when it should fire, and Cla
 - Ask for tests → **testing** picks the right unit/integration/E2E approach.
 - Draft API docs → **documentation** handles the voice and OpenAPI structure.
 - Wrap up a ticket → **jira-report-comment** writes the Jira update from your commits.
+- Hand a ticket to QA → **jira-qa-scope** writes the test scope and scenarios from the ticket and its commits.
 
 Install it once and your conventions follow you around. Nothing to paste at the start of a session, nothing to repeat on a fresh repo. (You can still call any skill yourself with `/cortex:<skill>` if you'd rather.)
 
@@ -47,6 +48,8 @@ Install it once and your conventions follow you around. Nothing to paste at the 
 - **`/cortex:spec-mining`** — Reverse-engineer legacy or undocumented systems into EARS-format requirements.
 - **`/cortex:legacy-modernization`** — Strangler fig, branch by abstraction, characterization tests, framework upgrades.
 - **`/cortex:jira-report-comment`** — Turn git commits into a business-friendly Jira implementation report.
+- **`/cortex:jira-qa-scope`** — Draft a QA scope and Given/When/Then scenarios from a Jira ticket and its commits.
+- **`/cortex:coderabbit-resolve-feedback`** — Judge and fix CodeRabbit findings on a PR, then post approved replies.
 - **`/cortex:humanize-text`** — Strip "AI fingerprints" from text so writing reads natural.
 - **`/cortex:simple-english`** — ASD-STE100 Simplified Technical English for docs, runbooks, and error messages.
 
