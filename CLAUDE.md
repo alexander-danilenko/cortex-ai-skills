@@ -67,7 +67,7 @@ Every review — code review, audit, PR, self-check — must verify the version 
 
 ## Markdown Formatting
 
-Run `./lint.sh` until it exits clean before completing any markdown task — see the script header for usage. Configs: `.prettierrc`, `.prettierignore`, `.markdownlint-cli2.jsonc`.
+A `PostToolUse` hook (`.claude/hooks/lint-fix-markdown.sh`) runs `prettier --write` and `markdownlint-cli2 --fix` on every markdown file you edit, then validates it; fix whatever it reports. To check everything manually: `npx -y prettier --check "**/*.md" && npx -y markdownlint-cli2 "**/*.md"`. Configs: `.prettierrc`, `.prettierignore`, `.markdownlint-cli2.jsonc`.
 
 Add a markdownlint disable only when the rule is genuinely wrong for this codebase, with a comment explaining why.
 
