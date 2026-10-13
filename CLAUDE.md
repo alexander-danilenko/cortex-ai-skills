@@ -4,15 +4,21 @@ Guidance for AI coding agents working in this repository.
 
 ## Project
 
-**cortex** — a Claude Code plugin providing AI coding skills. Pure markdown + YAML, no build system. Plugin manifest: `.claude-plugin/plugin.json`. Skills invoke as `/cortex:<skill-name>`.
+**cortex** — a Claude Code plugin marketplace (`alexander-danilenko-cortex`) of domain plugins providing AI coding skills. Pure markdown + YAML, no build system. Marketplace manifest: `.claude-plugin/marketplace.json`; each plugin has its own `plugins/<group>/<plugin>/.claude-plugin/plugin.json`. Skills invoke as `/<plugin>:<skill-name>`.
 
 ## Skill Structure
 
 ```text
-skills/<skill-name>/
-├── SKILL.md        # skill definition + YAML frontmatter
-└── references/     # optional, loaded conditionally by SKILL.md
+plugins/<group>/<plugin>/
+├── .claude-plugin/plugin.json   # plugin manifest (own semver, dependencies)
+└── skills/<skill-name>/
+    ├── SKILL.md                 # skill definition + YAML frontmatter
+    ├── references/              # optional, loaded conditionally by SKILL.md
+    ├── assets/                  # optional, templates and schemas
+    └── scripts/                 # optional, helpers invoked by SKILL.md
 ```
+
+A plugin is installed from a cache copy of its own directory, so a skill must never reference files outside its plugin. Plugins sit in a group directory, `plugins/common/` or `plugins/engineering/`; the group is also the `category` field in `marketplace.json`, and a plugin's `source` there is `./plugins/<group>/<plugin>`. Cross-plugin needs go in `dependencies`.
 
 ## Skill Authoring — `/skill-creator` Required
 
@@ -33,14 +39,14 @@ Then invoke `/skill-creator:skill-creator` for any skill-authoring task.
 - **Never commit unless explicitly asked.** Stage, show the diff, wait for confirmation.
 - **Conventional Commits**: `<type>(<scope>): <description>`
   - Types: `feat`, `fix`, `docs`, `refactor`, `chore`
-  - Scope: skill name, or `plugin` for plugin-wide changes
+  - Scope: skill name, or the plugin name for plugin-wide changes, or `marketplace` for repo-wide changes
 - No triple backticks in commit messages.
 
 ## Versioning
 
-**Bump as part of the change, not after.** Classify the change (patch / minor / major), then update `.claude-plugin/plugin.json` in the same diff. A commit without a matching bump is incomplete.
+**Bump as part of the change, not after.** Classify the change (patch / minor / major), then update the `plugin.json` of every plugin touched (`plugins/<group>/<plugin>/.claude-plugin/plugin.json`) in the same diff. A commit without a matching bump is incomplete.
 
-Bump `plugin.json` to the highest level present in the diff:
+Bump each touched plugin's `plugin.json` to the highest level present in that plugin's part of the diff:
 
 - **patch**: typos, wording, formatting, config adjustments
 - **minor**: expanded skill content, new references, new/removed skill
@@ -53,7 +59,7 @@ Mixed changes take the highest level (2 patches + 1 minor = minor).
 Every review — code review, audit, PR, self-check — must verify the version bump:
 
 1. Determine the actual semver level of the diff.
-2. Compare against the bump in `plugin.json`.
+2. Compare against the bump in each touched plugin's `plugin.json`.
 3. **Missing or under-bumped**: fix in the same pass; note the change and reason to the user.
 4. **Over-bumped**: flag with a suggested downgrade; don't silently edit (may be intentional).
 

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-dotnet",
+  "version": "1.0.0",
+  "description": ".NET 8 conventions: C# 12 and clean architecture with CQRS",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["dotnet", "csharp", "backend"]
+}

@@ -6,8 +6,70 @@
   },
   "plugins": [
     {
-      "name": "cortex",
-      "source": "./"
+      "name": "cortex-communication",
+      "source": "./plugins/common/cortex-communication",
+      "description": "Plain-English writing skills: ASD-STE100 simplification, AI-tell removal, short fact-checked replies",
+      "category": "common",
+      "tags": ["writing", "communication"]
+    },
+    {
+      "name": "cortex-knowledge",
+      "source": "./plugins/engineering/cortex-knowledge",
+      "description": "Documentation conventions plus a learn-with-docs knowledge base for solved problems",
+      "category": "engineering",
+      "tags": ["documentation", "knowledge-base"],
+      "dependencies": ["cortex-communication"]
+    },
+    {
+      "name": "cortex-jira",
+      "source": "./plugins/engineering/cortex-jira",
+      "description": "Jira QA scope and business-friendly Jira reports built from tickets and commits",
+      "category": "engineering",
+      "tags": ["jira", "qa", "reporting"],
+      "dependencies": ["cortex-communication"]
+    },
+    {
+      "name": "cortex-coderabbit",
+      "source": "./plugins/engineering/cortex-coderabbit",
+      "description": "Resolve CodeRabbit PR feedback with subagents and post replies",
+      "category": "engineering",
+      "tags": ["code-review", "pull-request"]
+    },
+    {
+      "name": "cortex-dotnet",
+      "source": "./plugins/engineering/cortex-dotnet",
+      "description": ".NET 8 conventions: C# 12 and clean architecture with CQRS",
+      "category": "engineering",
+      "tags": ["dotnet", "csharp", "backend"]
+    },
+    {
+      "name": "cortex-web",
+      "source": "./plugins/engineering/cortex-web",
+      "description": "JavaScript and TypeScript conventions plus React, Next.js and NestJS",
+      "category": "engineering",
+      "tags": ["javascript", "typescript", "react", "nextjs", "nestjs"]
+    },
+    {
+      "name": "cortex-python",
+      "source": "./plugins/engineering/cortex-python",
+      "description": "Python 3.11+ conventions",
+      "category": "engineering",
+      "tags": ["python"],
+      "dependencies": ["cortex-knowledge"]
+    },
+    {
+      "name": "cortex-testing",
+      "source": "./plugins/engineering/cortex-testing",
+      "description": "Testing conventions, TDD laws and NestJS Jest references",
+      "category": "engineering",
+      "tags": ["testing", "tdd"]
+    },
+    {
+      "name": "cortex-modernization",
+      "source": "./plugins/engineering/cortex-modernization",
+      "description": "Legacy modernization patterns and spec mining of legacy systems",
+      "category": "engineering",
+      "tags": ["architecture", "legacy", "requirements"]
     }
   ]
 }

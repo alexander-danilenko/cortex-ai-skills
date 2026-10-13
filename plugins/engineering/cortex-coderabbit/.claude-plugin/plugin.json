@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-coderabbit",
+  "version": "1.0.0",
+  "description": "Resolve CodeRabbit PR feedback with subagents and post replies",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["code-review", "pull-request"]
+}

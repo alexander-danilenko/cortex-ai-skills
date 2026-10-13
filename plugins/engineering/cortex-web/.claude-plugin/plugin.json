@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-web",
+  "version": "1.0.0",
+  "description": "JavaScript and TypeScript conventions plus React, Next.js and NestJS",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["javascript", "typescript", "react", "nextjs", "nestjs"]
+}

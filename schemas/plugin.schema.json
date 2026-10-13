@@ -1,12 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/alexander-danilenko/cortex-ai-skills/schemas/plugin.schema.json",
+  "$id": "https://github.com/alexander-danilenko/cortex-claude-code-plugins/schemas/plugin.schema.json",
   "title": "Claude Code Plugin Manifest",
   "description": "Schema for .claude-plugin/plugin.json manifest files",
   "type": "object",
-  "required": [
-    "name"
-  ],
+  "required": ["name"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -97,6 +95,33 @@
     "lspServers": {
       "$ref": "#/$defs/pathOrPathsOrObject",
       "description": "Language server config paths or inline configuration"
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "Plugins installed alongside this one",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
+              "marketplace": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
     }
   },
   "$defs": {

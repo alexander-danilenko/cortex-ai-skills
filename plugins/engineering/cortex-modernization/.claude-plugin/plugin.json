@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-modernization",
+  "version": "1.0.0",
+  "description": "Legacy modernization patterns and spec mining of legacy systems",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["architecture", "legacy", "requirements"]
+}

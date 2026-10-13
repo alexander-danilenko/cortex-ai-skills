@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-communication",
+  "version": "1.0.0",
+  "description": "Plain-English writing skills: ASD-STE100 simplification, AI-tell removal, short fact-checked replies",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["writing", "communication"]
+}

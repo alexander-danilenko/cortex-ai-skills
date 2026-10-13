@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../schemas/plugin.schema.json",
+  "name": "cortex-python",
+  "version": "1.0.0",
+  "description": "Python 3.11+ conventions",
+  "author": {
+    "name": "Alexander Danilenko",
+    "url": "https://github.com/alexander-danilenko"
+  },
+  "repository": "https://github.com/alexander-danilenko/cortex-claude-code-plugins",
+  "license": "MIT",
+  "keywords": ["python"],
+  "dependencies": ["cortex-knowledge"]
+}

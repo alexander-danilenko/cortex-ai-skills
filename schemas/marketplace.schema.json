@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/alexander-danilenko/cortex-ai-skills/schemas/marketplace.schema.json",
+  "$id": "https://github.com/alexander-danilenko/cortex-claude-code-plugins/schemas/marketplace.schema.json",
   "title": "Claude Code Plugin Marketplace",
   "description": "Schema for .claude-plugin/marketplace.json catalog files",
   "type": "object",
@@ -13,7 +13,7 @@
     },
     "name": {
       "type": "string",
-      "description": "Marketplace identifier used in install commands (e.g. cortex@<name>)",
+      "description": "Marketplace identifier used in install commands (e.g. <plugin>@<name>)",
       "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
     },
     "owner": {
@@ -96,6 +96,43 @@
           "type": "string",
           "description": "Plugin version",
           "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "category": {
+          "type": "string",
+          "description": "Free-form grouping label, e.g. common or engineering"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Plugins installed alongside this one",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": ["name"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "marketplace": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          }
         }
       }
     },

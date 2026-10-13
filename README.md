@@ -1,80 +1,67 @@
 <p align="center">
-  <img src="./assets/logo.svg" width="160" alt="Cortex AI Skills" />
+  <img src="./assets/logo.svg" width="160" alt="Cortex" />
 </p>
 
-<h1 align="center">Cortex — Contextual AI Coding Skills for Claude Code</h1>
+<h1 align="center">Cortex — Claude Code Plugin Marketplace</h1>
 
 <p align="center">
-  <a href="https://github.com/alexander-danilenko/cortex-ai-skills/blob/main/LICENSE">
+  <a href="https://github.com/alexander-danilenko/cortex-claude-code-plugins/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
   </a>
 </p>
 
-> 🚀 Install once and stop re-explaining how you write code. Claude picks the right conventions for whatever you've opened — TypeScript, Python, React, Next.js, NestJS, .NET, testing, docs.
+> 🚀 A marketplace of small, focused Claude Code plugins. Install the ones you need and stop re-explaining how you write code.
 
-## ✨ How It Works
-
-No slash commands to memorize. Each skill describes when it should fire, and Claude Code pulls in whichever ones match what you're doing:
-
-- Open a `.tsx` file → **react** and **typescript** kick in.
-- Edit a NestJS controller → **nestjs** brings the module/DI/guard/DTO rules.
-- Ask for tests → **testing** picks the right unit/integration/E2E approach.
-- Draft API docs → **documentation** handles the voice and OpenAPI structure.
-- Wrap up a ticket → **jira-report-comment** writes the Jira update from your commits.
-- Hand a ticket to QA → **jira-qa-scope** writes the test scope and scenarios from the ticket and its commits.
-- Solve a tricky bug → **learn-with-docs** captures the lesson in `docs/solutions/` so the next session doesn't rediscover it.
-
-Install it once and your conventions follow you around. Nothing to paste at the start of a session, nothing to repeat on a fresh repo. (You can still call any skill yourself with `/cortex:<skill>` if you'd rather.)
-
-## 📚 Skill Library
-
-### Languages
-
-- **`/cortex:typescript`** — Strict tsconfig, branded types, advanced generics, discriminated unions, tRPC, monorepos.
-- **`/cortex:javascript`** — Modern ES2023+, Promise patterns, ESM/CJS, Web Workers, Node.js best practices.
-- **`/cortex:python`** — Python 3.11+, type hints with mypy, async/await, pytest fixtures, dataclasses, Poetry.
-- **`/cortex:csharp`** — C# 12, records, primary constructors, pattern matching, async, CQRS with MediatR.
-
-### Frameworks
-
-- **`/cortex:react`** — React 18/19, hooks, Server Components, Suspense, performance memoization, form actions.
-- **`/cortex:nextjs`** — Next.js 14+ App Router, Server Actions, caching, Metadata API, Vercel deployment.
-- **`/cortex:nestjs`** — Modules, DI, controllers/services, DTO validation, guards, JWT auth, TypeORM/Prisma.
-- **`/cortex:dotnet-core`** — .NET 8 clean architecture, CQRS, minimal APIs, EF Core, AOT, cloud-native patterns.
-
-### Engineering Workflows
-
-- **`/cortex:testing`** — Unit, integration, E2E, performance, and security testing patterns plus coverage analysis.
-- **`/cortex:documentation`** — Microsoft-style technical writing, JSDoc/Google/NumPy docstrings, OpenAPI, doc portals.
-- **`/cortex:spec-mining`** — Reverse-engineer legacy or undocumented systems into EARS-format requirements.
-- **`/cortex:legacy-modernization`** — Strangler fig, branch by abstraction, characterization tests, framework upgrades.
-- **`/cortex:jira-report-comment`** — Turn git commits into a business-friendly Jira implementation report.
-- **`/cortex:jira-qa-scope`** — Draft a QA scope and Given/When/Then scenarios from a Jira ticket and its commits.
-- **`/cortex:coderabbit-resolve-feedback`** — Judge and fix CodeRabbit findings on a PR, then post approved replies.
-- **`/cortex:learn-with-docs`** — Capture a solved problem as a grounded learning in `docs/solutions/`, with a `CONCEPTS.md` glossary.
-- **`/cortex:learn-with-docs-refresh`** — Audit `docs/solutions/` against the code: update, merge, replace, or delete stale learnings.
-- **`/cortex:humanize-text`** — Strip "AI fingerprints" from text so writing reads natural.
-- **`/cortex:simple-english`** — ASD-STE100 Simplified Technical English for docs, runbooks, and error messages.
-- **`/cortex:answer-buzzkill`** — Fact-check a colleague's question against the code and write one short, unambiguous reply that ends the follow-up loop.
+This repository is a Claude Code plugin marketplace. Each plugin bundles a few related skills for one domain, such as web development, testing, or Jira reporting. You pick the plugins that fit your work. Nothing else gets loaded.
 
 ## 💡 Why Cortex
 
-Most AI assistants will happily generate _something_. Getting them to write code _your_ way — your conventions, your architecture, your trade-offs — usually means re-explaining yourself every session or letting CLAUDE.md balloon out of control.
+Most AI assistants will happily generate _something_. Getting them to write code _your_ way, with your conventions, architecture, and trade-offs, usually means re-explaining yourself every session or letting CLAUDE.md balloon out of control.
 
-Cortex is what I built after I got tired of doing that. A stack of personal preferences, project scars, and team rules I've collected over the years, packaged so Claude can reach for the right one on its own. Fork it, gut half of it, swap mine for yours — that's kind of the point.
+Cortex is what I built after I got tired of doing that. It is a collection of personal preferences, project scars, and team rules that I have gathered over the years. Each one is packaged as a skill, so Claude can reach for the right one on its own. Fork it, gut half of it, swap mine for yours. That is the point.
+
+## ✨ How It Works
+
+Install a plugin and it brings everything it needs: its skills, plus any hooks it ships. Once the plugin is installed and enabled, they trigger automatically. Each skill describes when it should fire, and Claude Code loads whichever ones match what you are doing:
+
+- Open a `.tsx` file → the **react** and **typescript** skills kick in.
+- Edit a NestJS controller → **nestjs** brings the module, DI, guard, and DTO rules.
+- Ask for tests → **cortex-testing:conventions** picks the right unit, integration, or E2E approach.
+- Draft API docs → **documentation** handles the voice and OpenAPI structure.
+- Wrap up a ticket → **report-comment** writes the Jira update from your commits.
+- Solve a tricky bug → **learn-with-docs** saves the lesson in `docs/solutions/`, so the next session does not rediscover it.
+
+There is nothing to paste at the start of a session and nothing to repeat on a fresh repo. To turn a plugin off, disable it. You can also call any skill yourself with `/<plugin>:<skill>`, for example `/cortex-web:react`.
+
+## 📚 Plugins
+
+Browse the [`plugins/`](./plugins) directory to see what is inside. It has two groups:
+
+- [`plugins/common`](./plugins/common) — plugins useful in any project, such as writing and communication.
+- [`plugins/engineering`](./plugins/engineering) — plugins for languages, frameworks, testing, documentation, Jira, code review, and legacy modernization.
+
+Every plugin folder has its own `skills/` directory with one folder per skill. Open a `SKILL.md` to see what it does, then install the plugins that fit your needs. All plugin names start with `cortex-`, so they do not clash with third-party plugins. Each plugin folder has the same name as its plugin, for example `plugins/engineering/cortex-web`.
+
+Some plugins depend on others. Claude Code installs those dependencies for you.
 
 ## 📦 Installation
 
-Pick the path for your AI coding assistant:
-
-### Claude Code Plugin
+Add the marketplace once:
 
 ```bash
-claude plugin marketplace add alexander-danilenko/cortex-ai-skills
-claude plugin install cortex@alexander-danilenko-cortex
+claude plugin marketplace add alexander-danilenko/cortex-claude-code-plugins
 ```
 
-Done. Claude will pull in the right skills as you work and keep them updated.
+Then install the plugins you want. Use the plugin folder name:
+
+```bash
+claude plugin install cortex-communication@alexander-danilenko-cortex
+claude plugin install cortex-web@alexander-danilenko-cortex
+```
+
+Claude will pull in the right skills as you work and keep them updated.
+
+> **Migrating from the single `cortex` plugin:** run `claude plugin uninstall cortex@alexander-danilenko-cortex`, then install the plugins you need. Commands changed from `/cortex:<skill>` to `/<plugin>:<skill>`.
 
 <details>
 <summary>Recommended companion Claude Code plugins</summary>
@@ -102,39 +89,15 @@ Done. Claude will pull in the right skills as you work and keep them updated.
 
 </details>
 
-### Codex, Cursor, OpenCode, Pi, Gemini CLI, and other AI agents
-
-Cortex installs into any agent that [`npx skills`](https://github.com/vercel-labs/skills) supports — Codex, Cursor, OpenCode, Pi, Gemini CLI, and more. Grab your `--agent` identifier from the [supported agents list](https://github.com/vercel-labs/skills#supported-agents).
-
-Install all skills (swap `cursor` for your agent's identifier):
-
-```bash
-npx skills add alexander-danilenko/cortex-ai-skills --skill '*' --agent cursor
-```
-
-Install a single skill:
-
-```bash
-npx skills add alexander-danilenko/cortex-ai-skills --skill python --agent cursor
-```
-
-List available skills:
-
-```bash
-npx skills add alexander-danilenko/cortex-ai-skills --list
-```
-
-> To update, re-run the `add` command. Unlike the Claude Code plugin path, `npx skills` won't pull updates on its own.
-
 ## 🛠️ Development
 
-To load the plugin from a local clone (session-only):
+To load one plugin from a local clone (session-only):
 
 ```bash
-claude --plugin-dir /path/to/cloned/repo
+claude --plugin-dir /path/to/cloned/repo/plugins/<group>/<plugin>
 ```
 
-To make it persistent, register the repo as a local marketplace in `~/.claude/settings.json`:
+To make the whole marketplace persistent, register the clone as a local marketplace in `~/.claude/settings.json`:
 
 ```json
 {
@@ -149,16 +112,16 @@ To make it persistent, register the repo as a local marketplace in `~/.claude/se
 }
 ```
 
-Then install once:
+Then install a plugin once:
 
 ```bash
-claude plugin install cortex@local
+claude plugin install <plugin>@local
 ```
 
-After pulling new changes, update with:
+After pulling new changes, update it with:
 
 ```bash
-claude plugin update cortex@local
+claude plugin update <plugin>@local
 ```
 
 ## 🙏 Credits
@@ -167,9 +130,9 @@ claude plugin update cortex@local
 
 ## 🤝 Contributing
 
-These skills reflect a personal workflow — fork freely and adapt them to yours.
+These plugins reflect a personal workflow, so fork freely and adapt them to yours.
 
-When adding or updating skills, use the [`skill-creator` plugin](https://claude.com/plugins/skill-creator) so new skills match the expected format and conventions.
+When you add or update a skill, use the [`skill-creator` plugin](https://claude.com/plugins/skill-creator) so it matches the expected format and conventions. Put it in the plugin that fits its domain, and bump that plugin's version in its `plugin.json`.
 
 ## License
 
