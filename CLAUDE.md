@@ -36,7 +36,7 @@ Then invoke `/skill-creator:skill-creator` for any skill-authoring task.
 
 ## Git
 
-- **Never commit unless explicitly asked.** Stage, show the diff, wait for confirmation.
+- **Never commit unless explicitly asked.** Stage, show the diff, wait for confirmation. Do not commit proactively or per atomic change: every commit triggers a plugin version bump, so a commit is one meaningful, finished feature.
 - **Conventional Commits**: `<type>(<scope>): <description>`
   - Types: `feat`, `fix`, `docs`, `refactor`, `chore`
   - Scope: skill name, or the plugin name for plugin-wide changes, or `marketplace` for repo-wide changes
@@ -44,7 +44,9 @@ Then invoke `/skill-creator:skill-creator` for any skill-authoring task.
 
 ## Versioning
 
-**Bump as part of the change, not after.** Classify the change (patch / minor / major), then update the `plugin.json` of every plugin touched (`plugins/<group>/<plugin>/.claude-plugin/plugin.json`) in the same diff. A commit without a matching bump is incomplete.
+**Bump as part of the change, not after.** A `PreToolUse` hook (`.claude/hooks/check-plugin-versions.sh`) blocks `git commit` unless every touched plugin has exactly one patch/minor/major step over `HEAD` staged. You pick the level from the plugin's diff; the hook only enforces it.
+
+Classify the change (patch / minor / major), then update the `plugin.json` of every plugin touched (`plugins/<group>/<plugin>/.claude-plugin/plugin.json`) in the same diff. A commit without a matching bump is incomplete.
 
 Bump each touched plugin's `plugin.json` to the highest level present in that plugin's part of the diff:
 
