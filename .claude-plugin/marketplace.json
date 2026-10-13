@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/marketplace.schema.json",
-  "name": "alexander-danilenko-cortex",
+  "name": "cortex-claude-code-plugins",
   "owner": {
     "name": "Alexander Danilenko"
   },

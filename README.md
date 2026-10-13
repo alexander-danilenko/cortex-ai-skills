@@ -55,39 +55,11 @@ claude plugin marketplace add alexander-danilenko/cortex-claude-code-plugins
 Then install the plugins you want. Use the plugin folder name:
 
 ```bash
-claude plugin install cortex-communication@alexander-danilenko-cortex
-claude plugin install cortex-web@alexander-danilenko-cortex
+claude plugin install cortex-communication@cortex-claude-code-plugins
+claude plugin install cortex-web@cortex-claude-code-plugins
 ```
 
 Claude will pull in the right skills as you work and keep them updated.
-
-> **Migrating from the single `cortex` plugin:** run `claude plugin uninstall cortex@alexander-danilenko-cortex`, then install the plugins you need. Commands changed from `/cortex:<skill>` to `/<plugin>:<skill>`.
-
-<details>
-<summary>Recommended companion Claude Code plugins</summary>
-
-- [Official Claude Code plugins](https://claude.com/plugins):
-
-  ```bash
-  CLAUDE_PLUGINS=(
-    "claude-code-setup"
-    "claude-md-management"
-    "code-review"
-    "code-simplifier"
-    "context7"
-    "feature-dev"
-    "skill-creator"
-    "csharp-lsp"
-    "rust-analyzer-lsp"
-    "typescript-lsp"
-  ) && for plugin in "${CLAUDE_PLUGINS[@]}"; do claude plugin install "${plugin}@claude-plugins-official"; done
-  ```
-
-- [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin)
-
-- [obra/superpowers](https://github.com/obra/superpowers)
-
-</details>
 
 ## 🛠️ Development
 

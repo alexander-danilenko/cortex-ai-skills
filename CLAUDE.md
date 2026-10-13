@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository.
 
 ## Project
 
-**cortex** — a Claude Code plugin marketplace (`alexander-danilenko-cortex`) of domain plugins providing AI coding skills. Pure markdown + YAML, no build system. Marketplace manifest: `.claude-plugin/marketplace.json`; each plugin has its own `plugins/<group>/<plugin>/.claude-plugin/plugin.json`. Skills invoke as `/<plugin>:<skill-name>`.
+**cortex** — a Claude Code plugin marketplace (`cortex-claude-code-plugins`) of domain plugins providing AI coding skills. Pure markdown + YAML, no build system. Marketplace manifest: `.claude-plugin/marketplace.json`; each plugin has its own `plugins/<group>/<plugin>/.claude-plugin/plugin.json`. Skills invoke as `/<plugin>:<skill-name>`.
 
 ## Skill Structure
 
@@ -33,6 +33,8 @@ claude plugin install skill-creator@claude-plugins-official
 Then invoke `/skill-creator:skill-creator` for any skill-authoring task.
 
 **If `/skill-creator:skill-creator` is not installed, stop and ask the user to install it before running the prompt.** Do not fall back to hand-authoring a skill from memory or from this file — the conventions drift quickly and the plugin is the authority.
+
+**Pick the tool by task:** `/skill-creator:skill-creator` for any skill (`SKILL.md`, `references/`, evals, description tuning). `/plugin-dev:create-plugin` only to scaffold a new plugin (manifest, hooks, agents, MCP) — then return to `skill-creator` for the skills inside it.
 
 ## Git
 
